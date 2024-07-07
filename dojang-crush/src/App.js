@@ -1,4 +1,6 @@
-import { Routes, Route, NavLink } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import styled from "styled-components";
+
 import TimelinePage from "./pages/Timeline";
 import BucketListPage from "./pages/BucketList";
 import UploadPage from "./pages/Upload";
@@ -6,16 +8,12 @@ import WishListPage from "./pages/WishList";
 import GroupPage from "./pages/Group";
 import RegisterPage from "./pages/Register";
 
+import NavigationBar from "./components/NavigationBar";
+
 function App() {
     return (
-        <div>
-            <div>
-                <NavLink to="/">Timeline</NavLink>
-                <NavLink to="/bucketlist">BucketList</NavLink>
-                <NavLink to="/upload">Upload</NavLink>
-                <NavLink to="/wishlist">Wishlist</NavLink>
-                <NavLink to="/group">Group</NavLink>
-            </div>
+        <Container>
+            <NavigationBar />
             <Routes>
                 <Route path="/" element={TimelinePage}></Route>
                 <Route path="/bucketlist" element={BucketListPage}></Route>
@@ -24,8 +22,15 @@ function App() {
                 <Route path="/group" element={GroupPage}></Route>
                 <Route path="/register" element={RegisterPage}></Route>
             </Routes>
-        </div>
+        </Container>
     );
 }
 
 export default App;
+
+const Container = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+`;
