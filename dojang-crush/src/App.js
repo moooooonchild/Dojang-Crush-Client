@@ -8,19 +8,16 @@ import WishListPage from "./pages/WishList";
 import GroupPage from "./pages/Group";
 import RegisterPage from "./pages/Register";
 
-import NavigationBar from "./components/NavigationBar";
-
 function App() {
     return (
         <Container>
-            <NavigationBar />
             <Routes>
-                <Route path="/" element={TimelinePage}></Route>
-                <Route path="/bucketlist" element={BucketListPage}></Route>
-                <Route path="/upload" element={UploadPage}></Route>
-                <Route path="/wishlist" element={WishListPage}></Route>
-                <Route path="/group" element={GroupPage}></Route>
-                <Route path="/register" element={RegisterPage}></Route>
+                <Route path="/" element={<TimelinePage />}></Route>
+                <Route path="/bucketlist" element={<BucketListPage />}></Route>
+                <Route path="/upload" element={<UploadPage />}></Route>
+                <Route path="/wishlist" element={<WishListPage />}></Route>
+                <Route path="/group" element={<GroupPage />}></Route>
+                <Route path="/register" element={<RegisterPage />}></Route>
             </Routes>
         </Container>
     );

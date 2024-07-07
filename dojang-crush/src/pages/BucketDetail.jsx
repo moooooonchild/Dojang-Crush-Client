@@ -1,15 +1,13 @@
-import NavigationBar from "../components/NavigationBar";
-import styled from "styled-components";
-
-const TimelinePage = () => {
+const BucketDetailPage = () => {
     return (
         <Container>
+            <div>Bucket List</div>
             <NavigationBar />
         </Container>
     );
 };
 
-export default TimelinePage;
+export default BucketDetailPage;
 
 const Container = styled.div`
     width: 100%;
