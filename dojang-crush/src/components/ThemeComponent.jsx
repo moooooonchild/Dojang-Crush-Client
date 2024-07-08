@@ -17,15 +17,18 @@ const Container = styled(NavLink)`
     aspect-ratio: 1;
     background-color: #dba290;
 
-    margin-bottom: 5%;
-
     text-decoration: none;
+
+    align-self: center;
+    flex-shrink: 0;
+
+    position: relative;
 `;
 
 const Icon = styled.img`
     width: 18.5%;
     margin: 5%;
-    position: relative;
+    position: absolute;
 `;
 
 const Theme = styled.div`
@@ -35,5 +38,8 @@ const Theme = styled.div`
     color: #612d1c;
     font-weight: bold;
 
-    align-self: center;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 `;

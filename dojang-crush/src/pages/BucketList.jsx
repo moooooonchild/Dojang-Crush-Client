@@ -1,5 +1,5 @@
 import NavigationBar from "../components/NavigationBar";
-import BucketComponent from "../components/BucketComponent";
+import ThemeComponent from "../components/ThemeComponent";
 import styled from "styled-components";
 
 import sportsIcon from "../assets/sports.svg";
@@ -14,32 +14,32 @@ const BucketListPage = () => {
         <Container>
             <Title>Bucket List</Title>
             <BucketList>
-                <BucketComponent
+                <ThemeComponent
                     themeKor="스포츠"
                     themeEng="sports"
                     icon={sportsIcon}
                 />
-                <BucketComponent
+                <ThemeComponent
                     themeKor="게임"
                     themeEng="game"
                     icon={gameIcon}
                 />
-                <BucketComponent
+                <ThemeComponent
                     themeKor="힐링"
                     themeEng="healing"
                     icon={healingIcon}
                 />
-                <BucketComponent
+                <ThemeComponent
                     themeKor="자연"
                     themeEng="nature"
                     icon={natureIcon}
                 />
-                <BucketComponent
+                <ThemeComponent
                     themeKor="음악"
                     themeEng="music"
                     icon={musicIcon}
                 />
-                <BucketComponent
+                <ThemeComponent
                     themeKor="이색"
                     themeEng="unique"
                     icon={uniqueIcon}

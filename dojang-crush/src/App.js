@@ -7,6 +7,8 @@ import UploadPage from "./pages/Upload";
 import WishListPage from "./pages/WishList";
 import GroupPage from "./pages/Group";
 import RegisterPage from "./pages/Register";
+import BucketDetailPage from "./pages/BucketDetail";
+import WishDetailPage from "./pages/WishDetail";
 
 function App() {
     return (
@@ -14,8 +16,16 @@ function App() {
             <Routes>
                 <Route path="/" element={<TimelinePage />}></Route>
                 <Route path="/bucketlist" element={<BucketListPage />}></Route>
+                <Route
+                    path="/bucketlist/:theme"
+                    element={<BucketDetailPage />}
+                ></Route>
                 <Route path="/upload" element={<UploadPage />}></Route>
                 <Route path="/wishlist" element={<WishListPage />}></Route>
+                <Route
+                    path="/wishlist/:theme"
+                    element={<WishDetailPage />}
+                ></Route>
                 <Route path="/group" element={<GroupPage />}></Route>
                 <Route path="/register" element={<RegisterPage />}></Route>
             </Routes>

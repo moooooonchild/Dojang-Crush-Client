@@ -1,3 +1,6 @@
+import NavigationBar from "../components/NavigationBar";
+import styled from "styled-components";
+
 const WishDetailPage = () => {
     return (
         <Container>
