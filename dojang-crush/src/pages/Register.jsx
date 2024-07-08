@@ -1,6 +1,9 @@
 import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { RiKakaoTalkFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+import { ReactComponent as LogoSVG } from "../logo/LOGO.svg";
+import { ReactComponent as LogoText } from "../logo/도장깨기.svg";
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -15,15 +18,27 @@ const RegisterContainer = styled.div`
 
   align-items: center;
 
-  padding: 80px;
+  padding: 120px;
 `;
 
 //로고
 const LogoContainer = styled.div`
-  background-color: gray;
-  width: 10vw;
-  height: 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
   margin-bottom: 60px;
+`;
+
+const Logo = styled(LogoSVG)`
+  width: 120px;
+  height: auto;
+`;
+
+const Logotext = styled(LogoText)`
+  height: 30px;
+  width: auto;
 `;
 
 // 로그인
@@ -38,7 +53,7 @@ const IDinput = styled.input`
   height: 30px;
 
   border: solid 1.5px #dee2e6;
-  border-radius: 3px;
+  border-radius: 4px;
   &::placeholder {
     color: #dee2e6;
   }
@@ -47,7 +62,7 @@ const IDinput = styled.input`
 const PWinput = styled.input`
   height: 30px;
   border: solid 1.5px #dee2e6;
-  border-radius: 3px;
+  border-radius: 4px;
   &::placeholder {
     color: #dee2e6;
   }
@@ -59,7 +74,7 @@ const LoginBTN = styled.button`
   background-color: #dba290;
   color: #612d1c;
   border: none;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
   &:hover {
     background-color: #c38776;
@@ -87,7 +102,7 @@ const KAKAOLoginBTN = styled.button`
   align-items: center;
   height: 35px;
   border: none;
-  border-radius: 3px;
+  border-radius: 4px;
   font-weight: bold;
   &:hover {
     background-color: #e6c200;
@@ -104,7 +119,7 @@ const SignupBTN = styled.button`
   background-color: #9e8c85;
   height: 35px;
   border: none;
-  border-radius: 3px;
+  border-radius: 4px;
   color: #ffffff;
   &:hover {
     background-color: #8d7b74;
@@ -112,10 +127,14 @@ const SignupBTN = styled.button`
 `;
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   return (
     <RegisterContainer>
       <GlobalStyle />
-      <LogoContainer>로고</LogoContainer>
+      <LogoContainer>
+        <Logo />
+        <Logotext />
+      </LogoContainer>
       <LoginContainer>
         <IDinput placeholder="&nbsp; 아이디" />
         <PWinput placeholder="&nbsp; 비밀번호" type="password" />
@@ -126,7 +145,7 @@ const RegisterPage = () => {
         <KAKAOLoginBTN>
           <KAKAOLogo /> 카카오 로그인
         </KAKAOLoginBTN>
-        <SignupBTN>회원가입</SignupBTN>
+        <SignupBTN onClick={() => navigate("/signup")}>회원가입</SignupBTN>
       </SNSLoginContainer>
     </RegisterContainer>
   );
