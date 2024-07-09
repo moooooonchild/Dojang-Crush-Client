@@ -18,7 +18,7 @@ const RegisterContainer = styled.div`
 
   align-items: center;
 
-  padding: 120px;
+  padding-top: 14vh;
 `;
 
 //로고
@@ -27,62 +27,22 @@ const LogoContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 25px;
-  margin-bottom: 60px;
+  gap: 3vh;
+  margin-bottom: 6vh;
 `;
 
 const Logo = styled(LogoSVG)`
-  width: 120px;
+  width: 15vh;
   height: auto;
 `;
 
 const Logotext = styled(LogoText)`
-  height: 30px;
+  height: 3.8vh;
   width: auto;
 `;
 
-// 로그인
-const LoginContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 30px;
-`;
-
-const IDinput = styled.input`
-  height: 30px;
-
-  border: solid 1.5px #dee2e6;
-  border-radius: 4px;
-  &::placeholder {
-    color: #dee2e6;
-  }
-`;
-
-const PWinput = styled.input`
-  height: 30px;
-  border: solid 1.5px #dee2e6;
-  border-radius: 4px;
-  &::placeholder {
-    color: #dee2e6;
-  }
-`;
-
-const LoginBTN = styled.button`
-  width: 30vw;
-  height: 35px;
-  background-color: #dba290;
-  color: #612d1c;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  &:hover {
-    background-color: #c38776;
-    color: #ffffff;
-  }
-`;
-
 const SNSLoginContainer = styled.div`
+  margin-top: 10vh;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -91,39 +51,27 @@ const SNSLoginContainer = styled.div`
 `;
 const SNSLoginTxt = styled.div`
   color: #000000;
-  margin-bottom: 5px;
+  margin-bottom: 1vh;
 `;
 
 const KAKAOLoginBTN = styled.button`
-  width: 30vw;
+  width: 80vw;
   display: flex;
   background-color: #ffdd00;
   justify-content: center;
   align-items: center;
-  height: 35px;
+  height: 4.8vh;
   border: none;
   border-radius: 4px;
   font-weight: bold;
   &:hover {
     background-color: #e6c200;
   }
-  margin-bottom: 25px;
 `;
 
 const KAKAOLogo = styled(RiKakaoTalkFill)`
   font-size: 1.5rem;
   margin-right: 10px;
-`;
-
-const SignupBTN = styled.button`
-  background-color: #9e8c85;
-  height: 35px;
-  border: none;
-  border-radius: 4px;
-  color: #ffffff;
-  &:hover {
-    background-color: #8d7b74;
-  }
 `;
 
 const RegisterPage = () => {
@@ -135,17 +83,11 @@ const RegisterPage = () => {
         <Logo />
         <Logotext />
       </LogoContainer>
-      <LoginContainer>
-        <IDinput placeholder="&nbsp; 아이디" />
-        <PWinput placeholder="&nbsp; 비밀번호" type="password" />
-        <LoginBTN>로그인</LoginBTN>
-      </LoginContainer>
       <SNSLoginContainer>
         <SNSLoginTxt>SNS으로 로그인하기</SNSLoginTxt>
         <KAKAOLoginBTN>
           <KAKAOLogo /> 카카오 로그인
         </KAKAOLoginBTN>
-        <SignupBTN onClick={() => navigate("/signup")}>회원가입</SignupBTN>
       </SNSLoginContainer>
     </RegisterContainer>
   );

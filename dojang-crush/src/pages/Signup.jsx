@@ -20,11 +20,11 @@ const SignupPageWrapper = styled.div`
 //최상단 바
 const TopBar = styled.div`
   margin-top: 5vh;
-  margin-bottom: 30px;
+  margin-bottom: 4vh;
   display: flex;
   align-items: center;
   height: 4vh;
-  width: 32vw;
+  width: 90vw;
 `;
 const BackBTN = styled(IoMdArrowRoundBack)`
   font-size: 2rem;
@@ -54,14 +54,14 @@ const ChoiceContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 32vw;
+  width: 90vw;
 
-  gap: 1vw;
+  gap: 2vw;
 `;
 
 const MakeGroup = styled.button`
   height: 50px;
-  width: 25vw;
+  width: 44vw;
   border: none;
   border-radius: 4px;
   background-color: ${(props) => (props.isGroupMember ? "#e8c1b8" : "#dba290")};
@@ -74,7 +74,7 @@ const MakeGroup = styled.button`
 
 const StartGroupMember = styled.button`
   height: 50px;
-  width: 25vw;
+  width: 44vw;
   border: none;
   border-radius: 4px;
   background-color: ${(props) => (props.isGroupMember ? "#dba290" : "#e8c1b8")};
@@ -88,7 +88,7 @@ const StartGroupMember = styled.button`
 const MakeGroupWrapper = styled.div``;
 
 const Notification = styled.div`
-  width: 32vw;
+  width: 90vw;
   margin-top: 1.5vh;
 
   white-space: pre-line;
@@ -99,7 +99,7 @@ const EnterInformation = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5vh;
-  width: 32vw;
+  width: 90vw;
 `;
 
 const Nameinput = styled.input`
@@ -177,7 +177,7 @@ const SignupBTN = styled.button`
   border: none;
   background-color: #9e8c85;
   color: #ffffff;
-  width: 32vw;
+  width: 90vw;
   height: 35px;
   border-radius: 4px;
 
