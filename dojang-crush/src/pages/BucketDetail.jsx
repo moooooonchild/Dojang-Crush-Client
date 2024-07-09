@@ -35,8 +35,8 @@ const BucketDetailPage = () => {
 export default BucketDetailPage;
 
 const Container = styled.div`
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,21 +44,21 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-    width: 100%;
+    width: 100vw;
     position: relative;
     display: flex;
     justify-content: center; /* Title을 중앙에 배치 */
     align-items: center;
-    margin: 8%;
+    margin: 8vw;
 `;
 
 const Title = styled.div`
-    font-size: 400%;
+    font-size: 4rem;
     font-weight: bold;
 `;
 
 const BackButton = styled.img`
-    width: 4%;
+    width: 4vw;
     position: absolute;
     left: 8%;
     top: 50%;
@@ -67,7 +67,7 @@ const BackButton = styled.img`
 
 const PlaceList = styled.div`
     flex: 1;
-    width: 100%;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;

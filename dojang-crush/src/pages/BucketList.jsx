@@ -54,8 +54,8 @@ const BucketListPage = () => {
 export default BucketListPage;
 
 const Container = styled.div`
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -63,16 +63,16 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-    font-size: 400%;
+    font-size: 4rem;
     font-weight: bold;
 
-    margin: 8%;
+    margin: 8vw;
 `;
 
 const BucketList = styled.div`
     display: flex;
     flex: 1;
-    width: 100%;
+    width: 100vw;
     overflow-y: auto;
     flex-wrap: wrap;
     justify-content: space-evenly;

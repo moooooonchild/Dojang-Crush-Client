@@ -13,7 +13,7 @@ const BucketComponent = ({ themeKor, themeEng, icon }) => {
 export default BucketComponent;
 
 const Container = styled(NavLink)`
-    width: 40%;
+    width: 40vw;
     aspect-ratio: 1;
     background-color: #dba290;
 
@@ -26,13 +26,13 @@ const Container = styled(NavLink)`
 `;
 
 const Icon = styled.img`
-    width: 18.5%;
-    margin: 5%;
+    width: 8vw;
+    margin: 2vw;
     position: absolute;
 `;
 
 const Theme = styled.div`
-    font-size: 350%;
+    font-size: 4rem;
 
     text-align: center;
     color: #612d1c;

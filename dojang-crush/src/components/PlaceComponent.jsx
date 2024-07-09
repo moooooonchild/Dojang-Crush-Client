@@ -19,22 +19,22 @@ export default PlaceComponent;
 
 const Container = styled.button`
     background-color: #dba290;
-    width: 90%;
-    height: 24.6%;
+    width: 90vw;
+    height: 20vh;
 
     border: none;
     text-decoration: none;
 
     position: relative;
 
-    margin-bottom: 4%;
+    margin-bottom: 4vw;
 
     flex-shrink: 0;
 `;
 
 const PlaceImg = styled.img`
-    width: 92%;
-    height: 53%;
+    width: 82.1vw;
+    height: 11vh;
 
     position: absolute;
     top: 8%;
@@ -49,7 +49,7 @@ const Name = styled.div`
     top: 69%;
     left: 4%;
 
-    font-size: 240%;
+    font-size: 2rem;
     font-weight: bold;
     color: #612d1c;
 `;
@@ -59,7 +59,7 @@ const Address = styled.div`
     top: 82%;
     left: 4%;
 
-    font-size: 240%;
+    font-size: 2rem;
     font-weight: bold;
     color: #612d1c;
 `;
@@ -73,7 +73,7 @@ const HeartButton = styled.button`
     background: none;
     border: none;
 
-    width: 6%;
+    width: 5.5vw;
 
     img {
         transform: translate(-50%, -50%);
