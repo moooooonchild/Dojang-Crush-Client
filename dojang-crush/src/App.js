@@ -9,6 +9,7 @@ import GroupPage from "./pages/Group";
 import RegisterPage from "./pages/Register";
 import BucketDetailPage from "./pages/BucketDetail";
 import WishDetailPage from "./pages/WishDetail";
+import SignupPage from "./pages/Signup";
 
 function App() {
     return (
@@ -28,6 +29,7 @@ function App() {
                 ></Route>
                 <Route path="/group" element={<GroupPage />}></Route>
                 <Route path="/register" element={<RegisterPage />}></Route>
+                <Route path="/signup" element={<SignupPage />}></Route>
             </Routes>
         </Container>
     );

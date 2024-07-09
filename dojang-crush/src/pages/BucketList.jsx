@@ -2,12 +2,12 @@ import NavigationBar from "../components/NavigationBar";
 import ThemeComponent from "../components/ThemeComponent";
 import styled from "styled-components";
 
-import sportsIcon from "../assets/sports.svg";
-import gameIcon from "../assets/game.svg";
-import healingIcon from "../assets/healing.svg";
-import natureIcon from "../assets/nature.svg";
-import musicIcon from "../assets/music.svg";
-import uniqueIcon from "../assets/unique.svg";
+import sportsIcon from "../assets/theme/sports.svg";
+import gameIcon from "../assets/theme/game.svg";
+import healingIcon from "../assets/theme/healing.svg";
+import natureIcon from "../assets/theme/nature.svg";
+import musicIcon from "../assets/theme/music.svg";
+import uniqueIcon from "../assets/theme/unique.svg";
 
 const BucketListPage = () => {
     return (
