@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import PlaceComponent from "../components/PlaceComponent";
 import NavigationBar from "../components/NavigationBar";
 
-import backIcon from "../assets/back.svg";
+import backIcon from "../assets/ui/back.svg";
 
 const BucketDetailPage = () => {
     const nav = useNavigate();

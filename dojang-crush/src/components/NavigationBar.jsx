@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-import timelineIcon from "../assets/timeline.svg";
-import bucklistIcon from "../assets/bucketlist.svg";
-import uploadIcon from "../assets/upload.svg";
-import wishlistIcon from "../assets/wishlist.svg";
-import groupIcon from "../assets/group.svg";
+import timelineIcon from "../assets/navigation/timeline.svg";
+import bucklistIcon from "../assets/navigation/bucketlist.svg";
+import uploadIcon from "../assets/navigation/upload.svg";
+import wishlistIcon from "../assets/navigation/wishlist.svg";
+import groupIcon from "../assets/navigation/group.svg";
 
 const NavigationBar = () => {
     return (
