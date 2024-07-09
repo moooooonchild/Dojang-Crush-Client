@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import placeDefault from "../assets/placeDefault.png";
-import HeartIcon from "../assets/heart.svg";
+import HeartIcon from "../assets/ui/heart.svg";
 
 const PlaceComponent = () => {
     return (
