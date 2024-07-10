@@ -20,11 +20,11 @@ const BucketDetailPage = () => {
                 <Title>Recommended</Title>
             </Header>
             <PlaceList>
-                <PlaceComponent />
-                <PlaceComponent />
-                <PlaceComponent />
-                <PlaceComponent />
-                <PlaceComponent />
+                <PlaceComponent place="장소1" address="주소1" />
+                <PlaceComponent place="장소2" address="주소2" />
+                <PlaceComponent place="장소3" address="주소3" />
+                <PlaceComponent place="장소4" address="주소4" />
+                <PlaceComponent place="장소5" address="주소5" />
             </PlaceList>
 
             <NavigationBar />
