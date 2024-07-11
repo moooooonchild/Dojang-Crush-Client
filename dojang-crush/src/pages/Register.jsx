@@ -5,6 +5,27 @@ import { useNavigate } from "react-router-dom";
 import { ReactComponent as LogoSVG } from "../assets/logo/LOGO.svg";
 import { ReactComponent as LogoText } from "../assets/logo/도장깨기.svg";
 
+const RegisterPage = () => {
+  const navigate = useNavigate();
+  return (
+    <RegisterContainer>
+      <GlobalStyle />
+      <LogoContainer>
+        <Logo />
+        <Logotext />
+      </LogoContainer>
+      <SNSLoginContainer>
+        <SNSLoginTxt>SNS으로 로그인하기</SNSLoginTxt>
+        <KAKAOLoginBTN>
+          <KAKAOLogo /> 카카오 로그인
+        </KAKAOLoginBTN>
+      </SNSLoginContainer>
+    </RegisterContainer>
+  );
+};
+
+export default RegisterPage;
+
 const GlobalStyle = createGlobalStyle`
     body{
         background-color: #F8E8E4;
@@ -13,84 +34,67 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const RegisterContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-
-    padding-top: 14vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 14vh;
 `;
 
 //로고
 const LogoContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 3vh;
-    margin-bottom: 6vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 6vh;
+  align-items: center;
+  gap: 3vh;
 `;
 
 const Logo = styled(LogoSVG)`
-    width: 15vh;
-    height: auto;
+  width: 15vh;
+  height: auto;
 `;
 
 const Logotext = styled(LogoText)`
-    height: 3.8vh;
-    width: auto;
+  height: 3.8vh;
+  width: auto;
 `;
 
 const SNSLoginContainer = styled.div`
-    margin-top: 10vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-
-    font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin-top: 10vh;
+  font-size: 0.8rem;
 `;
+
 const SNSLoginTxt = styled.div`
-    color: #000000;
-    margin-bottom: 1vh;
+  font-size: 2rem;
+  margin-bottom: 1vh;
+  font-weight: bolder;
+  color: #000000;
 `;
 
 const KAKAOLoginBTN = styled.button`
-    width: 80vw;
-    display: flex;
-    background-color: #ffdd00;
-    justify-content: center;
-    align-items: center;
-    height: 4.8vh;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    &:hover {
-        background-color: #e6c200;
-    }
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 80vw;
+  height: 4.8vh;
+  border: none;
+  border-radius: 4px;
+  background-color: #ffdd00;
+  font-size: 3rem;
+  font-weight: bold;
+  &:hover {
+    background-color: #e6c200;
+  }
 `;
 
 const KAKAOLogo = styled(RiKakaoTalkFill)`
-    font-size: 1.5rem;
-    margin-right: 10px;
+  position: absolute;
+  left: 3vw;
+  margin-right: 10px;
+  font-size: 3rem;
 `;
-
-const RegisterPage = () => {
-    const navigate = useNavigate();
-    return (
-        <RegisterContainer>
-            <GlobalStyle />
-            <LogoContainer>
-                <Logo />
-                <Logotext />
-            </LogoContainer>
-            <SNSLoginContainer>
-                <SNSLoginTxt>SNS으로 로그인하기</SNSLoginTxt>
-                <KAKAOLoginBTN>
-                    <KAKAOLogo /> 카카오 로그인
-                </KAKAOLoginBTN>
-            </SNSLoginContainer>
-        </RegisterContainer>
-    );
-};
-
-export default RegisterPage;
