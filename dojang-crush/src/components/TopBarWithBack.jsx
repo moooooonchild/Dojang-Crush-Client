@@ -20,18 +20,22 @@ const TopBarWrapper = styled.div`
   margin-top: 5vh;
   margin-bottom: 4vh;
   width: 90vw;
-  padding: 1vh 5vw;
+  padding: 1vh 0vw;
 `;
 const BackBTN = styled(IoMdArrowRoundBack)`
+  margin-left: 5vw;
   font-size: 4rem;
   color: #7b4f3d;
   cursor: pointer;
 `;
 
 const TopBarText = styled.div`
+  display: flex;
+  justify-content: center;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  width: 60vw;
   font-size: 4rem;
   font-weight: bold;
 `;
