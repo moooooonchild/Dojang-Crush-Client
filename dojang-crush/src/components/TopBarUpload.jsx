@@ -1,17 +1,21 @@
 import styled from "styled-components";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { ReactComponent as SharingSVG } from "../assets/ui/share.svg";
 
-const TopBarWithBack = ({ text }) => {
+const TopBarUpload = ({ text }) => {
   const navigate = useNavigate();
   return (
     <TopBarWrapper>
       <BackBTN onClick={() => navigate(-1)} />
       <TopBarText>{text}</TopBarText>
+      <TopBarSharingBTN>
+        <SharingIcon />
+      </TopBarSharingBTN>
     </TopBarWrapper>
   );
 };
-export default TopBarWithBack;
+export default TopBarUpload;
 
 const TopBarWrapper = styled.div`
   display: flex;
@@ -38,4 +42,19 @@ const TopBarText = styled.div`
   width: 60vw;
   font-size: 4rem;
   font-weight: bold;
+`;
+
+const TopBarSharingBTN = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 3vw;
+  border: none;
+  background-color: inherit;
+`;
+
+const SharingIcon = styled(SharingSVG)`
+  width: 4vw;
+  height: auto;
 `;
