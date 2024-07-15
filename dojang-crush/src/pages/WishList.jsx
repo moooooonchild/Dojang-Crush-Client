@@ -93,20 +93,22 @@ const WishListPage = () => {
 export default WishListPage;
 
 const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    width: 100vw;
+    height: 100vh;
 `;
 
 const Header = styled.div`
-    width: 100vw;
-    position: relative;
     display: flex;
     justify-content: center; /* Title을 중앙에 배치 */
     align-items: center;
+    position: relative;
+
+    width: 100vw;
     margin: 8vw;
 `;
 
@@ -116,28 +118,31 @@ const Title = styled.div`
 `;
 
 const ToTheme = styled.div`
-    font-size: 2.3rem;
-    font-weight: bold;
     position: absolute;
     right: 6%;
     top: 100%;
+
+    font-size: 2.3rem;
+    font-weight: bold;
 `;
 
 const PlaceList = styled.div`
-    flex: 1;
-    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     overflow-y: auto;
+    flex: 1;
+    width: 100vw;
 `;
 
 const WishList = styled.div`
     display: flex;
-    flex: 1;
-    width: 100vw;
-    overflow-y: auto;
-    flex-wrap: wrap;
     justify-content: space-evenly;
+    flex: 1;
+    flex-wrap: wrap;
+
+    overflow-y: auto;
+
+    width: 100vw;
 `;
