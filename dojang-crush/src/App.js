@@ -38,8 +38,8 @@ function App() {
 export default App;
 
 const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
     display: flex;
     justify-content: center;
+    width: 100vw;
+    height: 100vh;
 `;

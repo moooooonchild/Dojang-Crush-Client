@@ -60,20 +60,23 @@ const WishDetailPage = () => {
 export default WishDetailPage;
 
 const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+
+    width: 100vw;
+    height: 100vh;
 `;
 
 const Header = styled.div`
-    width: 100vw;
-    position: relative;
     display: flex;
     justify-content: center; /* Title을 중앙에 배치 */
     align-items: center;
+
+    position: relative;
+
+    width: 100vw;
     margin: 8vw;
 `;
 
@@ -83,26 +86,28 @@ const Title = styled.div`
 `;
 
 const BackButton = styled.img`
-    width: 4vw;
     position: absolute;
     left: 8%;
     top: 50%;
     transform: translateY(-50%);
+
+    width: 4vw;
 `;
 
 const ThemeIcon = styled.img`
-    width: 6vw;
     position: absolute;
     right: 8%;
     top: 50%;
     transform: translateY(-50%);
+
+    width: 6vw;
 `;
 
 const WishList = styled.div`
     display: flex;
-    flex: 1;
-    width: 100vw;
-    overflow-y: auto;
-    flex-wrap: wrap;
     justify-content: space-evenly;
+    overflow-y: auto;
+    flex: 1;
+    flex-wrap: wrap;
+    width: 100vw;
 `;

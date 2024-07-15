@@ -28,28 +28,28 @@ const PlaceComponent = ({ place, address, users = null }) => {
 export default PlaceComponent;
 
 const Container = styled.button`
-    background-color: #dba290;
-    width: 90vw;
-    height: 23vh;
-
-    border: none;
-    text-decoration: none;
-
     position: relative;
 
+    width: 90vw;
+    height: 23vh;
     margin-bottom: 4vw;
+
+    border: none;
+    background-color: #dba290;
+
+    text-decoration: none;
 
     flex-shrink: 0;
 `;
 
 const PlaceImg = styled.img`
-    width: 82.1vw;
-    height: 13vh;
-
     position: absolute;
     top: 8%;
     left: 50%;
     transform: translateX(-50%);
+
+    width: 82.1vw;
+    height: 13vh;
 
     object-fit: cover;
 `;
@@ -76,11 +76,11 @@ const Address = styled.div`
 
 const Users = styled.div`
     display: flex;
+    overflow-x: scroll;
     justify-content: flex-end;
     position: absolute;
     top: 69%;
     right: 4%;
-    overflow-x: scroll;
 
     width: 37vw;
     height: 2.1vh;
@@ -97,10 +97,10 @@ const HeartButton = styled.button`
     top: 90%;
     right: 0%;
 
-    background: none;
-    border: none;
-
     width: 5.5vw;
+
+    border: none;
+    background: none;
 
     img {
         transform: translate(-50%, -50%);

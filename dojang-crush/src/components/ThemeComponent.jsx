@@ -13,33 +13,33 @@ const BucketComponent = ({ themeKor, themeEng, icon }) => {
 export default BucketComponent;
 
 const Container = styled(NavLink)`
+    align-self: center;
+
+    position: relative;
+
     width: 40vw;
-    aspect-ratio: 1;
+
     background-color: #dba290;
 
     text-decoration: none;
-
-    align-self: center;
+    aspect-ratio: 1;
     flex-shrink: 0;
-
-    position: relative;
 `;
 
 const Icon = styled.img`
+    position: absolute;
     width: 8vw;
     margin: 2vw;
-    position: absolute;
 `;
 
 const Theme = styled.div`
-    font-size: 4rem;
-
-    text-align: center;
-    color: #612d1c;
-    font-weight: bold;
-
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    font-size: 4rem;
+    text-align: center;
+    color: #612d1c;
+    font-weight: bold;
 `;
