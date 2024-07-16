@@ -11,6 +11,11 @@ import BucketDetailPage from "./pages/BucketDetail";
 import WishDetailPage from "./pages/WishDetail";
 import SignupPage from "./pages/Signup";
 import PostDetailPage from "./pages/PostDetail";
+import SettingPage from "./pages/Settings";
+import ChangeNamePage from "./pages/ChangeName";
+import ChangeIDPWPage from "./pages/ChangeIDPW";
+import ChangeGroupNamePage from "./pages/ChangeGroupName";
+import WithdrawalPage from "./pages/Withdrawal";
 
 function App() {
     return (
@@ -32,6 +37,14 @@ function App() {
                 <Route path="/group" element={<GroupPage />}></Route>
                 <Route path="/register" element={<RegisterPage />}></Route>
                 <Route path="/signup" element={<SignupPage />}></Route>
+                <Route path="/settings" element={<SettingPage />}></Route>
+                <Route path="/changename" element={<ChangeNamePage />}></Route>
+                <Route path="/changeidpw" element={<ChangeIDPWPage />}></Route>
+                <Route path="/withdrawal" element={<WithdrawalPage />}></Route>
+                <Route
+                    path="/changegroupname"
+                    element={<ChangeGroupNamePage />}
+                ></Route>
             </Routes>
         </Container>
     );
