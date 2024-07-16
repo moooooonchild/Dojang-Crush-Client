@@ -10,12 +10,14 @@ import RegisterPage from "./pages/Register";
 import BucketDetailPage from "./pages/BucketDetail";
 import WishDetailPage from "./pages/WishDetail";
 import SignupPage from "./pages/Signup";
+import PostDetailPage from "./pages/PostDetail";
 
 function App() {
     return (
         <Container>
             <Routes>
                 <Route path="/" element={<TimelinePage />}></Route>
+                <Route path="/post/:id" element={<PostDetailPage />}></Route>
                 <Route path="/bucketlist" element={<BucketListPage />}></Route>
                 <Route
                     path="/bucketlist/:theme"
