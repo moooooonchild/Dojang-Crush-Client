@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import placeDefault from "../assets/placeDefault.png";
+import placeDefault from "../assets/ui/defaultImage.png";
 import HeartIcon from "../assets/ui/heart.svg";
 
 const PlaceComponent = ({ place, address, users = null }) => {
