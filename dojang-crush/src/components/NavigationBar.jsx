@@ -37,10 +37,12 @@ const NavigationBar = () => {
 };
 
 const NavBar = styled.div`
-    width: 100vw;
-    height: 9.5vh;
     display: flex;
     justify-content: space-around;
+
+    width: 100vw;
+    height: 9.5vh;
+
     margin-top: auto;
     padding: 0 5vw;
 `;
@@ -50,17 +52,17 @@ const NavItem = styled(NavLink)`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
 
     width: 15.2vw;
+
+    text-decoration: none;
+    font-size: 2rem;
+    color: #612d1c;
 
     img {
         width: 6.4vw;
         height: auto;
     }
-
-    font-size: 2rem;
-    color: #612d1c;
 `;
 
 export default NavigationBar;
