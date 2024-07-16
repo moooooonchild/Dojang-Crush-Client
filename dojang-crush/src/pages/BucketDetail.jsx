@@ -20,11 +20,11 @@ const BucketDetailPage = () => {
                 <Title>Recommended</Title>
             </Header>
             <PlaceList>
-                <PlaceComponent />
-                <PlaceComponent />
-                <PlaceComponent />
-                <PlaceComponent />
-                <PlaceComponent />
+                <PlaceComponent place="장소1" address="주소1" />
+                <PlaceComponent place="장소2" address="주소2" />
+                <PlaceComponent place="장소3" address="주소3" />
+                <PlaceComponent place="장소4" address="주소4" />
+                <PlaceComponent place="장소5" address="주소5" />
             </PlaceList>
 
             <NavigationBar />
@@ -35,20 +35,24 @@ const BucketDetailPage = () => {
 export default BucketDetailPage;
 
 const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    width: 100vw;
+    height: 100vh;
 `;
 
 const Header = styled.div`
-    width: 100vw;
-    position: relative;
     display: flex;
     justify-content: center; /* Title을 중앙에 배치 */
     align-items: center;
+
+    position: relative;
+
+    width: 100vw;
+
     margin: 8vw;
 `;
 
@@ -58,19 +62,20 @@ const Title = styled.div`
 `;
 
 const BackButton = styled.img`
-    width: 4vw;
     position: absolute;
     left: 8%;
     top: 50%;
     transform: translateY(-50%);
+
+    width: 4vw;
 `;
 
 const PlaceList = styled.div`
-    flex: 1;
-    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-
     overflow-y: auto;
+
+    flex: 1;
+    width: 100vw;
 `;
