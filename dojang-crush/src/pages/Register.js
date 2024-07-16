@@ -9,7 +9,6 @@ const RegisterPage = () => {
     const navigate = useNavigate();
     return (
         <RegisterContainer>
-            <GlobalStyle />
             <LogoContainer>
                 <Logo />
                 <Logotext />
