@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import TopBarUpload from "../components/TopBarUpload";
 import styled from "styled-components";
+import { ReactComponent as FirstUploadButton } from "../assets/ui/1stphoto_upload.svg";
 import { ReactComponent as UploadButton } from "../assets/ui/photo_upload.svg";
 
 const UploadPage = () => {
@@ -40,18 +41,6 @@ const UploadPage = () => {
                 <Tags />
                 <Contents />
                 <ImageContainer>
-                    {images.length < 4 && (
-                        <>
-                            <ImageUploadButton onClick={handleClick} />
-                            <IMGBox
-                                type="file"
-                                accept="image/*"
-                                multiple
-                                onChange={handleImageUpload}
-                                ref={fileInputRef}
-                            />
-                        </>
-                    )}
                     {images.map((src, index) => (
                         <ImagePreviewWrapper key={index}>
                             <RemoveButton
@@ -65,6 +54,30 @@ const UploadPage = () => {
                             />
                         </ImagePreviewWrapper>
                     ))}
+                    {images.length == 0 && (
+                        <>
+                            <FirstImageUploadButton onClick={handleClick} />
+                            <IMGBox
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                onChange={handleImageUpload}
+                                ref={fileInputRef}
+                            />
+                        </>
+                    )}
+                    {images.length > 0 && images.length < 4 && (
+                        <>
+                            <ImageUploadButton onClick={handleClick} />
+                            <IMGBox
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                onChange={handleImageUpload}
+                                ref={fileInputRef}
+                            />
+                        </>
+                    )}
                 </ImageContainer>
             </ContentsWrapper>
         </UploadWrapper>
@@ -108,6 +121,10 @@ const ImageContainer = styled.div`
     gap: 2vw;
 `;
 
+const FirstImageUploadButton = styled(FirstUploadButton)`
+    cursor: pointer;
+`;
+
 const ImageUploadButton = styled(UploadButton)`
     cursor: pointer;
 `;
@@ -120,25 +137,27 @@ const ImagePreviewWrapper = styled.div`
 `;
 
 const ImagePreview = styled.img`
-    max-width: 200px;
-    max-height: 200px;
-    object-fit: cover;
+    max-width: 20vw;
+    max-height: 15vh;
     border-radius: 5px;
+    object-fit: cover;
 `;
 
 const RemoveButton = styled.button`
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: rgba(255, 0, 0, 0.7);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    top: 0.2vh;
+    right: 0.2vh;
+    width: 1vh;
+    height: 1vh;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 0, 0, 0.7);
+    width: 1vh;
+    height: 1vh;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
 `;
