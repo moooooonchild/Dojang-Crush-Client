@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import TopBarWithBack from "../components/TopBarWithBack";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,8 @@ import ModalComponent from "../components/ModalComponent";
 const SettingPage = () => {
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [profileImage, setProfileImage] = useState(null);
+    const fileInputRef = useRef(null);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -17,11 +19,42 @@ const SettingPage = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+    const handleProfileImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setProfileImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const triggerFileInput = () => {
+        fileInputRef.current.click();
+    };
+
     return (
         <SettingPageWrapper>
             <TopBarWithBack text="Settings" />
-            <GroupMember />
-            <ProfileImgEdit>프로필 사진 변경</ProfileImgEdit>
+            <ProfileImageWrapper>
+                {profileImage ? (
+                    <ProfileImage src={profileImage} alt="Group Member" />
+                ) : (
+                    <PersonSVG />
+                )}
+            </ProfileImageWrapper>
+            <ProfileImgEdit onClick={triggerFileInput}>
+                프로필 사진 변경
+            </ProfileImgEdit>
+            <FileInput
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={handleProfileImageChange}
+                style={{ display: "none" }}
+            />
             <UserNameWrapper>
                 <UserName>
                     이름
@@ -63,7 +96,24 @@ const SettingPageWrapper = styled.div`
     align-items: center;
 `;
 
-const GroupMember = styled(PersonUI)`
+const ProfileImageWrapper = styled.div`
+    width: 50vw;
+    height: 50vw;
+
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e8d6cf;
+`;
+
+const ProfileImage = styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+`;
+
+const PersonSVG = styled(PersonUI)`
     width: 50vw;
     height: auto;
 `;
@@ -80,6 +130,10 @@ const ProfileImgEdit = styled.button`
     &:hover {
         background-color: #ffefe9;
     }
+`;
+
+const FileInput = styled.input`
+    display: none;
 `;
 
 const UserNameWrapper = styled.div`
