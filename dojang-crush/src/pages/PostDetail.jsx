@@ -1,20 +1,32 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
+import CommentModal from "../components/CommentModal";
+
 import backIcon from "../assets/ui/back.svg";
 import calendarIcon from "../assets/ui/calendar.svg";
 import defaultProfile from "../assets/ui/defaultProfile.png";
 import defaultImage from "../assets/ui/defaultImage.png";
+import { useState } from "react";
 
 const PostDetailPage = () => {
     const nav = useNavigate();
+    const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
 
     const onClickBackButton = () => {
         nav(-1);
     };
 
+    const commentModalHandler = () => {
+        setIsCommentModalOpen(!isCommentModalOpen);
+    };
+
     return (
         <Container>
+            <CommentModal
+                isOpen={isCommentModalOpen}
+                modalHandler={commentModalHandler}
+            />
             <Header>
                 <BackButton src={backIcon} onClick={onClickBackButton} />
                 <Title>Timeline</Title>
@@ -58,6 +70,11 @@ const PostDetailPage = () => {
                         <NickName>해피캣</NickName>
                         <Content>해피해피해피~</Content>
                     </Comment>
+
+                    <CommentWrite onClick={commentModalHandler}>
+                        <CommentProfileImg src={defaultProfile} />
+                        <TextInput placeholder="댓글 달기" />
+                    </CommentWrite>
                 </CommentArea>
             </PostArea>
         </Container>
@@ -196,4 +213,23 @@ const NickName = styled.div`
 
 const Content = styled.div`
     font-size: 2.5rem;
+`;
+
+const CommentWrite = styled.div`
+    display: flex;
+    width: 88vw;
+    margin-top: 1vw;
+    margin-bottom: 4vw;
+`;
+
+const CommentProfileImg = styled.img`
+    width: 6vw;
+    margin-right: 2vw;
+`;
+
+const TextInput = styled.input`
+    font-size: 2rem;
+
+    border: none;
+    background-color: inherit;
 `;
