@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import CommentModal from "../components/CommentModal";
 import PostEditModal from "../components/PostEditModal";
+import PostDeleteModal from "../components/PostDeleteModal";
 
 import backIcon from "../assets/ui/back.svg";
 import calendarIcon from "../assets/ui/calendar.svg";
@@ -15,6 +16,7 @@ const PostDetailPage = () => {
     const nav = useNavigate();
     const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
     const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const onClickBackButton = () => {
         nav(-1);
@@ -24,8 +26,14 @@ const PostDetailPage = () => {
         setIsCommentModalOpen(!isCommentModalOpen);
     };
 
-    const moreModalHandler = () => {
+    const moreModalHandler = (event) => {
+        event.stopPropagation();
         setIsMoreModalOpen(!isMoreModalOpen);
+    };
+
+    const deleteModalHandler = (event) => {
+        moreModalHandler(event);
+        setIsDeleteModalOpen(!isDeleteModalOpen);
     };
 
     return (
@@ -33,11 +41,17 @@ const PostDetailPage = () => {
             <PostEditModal
                 isOpen={isMoreModalOpen}
                 modalHandler={moreModalHandler}
+                deleteModalHandler={deleteModalHandler}
+            />
+            <PostDeleteModal
+                isOpen={isDeleteModalOpen}
+                modalHandler={deleteModalHandler}
             />
             <CommentModal
                 isOpen={isCommentModalOpen}
                 modalHandler={commentModalHandler}
             />
+
             <Header>
                 <BackButton src={backIcon} onClick={onClickBackButton} />
                 <Title>Timeline</Title>

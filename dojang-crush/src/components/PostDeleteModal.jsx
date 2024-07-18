@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
-import xButton from "../assets/ui/xButton.svg";
-
-const PostEditModal = ({ isOpen, modalHandler, deleteModalHandler }) => {
-    const nav = useNavigate();
-
+const PostDeleteModal = ({ isOpen, modalHandler }) => {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden";
@@ -25,23 +20,18 @@ const PostEditModal = ({ isOpen, modalHandler, deleteModalHandler }) => {
             onClick={modalHandler}
         >
             <Container onClick={(e) => e.stopPropagation()}>
-                <XButton src={xButton} onClick={modalHandler} />
-                <BtnArea>
-                    <EditBtn
-                        onClick={() => {
-                            nav(`/upload`);
-                        }}
-                    >
-                        수정하기
-                    </EditBtn>
-                    <DeleteBtn onClick={deleteModalHandler}>삭제하기</DeleteBtn>
-                </BtnArea>
+                <Text>
+                    게시물을
+                    <br />
+                    삭제하시겠습니까?
+                </Text>
+                <DeleteBtn>삭제하기</DeleteBtn>
             </Container>
         </Background>
     );
 };
 
-export default PostEditModal;
+export default PostDeleteModal;
 
 const Background = styled.div`
     width: 100vw;
@@ -63,6 +53,8 @@ const Background = styled.div`
 const Container = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 
     position: absolute;
     top: 50%;
@@ -73,36 +65,22 @@ const Container = styled.div`
     padding: 4vw;
 
     width: 66.6vw;
-    height: 37.5vh;
+    height: 18.5vh;
 
     border-radius: 1vw;
     background-color: white;
 `;
 
-const XButton = styled.img`
-    width: 5vw;
-`;
-
-const BtnArea = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-
-    flex: 1;
-`;
-
-const EditBtn = styled.button`
-    background-color: inherit;
-    border: none;
-
-    font-size: 3rem;
-    font-weight: bold;
+const Text = styled.div`
+    font-size: 2rem;
+    text-align: center;
 `;
 
 const DeleteBtn = styled.button`
-    background-color: inherit;
-    border: none;
+    width: 22vw;
+    height: 5vh;
 
-    font-size: 3rem;
-    font-weight: bold;
+    background-color: inherit;
+    border-color: #612d1c;
+    font-size: 2rem;
 `;
