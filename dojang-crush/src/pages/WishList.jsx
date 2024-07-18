@@ -81,6 +81,26 @@ const WishListPage = () => {
                             themeEng="unique"
                             icon={uniqueIcon}
                         />
+                        <ThemeComponent
+                            themeKor="맛집"
+                            themeEng="food"
+                            icon={uniqueIcon}
+                        />
+                        <ThemeComponent
+                            themeKor="카페"
+                            themeEng="cafe"
+                            icon={uniqueIcon}
+                        />
+                        <ThemeComponent
+                            themeKor="전시"
+                            themeEng="exibition"
+                            icon={uniqueIcon}
+                        />
+                        <ThemeComponent
+                            themeKor="쇼핑"
+                            themeEng="shopping"
+                            icon={uniqueIcon}
+                        />
                     </WishList>
                 </>
             )}
