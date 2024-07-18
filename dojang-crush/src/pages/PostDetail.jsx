@@ -2,15 +2,18 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 import CommentModal from "../components/CommentModal";
+import PostEditModal from "../components/PostEditModal";
 
 import backIcon from "../assets/ui/back.svg";
 import calendarIcon from "../assets/ui/calendar.svg";
 import defaultProfile from "../assets/ui/defaultProfile.png";
 import defaultImage from "../assets/ui/defaultImage.png";
+import editBtn from "../assets/ui/menu-dots.svg";
 import { useState } from "react";
 
 const PostDetailPage = () => {
     const nav = useNavigate();
+    const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
     const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
 
     const onClickBackButton = () => {
@@ -21,8 +24,16 @@ const PostDetailPage = () => {
         setIsCommentModalOpen(!isCommentModalOpen);
     };
 
+    const moreModalHandler = () => {
+        setIsMoreModalOpen(!isMoreModalOpen);
+    };
+
     return (
         <Container>
+            <PostEditModal
+                isOpen={isMoreModalOpen}
+                modalHandler={moreModalHandler}
+            />
             <CommentModal
                 isOpen={isCommentModalOpen}
                 modalHandler={commentModalHandler}
@@ -42,6 +53,7 @@ const PostDetailPage = () => {
                         <Name>이화연</Name>
                         <Tag>#테마, #장소</Tag>
                     </InfoArea>
+                    <MoreBtn onClick={moreModalHandler} />
                 </ProfileArea>
                 <PostImg src={defaultImage} />
                 <PostText>
@@ -165,6 +177,18 @@ const Name = styled.div`
 
 const Tag = styled.div`
     font-size: 2.5rem;
+`;
+
+const MoreBtn = styled.button`
+    width: 4.8vw;
+    height: 4.8vw;
+
+    margin-left: auto;
+
+    border: none;
+    background-color: inherit;
+    background-image: url(${editBtn});
+    background-size: cover;
 `;
 
 const PostImg = styled.img`
