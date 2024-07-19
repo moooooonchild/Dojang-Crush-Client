@@ -5,7 +5,7 @@ const BucketComponent = ({ themeKor, themeEng, icon }) => {
     return (
         <Container to={`./${themeEng}`}>
             <Icon src={icon} />
-            <Theme>#{themeKor}</Theme>
+            <Theme>{`#${themeKor}`}</Theme>
         </Container>
     );
 };
