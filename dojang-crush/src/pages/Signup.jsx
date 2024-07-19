@@ -189,7 +189,6 @@ const SignupPage = () => {
     const [isGroupMember, setIsGroupMember] = useState(false);
     return (
         <SignupPageWrapper>
-            <Global />
             <TopBar>
                 <BackBTN onClick={() => navigate("/register")} />
                 <TopBarText>회원가입</TopBarText>
