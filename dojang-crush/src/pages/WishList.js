@@ -11,6 +11,10 @@ import healingIcon from "../assets/theme/healing.svg";
 import natureIcon from "../assets/theme/nature.svg";
 import musicIcon from "../assets/theme/music.svg";
 import uniqueIcon from "../assets/theme/unique.svg";
+import foodIcon from "../assets/theme/food.svg";
+import cafeIcon from "../assets/theme/cafe.svg";
+import exhibitionIcon from "../assets/theme/exhibition.svg";
+import shoppingIcon from "../assets/theme/shopping.svg";
 
 const WishListPage = () => {
     const [showList, setShowList] = useState(false);
@@ -80,6 +84,26 @@ const WishListPage = () => {
                             themeKor="이색"
                             themeEng="unique"
                             icon={uniqueIcon}
+                        />
+                        <ThemeComponent
+                            themeKor="맛집"
+                            themeEng="food"
+                            icon={foodIcon}
+                        />
+                        <ThemeComponent
+                            themeKor="카페"
+                            themeEng="cafe"
+                            icon={cafeIcon}
+                        />
+                        <ThemeComponent
+                            themeKor="전시"
+                            themeEng="exhibition"
+                            icon={exhibitionIcon}
+                        />
+                        <ThemeComponent
+                            themeKor="쇼핑"
+                            themeEng="shopping"
+                            icon={shoppingIcon}
                         />
                     </WishList>
                 </>

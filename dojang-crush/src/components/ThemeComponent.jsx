@@ -14,10 +14,10 @@ export default BucketComponent;
 
 const Container = styled(NavLink)`
     align-self: center;
-
     position: relative;
 
     width: 40vw;
+    margin-bottom: 6vw;
 
     background-color: #dba290;
 
