@@ -11,6 +11,10 @@ import healingIcon from "../assets/theme/healing.svg";
 import natureIcon from "../assets/theme/nature.svg";
 import musicIcon from "../assets/theme/music.svg";
 import uniqueIcon from "../assets/theme/unique.svg";
+import foodIcon from "../assets/theme/food.svg";
+import cafeIcon from "../assets/theme/cafe.svg";
+import exhibitionIcon from "../assets/theme/exhibition.svg";
+import shoppingIcon from "../assets/theme/shopping.svg";
 import backIcon from "../assets/ui/back.svg";
 
 const iconMap = {
@@ -20,6 +24,10 @@ const iconMap = {
     nature: natureIcon,
     music: musicIcon,
     unique: uniqueIcon,
+    food: foodIcon,
+    cafe: cafeIcon,
+    exhibition: exhibitionIcon,
+    shopping: shoppingIcon,
 };
 
 const WishDetailPage = () => {
