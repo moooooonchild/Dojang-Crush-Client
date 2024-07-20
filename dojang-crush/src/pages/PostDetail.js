@@ -1,20 +1,57 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
+import CommentModal from "../components/CommentModal";
+import PostEditModal from "../components/PostEditModal";
+import PostDeleteModal from "../components/PostDeleteModal";
+
 import backIcon from "../assets/ui/back.svg";
 import calendarIcon from "../assets/ui/calendar.svg";
 import defaultProfile from "../assets/ui/defaultProfile.png";
 import defaultImage from "../assets/ui/defaultImage.png";
+import editBtn from "../assets/ui/menu-dots.svg";
+import { useState } from "react";
 
 const PostDetailPage = () => {
     const nav = useNavigate();
+    const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
+    const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const onClickBackButton = () => {
         nav(-1);
     };
 
+    const commentModalHandler = () => {
+        setIsCommentModalOpen(!isCommentModalOpen);
+    };
+
+    const moreModalHandler = (event) => {
+        event.stopPropagation();
+        setIsMoreModalOpen(!isMoreModalOpen);
+    };
+
+    const deleteModalHandler = (event) => {
+        moreModalHandler(event);
+        setIsDeleteModalOpen(!isDeleteModalOpen);
+    };
+
     return (
         <Container>
+            <PostEditModal
+                isOpen={isMoreModalOpen}
+                modalHandler={moreModalHandler}
+                deleteModalHandler={deleteModalHandler}
+            />
+            <PostDeleteModal
+                isOpen={isDeleteModalOpen}
+                modalHandler={deleteModalHandler}
+            />
+            <CommentModal
+                isOpen={isCommentModalOpen}
+                modalHandler={commentModalHandler}
+            />
+
             <Header>
                 <BackButton src={backIcon} onClick={onClickBackButton} />
                 <Title>Timeline</Title>
@@ -30,6 +67,7 @@ const PostDetailPage = () => {
                         <Name>이화연</Name>
                         <Tag>#테마, #장소</Tag>
                     </InfoArea>
+                    <MoreBtn onClick={moreModalHandler} />
                 </ProfileArea>
                 <PostImg src={defaultImage} />
                 <PostText>
@@ -58,6 +96,11 @@ const PostDetailPage = () => {
                         <NickName>해피캣</NickName>
                         <Content>해피해피해피~</Content>
                     </Comment>
+
+                    <CommentWrite onClick={commentModalHandler}>
+                        <CommentProfileImg src={defaultProfile} />
+                        <TextInput placeholder="댓글 달기" />
+                    </CommentWrite>
                 </CommentArea>
             </PostArea>
         </Container>
@@ -150,6 +193,18 @@ const Tag = styled.div`
     font-size: 2.5rem;
 `;
 
+const MoreBtn = styled.button`
+    width: 4.8vw;
+    height: 4.8vw;
+
+    margin-left: auto;
+
+    border: none;
+    background-color: inherit;
+    background-image: url(${editBtn});
+    background-size: cover;
+`;
+
 const PostImg = styled.img`
     width: 88vw;
 `;
@@ -196,4 +251,23 @@ const NickName = styled.div`
 
 const Content = styled.div`
     font-size: 2.5rem;
+`;
+
+const CommentWrite = styled.div`
+    display: flex;
+    width: 88vw;
+    margin-top: 1vw;
+    margin-bottom: 4vw;
+`;
+
+const CommentProfileImg = styled.img`
+    width: 6vw;
+    margin-right: 2vw;
+`;
+
+const TextInput = styled.input`
+    font-size: 2rem;
+
+    border: none;
+    background-color: inherit;
 `;
