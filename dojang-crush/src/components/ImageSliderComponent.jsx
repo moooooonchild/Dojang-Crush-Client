@@ -1,5 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import * as S from "./styles/imageSlider.styles";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -17,33 +18,18 @@ const ImageSlider = ({ images }) => {
     };
 
     return (
-        <SliderWrapper>
+        <S.SliderWrapper>
             <Slider {...settings}>
                 {images.map((img, index) => {
                     return (
-                        <Slide key={index}>
-                            <SlideImage src={img} />
-                        </Slide>
+                        <S.Slide key={index}>
+                            <S.SlideImage src={img} />
+                        </S.Slide>
                     );
                 })}
             </Slider>
-        </SliderWrapper>
+        </S.SliderWrapper>
     );
 };
 
 export default ImageSlider;
-
-const SliderWrapper = styled.div`
-    width: 100%;
-    margin: auto;
-`;
-
-const Slide = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
-const SlideImage = styled.img`
-    width: 80vw;
-`;
