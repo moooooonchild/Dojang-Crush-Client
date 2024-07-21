@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import CommentModal from "../components/CommentModal";
 import PostEditModal from "../components/PostEditModal";
 import PostDeleteModal from "../components/PostDeleteModal";
+import ImageSlider from "../components/ImageSliderComponent";
 
 import backIcon from "../assets/ui/back.svg";
 import calendarIcon from "../assets/ui/calendar.svg";
 import defaultProfile from "../assets/ui/defaultProfile.png";
 import defaultImage from "../assets/ui/defaultImage.png";
 import editBtn from "../assets/ui/menu-dots.svg";
-import { useState } from "react";
 
 const PostDetailPage = () => {
     const nav = useNavigate();
@@ -35,6 +36,9 @@ const PostDetailPage = () => {
         moreModalHandler(event);
         setIsDeleteModalOpen(!isDeleteModalOpen);
     };
+
+    const images = [defaultImage, defaultImage, defaultImage, defaultImage];
+    //TODO - 임시 이미지 배열로 api 연결 후 삭제
 
     return (
         <Container>
@@ -69,7 +73,7 @@ const PostDetailPage = () => {
                     </InfoArea>
                     <MoreBtn onClick={moreModalHandler} />
                 </ProfileArea>
-                <PostImg src={defaultImage} />
+                <ImageSlider images={images} />
                 <PostText>
                     I though we had a place, just our place, our home place, my
                     headspace Was you and I always, but that phase has been
@@ -159,6 +163,7 @@ const PostArea = styled.div`
     flex-direction: column;
     align-items: center;
     overflow-y: scroll;
+    width: 100%;
 `;
 
 const ProfileArea = styled.div`
@@ -203,10 +208,6 @@ const MoreBtn = styled.button`
     background-color: inherit;
     background-image: url(${editBtn});
     background-size: cover;
-`;
-
-const PostImg = styled.img`
-    width: 88vw;
 `;
 
 const PostText = styled.div`

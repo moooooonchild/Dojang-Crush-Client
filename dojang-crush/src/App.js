@@ -16,6 +16,7 @@ import ChangeNamePage from "./pages/ChangeName";
 import ChangeIDPWPage from "./pages/ChangeIDPW";
 import ChangeGroupNamePage from "./pages/ChangeGroupName";
 import WithdrawalPage from "./pages/Withdrawal";
+import TestPage from "./pages/TestPage";
 
 function App() {
     return (
@@ -45,6 +46,7 @@ function App() {
                     path="/changegroupname"
                     element={<ChangeGroupNamePage />}
                 ></Route>
+                <Route path="/test" element={<TestPage />}></Route>
             </Routes>
         </Container>
     );
