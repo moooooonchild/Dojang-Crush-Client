@@ -1,6 +1,6 @@
 import NavigationBar from "../components/NavigationBar";
 import PlaceComponent from "../components/PlaceComponent";
-import styled from "styled-components";
+import * as S from "./styles/wishDetail.styles";
 
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -38,17 +38,17 @@ const WishDetailPage = () => {
     };
 
     return (
-        <Container>
-            <Header>
-                <BackButton
+        <S.Container>
+            <S.Header>
+                <S.BackButton
                     src={backIcon}
                     onClick={onClickBackButton}
-                ></BackButton>
-                <Title>Wish List</Title>
-                <ThemeIcon src={iconMap[theme]} />
-            </Header>
+                ></S.BackButton>
+                <S.Title>Wish List</S.Title>
+                <S.ThemeIcon src={iconMap[theme]} />
+            </S.Header>
 
-            <WishList>
+            <S.WishList>
                 <PlaceComponent
                     place="장소1"
                     address="주소1"
@@ -58,64 +58,11 @@ const WishDetailPage = () => {
                 <PlaceComponent place="장소3" address="주소3" />
                 <PlaceComponent place="장소4" address="주소4" />
                 <PlaceComponent place="장소5" address="주소5" />
-            </WishList>
+            </S.WishList>
 
             <NavigationBar />
-        </Container>
+        </S.Container>
     );
 };
 
 export default WishDetailPage;
-
-const Container = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-
-    width: 100vw;
-    height: 100vh;
-`;
-
-const Header = styled.div`
-    display: flex;
-    justify-content: center; /* Title을 중앙에 배치 */
-    align-items: center;
-
-    position: relative;
-
-    width: 100vw;
-    margin: 8vw;
-`;
-
-const Title = styled.div`
-    font-size: 4rem;
-    font-weight: bold;
-`;
-
-const BackButton = styled.img`
-    position: absolute;
-    left: 8%;
-    top: 50%;
-    transform: translateY(-50%);
-
-    width: 4vw;
-`;
-
-const ThemeIcon = styled.img`
-    position: absolute;
-    right: 8%;
-    top: 50%;
-    transform: translateY(-50%);
-
-    width: 6vw;
-`;
-
-const WishList = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    overflow-y: auto;
-    flex: 1;
-    flex-wrap: wrap;
-    width: 100vw;
-`;
