@@ -1,6 +1,6 @@
 import * as S from "./styles/postDetail.styles";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import CommentModal from "../components/CommentModal";
 import PostEditModal from "../components/PostEditModal";
@@ -11,12 +11,22 @@ import backIcon from "../assets/ui/back.svg";
 import calendarIcon from "../assets/ui/calendar.svg";
 import defaultProfile from "../assets/ui/defaultProfile.png";
 import defaultImage from "../assets/ui/defaultImage.png";
+import { getComments } from "../api/comment";
 
 const PostDetailPage = () => {
+    const postId = useParams().id;
     const nav = useNavigate();
+
+    const [commentList, setCommentList] = useState(null);
     const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
     const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+    useEffect(() => {
+        getComments(postId)
+            .then((res) => setCommentList(res))
+            .catch((err) => console.log(err));
+    });
 
     const onClickBackButton = () => {
         nav(-1);
@@ -53,6 +63,7 @@ const PostDetailPage = () => {
             <CommentModal
                 isOpen={isCommentModalOpen}
                 modalHandler={commentModalHandler}
+                postId={postId}
             />
 
             <S.Header>

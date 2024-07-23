@@ -1,9 +1,11 @@
 import * as S from "./styles/commentModal.styles";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import profileImg from "../assets/ui/defaultProfile.png";
+import { postComments } from "../api/comment";
 
-const CommentModal = ({ isOpen, modalHandler }) => {
+const CommentModal = ({ isOpen, modalHandler, postId }) => {
+    const [myComments, setMyComments] = useState("");
     const containerRef = useRef(null);
     const initialHeightRef = useRef(window.innerHeight);
 
@@ -39,6 +41,24 @@ const CommentModal = ({ isOpen, modalHandler }) => {
             window.removeEventListener("resize", handleResize);
         };
     }, []);
+
+    const onChangesMyComments = (e) => {
+        const { value } = e.target;
+        setMyComments(value);
+    };
+
+    const onSubmitMyComments = async (e) => {
+        if (myComments.trim() === "") {
+            alert("내용을 입력해주세요.");
+        } else {
+            const data = {
+                content: myComments,
+                parentId: null, //NOTE - 추후 대댓글 기능 추가
+            };
+            await postComments(postId, data);
+            //window.location.reload();
+        }
+    };
 
     return (
         <S.Background
@@ -89,8 +109,12 @@ const CommentModal = ({ isOpen, modalHandler }) => {
                     </S.CommentArea>
                 </S.Comment>
                 <S.CommentWrite>
-                    <S.TextArea />
-                    <S.SendBtn />
+                    <S.TextArea
+                        type="text"
+                        value={myComments}
+                        onChange={onChangesMyComments}
+                    />
+                    <S.SendBtn onClick={onSubmitMyComments} />
                 </S.CommentWrite>
             </S.Container>
         </S.Background>
