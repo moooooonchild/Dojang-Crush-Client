@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import TopBarWithBack from "../components/TopBarWithBack";
 import React, { useState } from "react";
-import ModalComponent from "../components/ModalComponent";
+import { ModalComponent } from "../components/ModalComponent";
+import { useNavigate } from "react-router-dom";
 
 const ChangeNamePage = () => {
     const [name, setName] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -38,6 +40,8 @@ const ChangeNamePage = () => {
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
                 contentLabel="Change Name"
+                buttonText="완료"
+                buttonAction={() => navigate(-1)}
             >
                 정상적으로
                 <br />
