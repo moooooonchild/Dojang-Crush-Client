@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import TopBarWithBack from "../components/TopBarWithBack";
-import ModalComponent from "../components/ModalComponent";
+import { ModalComponent } from "../components/ModalComponent";
+import { useNavigate } from "react-router-dom";
 
 const ChangeGroupNamePage = () => {
     const [groupname, setGroupName] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleGroupNameChange = (e) => {
         setGroupName(e.target.value);
@@ -36,6 +38,8 @@ const ChangeGroupNamePage = () => {
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
                 contentLabel="Change Group Name"
+                buttonText="완료"
+                buttonAction={() => navigate(-1)}
             >
                 정상적으로
                 <br />
