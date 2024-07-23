@@ -1,19 +1,19 @@
 import NavigationBar from "../components/NavigationBar";
-import styled from "styled-components";
+import { CalendarIcon } from "../components/calendar/CalendarIcon";
+import { TitleComponent } from "../components/common/Title/TitleComponent";
 
 const TimelinePage = () => {
-    return (
-        <Container>
-            <NavigationBar />
-        </Container>
-    );
+  return (
+    <>
+      <TitleComponent
+        title='timeline'
+        isBackBtn={false}
+        RightIcon={() => <CalendarIcon />}
+        RightIconPath={"/calendar"}
+      />
+      <NavigationBar />
+    </>
+  );
 };
 
 export default TimelinePage;
-
-const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-`;
