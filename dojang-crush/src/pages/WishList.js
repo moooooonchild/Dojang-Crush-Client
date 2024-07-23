@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import * as S from "./styles/wishList.styles";
 import { useState } from "react";
 
 import PlaceComponent from "../components/PlaceComponent";
@@ -24,16 +24,16 @@ const WishListPage = () => {
     };
 
     return (
-        <Container>
+        <S.Container>
             {showList ? (
                 <>
-                    <Header>
-                        <Title>Wish List</Title>
-                        <ToTheme onClick={onClickThemeButton}>
+                    <S.Header>
+                        <S.Title>Wish List</S.Title>
+                        <S.ToTheme onClick={onClickThemeButton}>
                             테마별 보기
-                        </ToTheme>
-                    </Header>
-                    <PlaceList>
+                        </S.ToTheme>
+                    </S.Header>
+                    <S.PlaceList>
                         <PlaceComponent
                             place="장소1"
                             address="주소1"
@@ -43,18 +43,18 @@ const WishListPage = () => {
                         <PlaceComponent place="장소3" address="주소3" />
                         <PlaceComponent place="장소4" address="주소4" />
                         <PlaceComponent place="장소5" address="주소5" />
-                    </PlaceList>
+                    </S.PlaceList>
                 </>
             ) : (
                 <>
-                    <Header>
-                        <ToTheme onClick={onClickThemeButton}>
+                    <S.Header>
+                        <S.ToTheme onClick={onClickThemeButton}>
                             전체 보기
-                        </ToTheme>
-                        <Title>Wish List</Title>
-                    </Header>
+                        </S.ToTheme>
+                        <S.Title>Wish List</S.Title>
+                    </S.Header>
 
-                    <WishList>
+                    <S.WishList>
                         <ThemeComponent
                             themeKor="스포츠"
                             themeEng="sports"
@@ -105,68 +105,13 @@ const WishListPage = () => {
                             themeEng="shopping"
                             icon={shoppingIcon}
                         />
-                    </WishList>
+                    </S.WishList>
                 </>
             )}
 
             <NavigationBar />
-        </Container>
+        </S.Container>
     );
 };
 
 export default WishListPage;
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    width: 100vw;
-    height: 100vh;
-`;
-
-const Header = styled.div`
-    display: flex;
-    justify-content: center; /* Title을 중앙에 배치 */
-    align-items: center;
-    position: relative;
-
-    width: 100vw;
-    margin: 8vw;
-`;
-
-const Title = styled.div`
-    font-size: 4rem;
-    font-weight: bold;
-`;
-
-const ToTheme = styled.div`
-    position: absolute;
-    right: 6%;
-    top: 100%;
-
-    font-size: 2.3rem;
-    font-weight: bold;
-`;
-
-const PlaceList = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    overflow-y: auto;
-    flex: 1;
-    width: 100vw;
-`;
-
-const WishList = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    flex: 1;
-    flex-wrap: wrap;
-
-    overflow-y: auto;
-
-    width: 100vw;
-`;
