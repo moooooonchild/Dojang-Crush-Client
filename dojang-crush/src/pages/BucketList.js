@@ -1,6 +1,6 @@
 import NavigationBar from "../components/NavigationBar";
 import ThemeComponent from "../components/ThemeComponent";
-import styled from "styled-components";
+import * as S from "./styles/bucketList.styles";
 
 import sportsIcon from "../assets/theme/sports.svg";
 import gameIcon from "../assets/theme/game.svg";
@@ -15,9 +15,9 @@ import shoppingIcon from "../assets/theme/shopping.svg";
 
 const BucketListPage = () => {
     return (
-        <Container>
-            <Title>Bucket List</Title>
-            <BucketList>
+        <S.Container>
+            <S.Title>Bucket List</S.Title>
+            <S.BucketList>
                 <ThemeComponent
                     themeKor="스포츠"
                     themeEng="sports"
@@ -68,40 +68,11 @@ const BucketListPage = () => {
                     themeEng="shopping"
                     icon={shoppingIcon}
                 />
-            </BucketList>
+            </S.BucketList>
 
             <NavigationBar />
-        </Container>
+        </S.Container>
     );
 };
 
 export default BucketListPage;
-
-const Container = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-
-    overflow-y: scroll;
-
-    width: 100vw;
-    height: 100vh;
-`;
-
-const Title = styled.div`
-    margin: 8vw;
-    font-size: 4rem;
-    font-weight: bold;
-`;
-
-const BucketList = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    overflow-y: auto;
-
-    width: 100vw;
-
-    flex: 1;
-    flex-wrap: wrap;
-`;
