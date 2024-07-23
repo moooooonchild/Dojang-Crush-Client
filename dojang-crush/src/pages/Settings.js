@@ -4,8 +4,7 @@ import TopBarWithBack from "../components/TopBarWithBack";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as PersonUI } from "../assets/ui/person.svg";
 import { ReactComponent as EditIcon } from "../assets/ui/editicon.svg";
-import ModalComponent from "../components/ModalComponent";
-
+import { XModalComponent } from "../components/ModalComponent";
 const SettingPage = () => {
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -79,11 +78,11 @@ const SettingPage = () => {
                     회원 탈퇴
                 </WithdrawalBTN>
             </SettingBTNContainer>
-            <ModalComponent
+            <XModalComponent
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
                 contentLabel="Invite Code"
-            ></ModalComponent>
+            ></XModalComponent>
         </SettingPageWrapper>
     );
 };

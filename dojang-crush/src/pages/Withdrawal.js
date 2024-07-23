@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import TopBarWithBack from "../components/TopBarWithBack";
-import ModalComponent from "../components/ModalComponent";
+import { ModalComponent } from "../components/ModalComponent";
+import { useNavigate } from "react-router-dom";
 
 const WithdrawalPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -26,6 +28,8 @@ const WithdrawalPage = () => {
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
                 contentLabel="Withdrawal"
+                buttonText="확인"
+                buttonAction={() => navigate("/register")}
             >
                 정상적으로
                 <br />
