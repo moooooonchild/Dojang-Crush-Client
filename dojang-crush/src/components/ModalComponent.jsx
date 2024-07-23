@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
-const ModalComponent = ({ isOpen, onRequestClose, contentLabel, children }) => {
-    const navigate = useNavigate();
+export const XModalComponent = ({ isOpen, onRequestClose, contentLabel }) => {
     const [inviteCode, setInviteCode] = useState("초대 코드");
     const handleCopyClick = () => {
         navigator.clipboard
@@ -43,45 +42,59 @@ const ModalComponent = ({ isOpen, onRequestClose, contentLabel, children }) => {
                 },
             }}
         >
-            {contentLabel === "Invite Code" ? (
-                <InviteModalWrapper>
-                    <CloseButtonWrapper>
-                        <CloseButtonImage onClick={onRequestClose}>
-                            X
-                        </CloseButtonImage>
-                    </CloseButtonWrapper>
-                    <InviteCodeButtons>
-                        <InviteCode>{inviteCode}</InviteCode>
-                        <CopyButton onClick={handleCopyClick}>
-                            복사하기
-                        </CopyButton>
-                    </InviteCodeButtons>
-                </InviteModalWrapper>
-            ) : (
-                <ModalWrapper>
-                    <ModalText>{children}</ModalText>
-                    {contentLabel === "Sign Up" ? (
-                        <CloseButton onClick={onRequestClose}>
-                            뒤로가기
-                        </CloseButton>
-                    ) : contentLabel === "Withdrawal" ? (
-                        <CloseButton onClick={() => navigate("/register")}>
-                            완료
-                        </CloseButton>
-                    ) : (
-                        <CloseButton onClick={() => navigate(-1)}>
-                            완료
-                        </CloseButton>
-                    )}
-                </ModalWrapper>
-            )}
+            <ModalWrapper>
+                <CloseButtonWrapper>
+                    <CloseButtonImage onClick={onRequestClose}>
+                        X
+                    </CloseButtonImage>
+                </CloseButtonWrapper>
+                <InviteCodeButtons>
+                    <InviteCode>{inviteCode}</InviteCode>
+                    <CopyButton onClick={handleCopyClick}>복사하기</CopyButton>
+                </InviteCodeButtons>
+            </ModalWrapper>
         </Modal>
     );
 };
 
-export default ModalComponent;
+export const ModalComponent = ({
+    isOpen,
+    onRequestClose,
+    contentLabel,
+    children,
+    buttonText,
+    buttonAction,
+}) => {
+    return (
+        <Modal
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            contentLabel={contentLabel}
+            style={{
+                overlay: {
+                    backgroundColor: "rgba(0, 0, 0, 0.75)",
+                },
+                content: {
+                    top: "50%",
+                    left: "50%",
+                    right: "auto",
+                    bottom: "auto",
+                    marginRight: "-50%",
+                    transform: "translate(-50%, -50%)",
+                    padding: "2rem",
+                    borderRadius: "8px",
+                },
+            }}
+        >
+            <SmallModalWrapper>
+                <ModalText>{children}</ModalText>
+                <CloseButton onClick={buttonAction}>{buttonText}</CloseButton>
+            </SmallModalWrapper>
+        </Modal>
+    );
+};
 
-const InviteModalWrapper = styled.div`
+const ModalWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -132,7 +145,7 @@ const CopyButton = styled.button`
     color: #612d1c;
 `;
 
-const ModalWrapper = styled.div`
+const SmallModalWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;

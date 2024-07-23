@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import TopBarWithBack from "../components/TopBarWithBack";
-import ModalComponent from "../components/ModalComponent";
+import ModalComponent from "../components/XXXModalComponent";
+import { useNavigate } from "react-router-dom";
 
 const ChangeIDPWPage = () => {
     const [userID, setUserID] = useState("");
     const [userPW, setUserPW] = useState("");
     const [userPWConfirm, setUserPWConfirm] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleChangeID = (e) => setUserID(e.target.value);
     const handleChangePW = (e) => setUserPW(e.target.value);
@@ -41,12 +43,14 @@ const ChangeIDPWPage = () => {
                     />
                     <ChangePWInput
                         name="userPW"
+                        type="password"
                         placeholder="비밀번호 (영문,숫자 조합 8~16자)"
                         onChange={handleChangePW}
                         required
                     />
                     <ChangePWInput
                         name="userPW"
+                        type="password"
                         placeholder="비밀번호 확인"
                         onChange={handleChangePWConfirm}
                         required
@@ -58,6 +62,8 @@ const ChangeIDPWPage = () => {
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
                 contentLabel="Change ID/PW"
+                buttonText="완료"
+                buttonAction={() => navigate(-1)}
             >
                 정상적으로 <br /> 변경되었습니다.
             </ModalComponent>
