@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import TopBarWithBack from "../components/TopBarWithBack";
-import ModalComponent from "../components/XXXModalComponent";
 import { useNavigate } from "react-router-dom";
+import { ModalComponent } from "../components/ModalComponent";
 
 const ChangeIDPWPage = () => {
     const [userID, setUserID] = useState("");

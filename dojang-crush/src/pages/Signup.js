@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import TopBarWithBack from "../components/TopBarWithBack";
 import { ReactComponent as UploadButton } from "../assets/ui/photo_upload.svg";
+import { makeGroupapi, addGroupMember } from "../api/group";
+import { useNavigate } from "react-router-dom";
 
 const checkboxsvgString = `
 <svg width="28" height="28" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,9 +22,43 @@ const encodedCheckboxSvgString = `data:image/svg+xml;base64,${btoa(
 const encodedSvgString = `data:image/svg+xml;base64,${btoa(svgString)}`;
 
 const SignupPage = () => {
+    const [name, setName] = useState("");
+    const [groupImageUrl, setGroupImageUrl] = useState("");
+    const [groupcode, setGroupcode] = useState("");
+
+    const handleGroupName = (e) => setName(e.target.value);
+    const handleGroupImageUrl = (e) => setGroupImageUrl(e.target.value);
+    const handleGroupcode = (e) => setGroupcode(e.target.value);
+    const navigate = useNavigate();
+
     const [isGroupMember, setIsGroupMember] = useState(false);
     const [groupImage, setGroupImage] = useState(null);
     const fileInputRef = useRef(null);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!isGroupMember) {
+            try {
+                const data = await makeGroupapi(name, groupImageUrl);
+                console.log(data);
+                alert("그룹 생성이 완료되었습니다!");
+                navigate.push("/");
+            } catch (error) {
+                console.error(error.message);
+                alert("그룹 생성에 실패했습니다.");
+            }
+        } else {
+            try {
+                const data = await addGroupMember(groupcode);
+                console.log(data);
+                alert("그룹에 가입하였습니다!");
+                navigate.push("/");
+            } catch (error) {
+                console.error(error.message);
+                alert("그룹 가입에 실패했습니다");
+            }
+        }
+    };
 
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
@@ -46,6 +82,8 @@ const SignupPage = () => {
                     flexDirection: "column",
                     flexGrow: 1,
                 }}
+                method="POST"
+                onSubmit={handleSubmit}
             >
                 <FillContainer>
                     <ChoiceContainer>
@@ -64,6 +102,7 @@ const SignupPage = () => {
                             <GroupNameinput
                                 placeholder="그룹 코드를 붙여 넣으세요"
                                 required
+                                onChange={handleGroupcode}
                             />
                         </EnterInformation>
                     ) : (
@@ -76,34 +115,9 @@ const SignupPage = () => {
                                 <GroupNameinput
                                     placeholder="그룹명을 작성해주세요"
                                     required
+                                    onChange={handleGroupName}
                                 />
                             </EnterInformation>
-
-                            <GroupImageContainer>
-                                <GroupImageAddText>
-                                    그룹 이미지를 추가해주세요
-                                </GroupImageAddText>
-                                {groupImage ? (
-                                    <GroupImagePreview
-                                        src={groupImage}
-                                        alt="Group"
-                                    />
-                                ) : (
-                                    <>
-                                        <GroupImageAddButton
-                                            onClick={handleClick}
-                                        >
-                                            <GroupImgageUpload />
-                                        </GroupImageAddButton>
-                                        <IMGBox
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={handleImageUpload}
-                                            ref={fileInputRef}
-                                        />
-                                    </>
-                                )}
-                            </GroupImageContainer>
                         </MakeGroupWrapper>
                     )}
 
