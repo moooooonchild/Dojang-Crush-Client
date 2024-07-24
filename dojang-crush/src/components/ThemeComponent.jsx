@@ -1,45 +1,12 @@
-import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import * as S from "./styles/themeComponent.styles";
 
 const BucketComponent = ({ themeKor, themeEng, icon }) => {
     return (
-        <Container to={`./${themeEng}`}>
-            <Icon src={icon} />
-            <Theme>{`#${themeKor}`}</Theme>
-        </Container>
+        <S.Container to={`./${themeEng}`}>
+            <S.Icon src={icon} />
+            <S.Theme>{`#${themeKor}`}</S.Theme>
+        </S.Container>
     );
 };
 
 export default BucketComponent;
-
-const Container = styled(NavLink)`
-    align-self: center;
-    position: relative;
-
-    width: 40vw;
-    margin-bottom: 6vw;
-
-    background-color: #dba290;
-
-    text-decoration: none;
-    aspect-ratio: 1;
-    flex-shrink: 0;
-`;
-
-const Icon = styled.img`
-    position: absolute;
-    width: 8vw;
-    margin: 2vw;
-`;
-
-const Theme = styled.div`
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    font-size: 4rem;
-    text-align: center;
-    color: #612d1c;
-    font-weight: bold;
-`;
