@@ -3,9 +3,14 @@ import styled from "styled-components";
 export const Container = styled.button`
     position: relative;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
     width: 90vw;
     height: 23vh;
     margin-bottom: 4vw;
+    padding: 1vh 4vw;
 
     border: none;
     background-color: #dba290;
@@ -16,34 +21,25 @@ export const Container = styled.button`
 `;
 
 export const PlaceImg = styled.img`
-    position: absolute;
-    top: 8%;
-    left: 50%;
-    transform: translateX(-50%);
-
-    width: 82.1vw;
+    width: 82vw;
     height: 13vh;
 
     object-fit: cover;
 `;
 
 export const Name = styled.div`
-    position: absolute;
-    top: 69%;
-    left: 4%;
-
     font-size: 2rem;
     font-weight: bold;
     color: #612d1c;
 `;
 
 export const Address = styled.div`
-    position: absolute;
-    top: 82%;
-    left: 4%;
+    white-space: nowrap;
+    overflow-x: scroll;
 
+    width: 75vw;
     font-size: 2rem;
-    font-weight: bold;
+    text-align: left;
     color: #612d1c;
 `;
 
