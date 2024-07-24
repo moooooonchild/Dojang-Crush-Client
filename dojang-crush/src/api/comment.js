@@ -28,6 +28,7 @@ export const getComments = async (postId) => {
                     parentCId: 23,
                     writer: {
                         memberId: 1,
+                        name: "김이펍",
                         groupId: 1,
                         profileImageUrl:
                             "https://s3.ap-northeast-2.amazonaws.com/dd/pdd/image/d953fdec-b85f-4ce9-b7f5-7a",
@@ -43,6 +44,7 @@ export const getComments = async (postId) => {
                     parentCId: null,
                     writer: {
                         memberId: 1,
+                        name: "김이삭",
                         groupId: 1,
                         profileImageUrl:
                             "https://s3.ap-northeast-2.amazonaws.com/dd/pdd/image/d953fdec-b85f-4ce9-b7f5-7a",

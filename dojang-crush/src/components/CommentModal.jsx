@@ -91,7 +91,7 @@ const CommentModal = ({ isOpen, modalHandler, postId }) => {
                                         }
                                     />
                                     <S.CommentArea>
-                                        <S.Name>{`ID_${c.writer.memberId}`}</S.Name>
+                                        <S.Name>{`${c.writer.name}`}</S.Name>
                                         <S.CommentTime>
                                             {c.createdDate}
                                         </S.CommentTime>

@@ -105,20 +105,20 @@ const PostDetailPage = () => {
                         </S.ProfileArea>
                         <ImageSlider images={postDetail.imageUrl} />
                         <S.PostText>{postDetail.content}</S.PostText>
-                        <S.CommentArea>
+                        <S.PostTime>{postDetail.createdDate}</S.PostTime>
+                        <S.CommentArea onClick={commentModalHandler}>
                             <S.RowLine />
-                            <S.PostTime>{postDetail.createdDate}</S.PostTime>
 
                             <S.Comment>
-                                <S.NickName>{`ID_${commentList[0].writer.memberId}`}</S.NickName>
+                                <S.NickName>{`${commentList[0].writer.name}`}</S.NickName>
                                 <S.Content>{commentList[0].content}</S.Content>
                             </S.Comment>
                             <S.Comment>
-                                <S.NickName>{`ID_${commentList[1].writer.memberId}`}</S.NickName>
+                                <S.NickName>{`${commentList[1].writer.name}`}</S.NickName>
                                 <S.Content>{commentList[1].content}</S.Content>
                             </S.Comment>
 
-                            <S.CommentWrite onClick={commentModalHandler}>
+                            <S.CommentWrite>
                                 <S.CommentProfileImg src={defaultProfile} />
                                 <S.TextInput placeholder="댓글 달기" />
                             </S.CommentWrite>
