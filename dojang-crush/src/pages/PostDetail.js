@@ -11,6 +11,8 @@ import backIcon from "../assets/ui/back.svg";
 import calendarIcon from "../assets/ui/calendar.svg";
 import defaultProfile from "../assets/ui/defaultProfile.png";
 import defaultImage from "../assets/ui/defaultImage.png";
+
+import { getPostDetail } from "../api/post";
 import { getComments } from "../api/comment";
 
 const PostDetailPage = () => {
@@ -18,15 +20,23 @@ const PostDetailPage = () => {
     const nav = useNavigate();
 
     const [commentList, setCommentList] = useState(null);
+    const [postDetail, setPostDetail] = useState(null);
     const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
     const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     useEffect(() => {
+        getPostDetail(postId)
+            .then((res) => setPostDetail(res))
+            .then(console.log(postDetail))
+            .catch((err) => console.log(err));
+    }, []);
+
+    useEffect(() => {
         getComments(postId)
             .then((res) => setCommentList(res))
             .catch((err) => console.log(err));
-    });
+    }, []);
 
     const onClickBackButton = () => {
         nav(-1);
@@ -51,72 +61,71 @@ const PostDetailPage = () => {
 
     return (
         <S.Container>
-            <PostEditModal
-                isOpen={isMoreModalOpen}
-                modalHandler={moreModalHandler}
-                deleteModalHandler={deleteModalHandler}
-            />
-            <PostDeleteModal
-                isOpen={isDeleteModalOpen}
-                modalHandler={deleteModalHandler}
-            />
-            <CommentModal
-                isOpen={isCommentModalOpen}
-                modalHandler={commentModalHandler}
-                postId={postId}
-            />
+            {postDetail && (
+                <>
+                    <PostEditModal
+                        isOpen={isMoreModalOpen}
+                        modalHandler={moreModalHandler}
+                        deleteModalHandler={deleteModalHandler}
+                    />
+                    <PostDeleteModal
+                        isOpen={isDeleteModalOpen}
+                        modalHandler={deleteModalHandler}
+                    />
+                    <CommentModal
+                        isOpen={isCommentModalOpen}
+                        modalHandler={commentModalHandler}
+                        postId={postId}
+                    />
 
-            <S.Header>
-                <S.BackButton src={backIcon} onClick={onClickBackButton} />
-                <S.Title>Timeline</S.Title>
-                <S.CalendarButton
-                    src={calendarIcon}
-                    onClick={onClickBackButton} //TODO - 캘린더 창 이동으로 수정해야함
-                />
-            </S.Header>
-            <S.PostArea>
-                <S.ProfileArea>
-                    <S.ProfileImg src={defaultProfile} />
-                    <S.InfoArea>
-                        <S.Name>이화연</S.Name>
-                        <S.Tag>#테마, #장소</S.Tag>
-                    </S.InfoArea>
-                    <S.MoreBtn onClick={moreModalHandler} />
-                </S.ProfileArea>
-                <ImageSlider images={images} />
-                <S.PostText>
-                    I though we had a place, just our place, our home place, my
-                    headspace Was you and I always, but that phase has been
-                    phased in our place I see it on your face, a small trace, a
-                    blank slate, we been erased But if we're way too faded to
-                    drive, you can stay one more night We said we'd both love
-                    higher than we knew we could go But still the hardest part
-                    is knowing when to let go You wanted to go higher, higher,
-                    higher Burn too bright, now the fire's gone, watch it all
-                    fall down, Babylon
-                </S.PostText>
-                <S.RowLine />
-                <S.PostTime>1분 전</S.PostTime>
-                <S.CommentArea>
-                    <S.Comment>
-                        <S.NickName>해피캣</S.NickName>
-                        <S.Content>해피해피해피~</S.Content>
-                    </S.Comment>
-                    <S.Comment>
-                        <S.NickName>해피캣</S.NickName>
-                        <S.Content>해피해피해피~</S.Content>
-                    </S.Comment>
-                    <S.Comment>
-                        <S.NickName>해피캣</S.NickName>
-                        <S.Content>해피해피해피~</S.Content>
-                    </S.Comment>
+                    <S.Header>
+                        <S.BackButton
+                            src={backIcon}
+                            onClick={onClickBackButton}
+                        />
+                        <S.Title>Timeline</S.Title>
+                        <S.CalendarButton
+                            src={calendarIcon}
+                            onClick={onClickBackButton} //TODO - 캘린더 창 이동으로 수정해야함
+                        />
+                    </S.Header>
+                    <S.PostArea>
+                        <S.ProfileArea>
+                            <S.ProfileImg
+                                src={
+                                    postDetail.writer.profileImageUrl ||
+                                    defaultProfile
+                                }
+                            />
+                            <S.InfoArea>
+                                <S.Name>{postDetail.writer.name}</S.Name>
+                                <S.Tag>{`${postDetail.theme} ${postDetail.placeTag}`}</S.Tag>
+                            </S.InfoArea>
+                            <S.MoreBtn onClick={moreModalHandler} />
+                        </S.ProfileArea>
+                        <ImageSlider images={postDetail.imageUrl} />
+                        <S.PostText>{postDetail.content}</S.PostText>
+                        <S.CommentArea>
+                            <S.RowLine />
+                            <S.PostTime>{postDetail.createdDate}</S.PostTime>
 
-                    <S.CommentWrite onClick={commentModalHandler}>
-                        <S.CommentProfileImg src={defaultProfile} />
-                        <S.TextInput placeholder="댓글 달기" />
-                    </S.CommentWrite>
-                </S.CommentArea>
-            </S.PostArea>
+                            <S.Comment>
+                                <S.NickName>{`ID_${commentList[0].writer.memberId}`}</S.NickName>
+                                <S.Content>{commentList[0].content}</S.Content>
+                            </S.Comment>
+                            <S.Comment>
+                                <S.NickName>{`ID_${commentList[1].writer.memberId}`}</S.NickName>
+                                <S.Content>{commentList[1].content}</S.Content>
+                            </S.Comment>
+
+                            <S.CommentWrite onClick={commentModalHandler}>
+                                <S.CommentProfileImg src={defaultProfile} />
+                                <S.TextInput placeholder="댓글 달기" />
+                            </S.CommentWrite>
+                        </S.CommentArea>
+                    </S.PostArea>
+                </>
+            )}
         </S.Container>
     );
 };
