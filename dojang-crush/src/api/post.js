@@ -39,7 +39,7 @@ export const getPostDetail = async (postId) => {
     }
 };
 
-export const deletePosts = async (postId) => {
+export const deletePost = async (postId) => {
     try {
         const res = client.delete(`/posts/all/${postId}`);
         console.log(res.data);
