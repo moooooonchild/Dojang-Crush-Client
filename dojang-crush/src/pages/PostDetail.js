@@ -61,7 +61,7 @@ const PostDetailPage = () => {
 
     return (
         <S.Container>
-            {postDetail && (
+            {postDetail && commentList && (
                 <>
                     <PostEditModal
                         isOpen={isMoreModalOpen}
@@ -93,12 +93,12 @@ const PostDetailPage = () => {
                         <S.ProfileArea>
                             <S.ProfileImg
                                 src={
-                                    postDetail.writer.profileImageUrl ||
+                                    postDetail.writerDto.profileImageUrl ||
                                     defaultProfile
                                 }
                             />
                             <S.InfoArea>
-                                <S.Name>{postDetail.writer.name}</S.Name>
+                                <S.Name>{postDetail.writerDto.name}</S.Name>
                                 <S.Tag>{`${postDetail.theme} ${postDetail.placeTag}`}</S.Tag>
                             </S.InfoArea>
                             <S.MoreBtn onClick={moreModalHandler} />

@@ -1,6 +1,7 @@
 import client from ".";
 
 export const postComments = async (postId, data) => {
+    //NOTE - 500 서버 에러
     try {
         const res = await client.post(`/comments/${postId}`, data);
         console.log(res);
@@ -10,50 +11,11 @@ export const postComments = async (postId, data) => {
 };
 
 export const getComments = async (postId) => {
+    // 작동 ok
     try {
-        //FIXME - const res = await client.get(`/comments/${postId}`);
-        //console.log(res);
-        //return res.data;
-
-        const res = {
-            postId: 67,
-            commentList: [
-                {
-                    commentId: 33,
-                    postId: 67,
-                    content: "여기서 우리 재밌게 놀았지~",
-                    createdDate: "2024-07-09",
-                    modifiedDate: "2024-07-10",
-                    cDepth: 1,
-                    parentCId: 23,
-                    writer: {
-                        memberId: 1,
-                        name: "김이펍",
-                        groupId: 1,
-                        profileImageUrl:
-                            "https://s3.ap-northeast-2.amazonaws.com/dd/pdd/image/d953fdec-b85f-4ce9-b7f5-7a",
-                    },
-                },
-                {
-                    commentId: 23,
-                    postId: 67,
-                    content: "OO 볼링장 기억나?",
-                    createdDate: "2024-07-09",
-                    modifiedDate: "2024-07-10",
-                    cDepth: 1,
-                    parentCId: null,
-                    writer: {
-                        memberId: 1,
-                        name: "김이삭",
-                        groupId: 1,
-                        profileImageUrl:
-                            "https://s3.ap-northeast-2.amazonaws.com/dd/pdd/image/d953fdec-b85f-4ce9-b7f5-7a",
-                    },
-                },
-            ],
-        };
-
-        return res.commentList;
+        const res = await client.get(`/comments/${postId}`);
+        console.log(res);
+        return res.data.commentList;
     } catch (err) {
         console.log(err);
     }
