@@ -1,6 +1,7 @@
 import * as S from "./styles/placeComponent.styles";
 import placeDefault from "../assets/ui/defaultImage.png";
 import HeartIcon from "../assets/ui/heart.svg";
+import { Map } from "react-kakao-maps-sdk";
 
 const PlaceComponent = ({ place, address, id, users = null }) => {
     const onClickPlaceComponent = (id) => {
@@ -9,7 +10,11 @@ const PlaceComponent = ({ place, address, id, users = null }) => {
 
     return (
         <S.Container onClick={() => onClickPlaceComponent(id)}>
-            <S.PlaceImg src={placeDefault} />
+            <Map
+                center={{ lat: 37.56174, lng: 126.946855 }}
+                style={{ width: "82vw", height: "13vh" }}
+                level={3}
+            />
             <S.Name>{place}</S.Name>
             <S.Address>{address}</S.Address>
             {users ? (

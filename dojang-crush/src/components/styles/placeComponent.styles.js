@@ -20,7 +20,7 @@ export const Container = styled.button`
     flex-shrink: 0;
 `;
 
-export const PlaceImg = styled.img`
+export const PlaceImg = styled(Map)`
     width: 82vw;
     height: 13vh;
 
