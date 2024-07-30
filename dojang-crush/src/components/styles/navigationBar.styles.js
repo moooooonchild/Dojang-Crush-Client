@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom";
-import styled from "styled-components";
+import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const NavBar = styled.div`
     display: flex;
@@ -10,6 +10,9 @@ export const NavBar = styled.div`
 
     margin-top: auto;
     padding: 0 5vw;
+
+    position: fixed;
+    bottom: 0;
 `;
 
 export const NavItem = styled(NavLink)`

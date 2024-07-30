@@ -1,6 +1,6 @@
 import * as S from "./styles/themeComponent.styles";
 
-const BucketComponent = ({ themeKor, themeEng, icon }) => {
+const ThemeComponent = ({ themeKor, themeEng, icon }) => {
     return (
         <S.Container to={`./${themeEng}`}>
             <S.Icon src={icon} />
@@ -9,4 +9,4 @@ const BucketComponent = ({ themeKor, themeEng, icon }) => {
     );
 };
 
-export default BucketComponent;
+export default ThemeComponent;

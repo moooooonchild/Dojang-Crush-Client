@@ -1,3 +1,4 @@
+
 import * as S from "./styles/commentModal.styles";
 import { useEffect, useRef, useState } from "react";
 
@@ -20,13 +21,13 @@ const CommentModal = ({ isOpen, modalHandler, postId }) => {
     useEffect(() => {
         //모달 띄웠을 때 스크롤 비활성화
         if (isOpen) {
-            document.body.style.overflow = "hidden";
+            document.body.style.overflow = 'hidden';
         } else {
-            document.body.style.overflow = "unset";
+            document.body.style.overflow = 'unset';
         }
 
         return () => {
-            document.body.style.overflow = "unset";
+            document.body.style.overflow = 'unset';
         };
     }, [isOpen]);
 
@@ -41,14 +42,14 @@ const CommentModal = ({ isOpen, modalHandler, postId }) => {
                 containerRef.current.style.bottom = `${vhValue}vh`;
             } else {
                 // 키보드가 내려갈 때
-                containerRef.current.style.bottom = "0";
+                containerRef.current.style.bottom = '0';
             }
         };
 
-        window.addEventListener("resize", handleResize);
+        window.addEventListener('resize', handleResize);
 
         return () => {
-            window.removeEventListener("resize", handleResize);
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
 
@@ -72,7 +73,7 @@ const CommentModal = ({ isOpen, modalHandler, postId }) => {
 
     return (
         <S.Background
-            style={{ display: isOpen ? "flex" : "none" }}
+            style={{ display: isOpen ? 'flex' : 'none' }}
             onClick={modalHandler}
         >
             <S.Container
