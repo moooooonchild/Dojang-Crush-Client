@@ -1,7 +1,7 @@
-import * as S from "./styles/commentModal.styles";
-import { useEffect, useRef } from "react";
+import * as S from './styles/commentModal.styles';
+import { useEffect, useRef } from 'react';
 
-import profileImg from "../assets/ui/defaultProfile.png";
+import profileImg from '../assets/ui/defaultProfile.png';
 
 const CommentModal = ({ isOpen, modalHandler }) => {
     const containerRef = useRef(null);
@@ -9,13 +9,13 @@ const CommentModal = ({ isOpen, modalHandler }) => {
 
     useEffect(() => {
         if (isOpen) {
-            document.body.style.overflow = "hidden";
+            document.body.style.overflow = 'hidden';
         } else {
-            document.body.style.overflow = "unset";
+            document.body.style.overflow = 'unset';
         }
 
         return () => {
-            document.body.style.overflow = "unset";
+            document.body.style.overflow = 'unset';
         };
     }, [isOpen]);
 
@@ -29,20 +29,20 @@ const CommentModal = ({ isOpen, modalHandler }) => {
                 containerRef.current.style.bottom = `${vhValue}vh`;
             } else {
                 // 키보드가 내려갈 때
-                containerRef.current.style.bottom = "0";
+                containerRef.current.style.bottom = '0';
             }
         };
 
-        window.addEventListener("resize", handleResize);
+        window.addEventListener('resize', handleResize);
 
         return () => {
-            window.removeEventListener("resize", handleResize);
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
 
     return (
         <S.Background
-            style={{ display: isOpen ? "flex" : "none" }}
+            style={{ display: isOpen ? 'flex' : 'none' }}
             onClick={modalHandler}
         >
             <S.Container

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.button`
     position: relative;
@@ -20,7 +20,7 @@ export const Container = styled.button`
     flex-shrink: 0;
 `;
 
-export const PlaceImg = styled(Map)`
+export const PlaceImg = styled.img`
     width: 82vw;
     height: 13vh;
 
