@@ -1,7 +1,11 @@
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { deletePost } from "../api/post";
 
 const PostDeleteModal = ({ isOpen, modalHandler }) => {
+    const nav = useNavigate();
+    const postId = useRef();
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden";
@@ -14,6 +18,13 @@ const PostDeleteModal = ({ isOpen, modalHandler }) => {
         };
     }, [isOpen]);
 
+    const onClickDeleteBtn = () => {
+        deletePost(postId)
+            .then(alert("게시글 삭제 완료"))
+            .then(nav(-1))
+            .catch((err) => console.log(err));
+    };
+
     return (
         <Background
             style={{ display: isOpen ? "flex" : "none" }}
@@ -25,7 +36,7 @@ const PostDeleteModal = ({ isOpen, modalHandler }) => {
                     <br />
                     삭제하시겠습니까?
                 </Text>
-                <DeleteBtn>삭제하기</DeleteBtn>
+                <DeleteBtn onClick={onClickDeleteBtn}>삭제하기</DeleteBtn>
             </Container>
         </Background>
     );
