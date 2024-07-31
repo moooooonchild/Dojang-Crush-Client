@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { RiKakaoTalkFill } from "react-icons/ri";
-import { useNavigate, useLocation } from "react-router-dom";
-import { ReactComponent as LogoSVG } from "../assets/logo/LOGO.svg";
-import { ReactComponent as LogoText } from "../assets/logo/도장깨기.svg";
-import client from "../api";
-import axios from "axios";
-import Redirection from "./Redirection";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { RiKakaoTalkFill } from 'react-icons/ri';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { ReactComponent as LogoSVG } from '../assets/logo/LOGO.svg';
+import { ReactComponent as LogoText } from '../assets/logo/도장깨기.svg';
+import client from '../api';
+import axios from 'axios';
+import Redirection from './Redirection';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const query = new URLSearchParams(location.search);
-    const code = query.get("code");
+    const code = query.get('code');
 
     const handleKakaoLogin = () => {
         const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code`;

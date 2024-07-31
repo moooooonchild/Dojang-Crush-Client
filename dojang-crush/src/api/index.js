@@ -1,12 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
 
 const client = axios.create({
     baseURL: process.env.REACT_APP_SERVER_URL,
     withCredentials: true,
 });
 
-const token = localStorage.getItem("token");
-console.log("현재 로컬스토리지 토큰", token);
+const token = localStorage.getItem('token');
+console.log('현재 로컬스토리지 토큰', token);
 /*
 if (token) {
     client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -20,7 +20,7 @@ if (token) {
 
 */
 
-client.defaults.headers.common["Authorization"] = token
+client.defaults.headers.common['Authorization'] = token
     ? `Bearer ${token}`
     : null;
 
