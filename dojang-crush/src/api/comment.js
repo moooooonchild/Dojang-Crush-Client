@@ -1,6 +1,7 @@
 import client from ".";
 
 export const postComments = async (postId, data) => {
+    //NOTE - 500 서버 에러
     try {
         const res = await client.post(`/comments/${postId}`, data);
         console.log(res);
@@ -10,10 +11,11 @@ export const postComments = async (postId, data) => {
 };
 
 export const getComments = async (postId) => {
+    // 작동 ok
     try {
         const res = await client.get(`/comments/${postId}`);
         console.log(res);
-        return res.data;
+        return res.data.commentList;
     } catch (err) {
         console.log(err);
     }

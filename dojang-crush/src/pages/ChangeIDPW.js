@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import TopBarWithBack from "../components/TopBarWithBack";
-import { useNavigate } from "react-router-dom";
-import { ModalComponent } from "../components/ModalComponent";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import TopBarWithBack from '../components/TopBarWithBack';
+import { ModalComponent } from '../components/ModalComponent';
+import { useNavigate } from 'react-router-dom';
 
 const ChangeIDPWPage = () => {
-    const [userID, setUserID] = useState("");
-    const [userPW, setUserPW] = useState("");
-    const [userPWConfirm, setUserPWConfirm] = useState("");
+    const [userID, setUserID] = useState('');
+    const [userPW, setUserPW] = useState('');
+    const [userPWConfirm, setUserPWConfirm] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -18,11 +18,11 @@ const ChangeIDPWPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (userPW !== userPWConfirm) {
-            alert("비밀번호가 일치하지 않습니다.");
+            alert('비밀번호가 일치하지 않습니다.');
         } else if (userID.length > 15 || userPW.length > 15)
-            alert("아이디/비밀번호는 최대 15자 이하이어야 합니다.");
+            alert('아이디/비밀번호는 최대 15자 이하이어야 합니다.');
         else if (userID.length < 8 || userPW.length < 8)
-            alert("아이디/비밀번호는는 최소 8자 이상이어야 합니다.");
+            alert('아이디/비밀번호는는 최소 8자 이상이어야 합니다.');
         else {
             setIsModalOpen(true);
         }

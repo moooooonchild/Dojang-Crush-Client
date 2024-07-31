@@ -99,6 +99,7 @@ export const MoreBtn = styled.button`
 `;
 
 export const PostText = styled.div`
+    width: 100%;
     padding: 4vw 6vw;
     font-size: 2rem;
 `;
@@ -120,6 +121,8 @@ export const CommentArea = styled.div`
     display: flex;
     flex-direction: column;
     align-items: baseline;
+    position: absolute;
+    bottom: 0;
 `;
 
 export const Comment = styled.div`

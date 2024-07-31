@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 export const Container = styled(NavLink)`
+    display: flex;
     align-self: center;
     position: relative;
 
@@ -22,11 +23,12 @@ export const Icon = styled.img`
 `;
 
 export const Theme = styled.div`
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    width: 100%;
+    height: 100%;
     font-size: 4rem;
     text-align: center;
     color: #612d1c;
