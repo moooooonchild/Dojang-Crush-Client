@@ -33,6 +33,9 @@ const Redirection = () => {
                     const token = JSON.stringify(response.data); // 토큰 추출
                     const pureToken = token.split(' ')[1];
                     console.log(pureToken);
+                    client.defaults.headers.common[
+                        'Authorization'
+                    ] = `Bearer ${pureToken}`;
                     localStorage.setItem('token', pureToken);
                     console.log('로그인 성공, 토큰 저장:', pureToken);
 
