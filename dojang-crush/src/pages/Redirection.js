@@ -30,7 +30,7 @@ const Redirection = () => {
                 console.log('응답 데이터:', response.data);
 
                 if (response && response.status === 200 && response.data) {
-                    const token = JSON.stringify(response.data); // 토큰 추출
+                    const token = response.data.data; // 토큰 추출
                     const pureToken = token.split(' ')[1];
                     console.log(pureToken);
                     client.defaults.headers.common[
