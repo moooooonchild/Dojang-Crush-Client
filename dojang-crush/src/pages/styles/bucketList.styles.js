@@ -7,9 +7,6 @@ export const Container = styled.div`
     align-items: center;
 
     overflow-y: scroll;
-
-    width: 100vw;
-    height: 100vh;
 `;
 
 export const Title = styled.div`
@@ -21,7 +18,7 @@ export const Title = styled.div`
 export const BucketList = styled.div`
     display: flex;
     justify-content: space-evenly;
-    overflow-y: auto;
+    //overflow-y: auto;
 
     width: 100vw;
 
