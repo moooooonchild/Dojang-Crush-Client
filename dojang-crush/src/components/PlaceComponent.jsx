@@ -11,9 +11,10 @@ import {
     getGroupHeart,
 } from '../api/place';
 
-const PlaceComponent = ({ place, address, mapId, placeId, users = null }) => {
+const PlaceComponent = ({ place, address, mapId, placeId }) => {
     const [coord, setCoord] = useState(null);
     const [heart, setHeart] = useState(false);
+    const [users, setUsers] = useState(null);
 
     useEffect(() => {
         // 주소-좌표 변환 객체를 생성합니다
@@ -30,6 +31,11 @@ const PlaceComponent = ({ place, address, mapId, placeId, users = null }) => {
         });
     }, []);
 
+    // useEffect(()=>{
+    //     getGroupHeart(placeId)
+    //         .then((res)=> setUsers())
+    // })
+
     useEffect(() => {
         getLikedPlaces(placeId)
             .then((res) => setHeart(res))
@@ -45,7 +51,6 @@ const PlaceComponent = ({ place, address, mapId, placeId, users = null }) => {
 
         const data = {
             placeId: placeId,
-            memberId: 6, //api 수정 후 삭제
         };
 
         if (heart) {

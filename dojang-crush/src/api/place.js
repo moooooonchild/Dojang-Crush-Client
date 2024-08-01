@@ -7,7 +7,6 @@ export const getPlaces = async (themeId) => {
     try {
         const encodedThemeId = encodeURIComponent(themeId);
         const res = await client.get(`/place/${encodedThemeId}`);
-        console.log(res.data);
         return res.data;
     } catch (err) {
         console.log(err);
@@ -49,7 +48,11 @@ export const getAllPlaces = async () => {
 
 export const postHeart = async (data) => {
     try {
-        const res = await client.post(`/wishlist`, data);
+        const res = await client.post(`/wishlist`, data, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
         console.log(res.data);
     } catch (err) {
         console.log(err);
@@ -58,7 +61,12 @@ export const postHeart = async (data) => {
 
 export const deleteHeart = async (data) => {
     try {
-        const res = await client.delete(`/wishlist`, { data });
+        const res = await client.delete(`/wishlist`, {
+            data: data,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
         console.log(res.data);
     } catch (err) {
         console.log(err);
@@ -70,7 +78,8 @@ export const getGroupHeart = async (placeId) => {
         const memberInfo = await getMemberInfo();
         const groupId = memberInfo.group.groupId;
         const res = await client.get(`/wishlist/${placeId}/${groupId}`);
-        console.log(res);
+        //console.log(res);
+        return res.data.likePlaces;
     } catch (err) {
         console.log(err);
     }
