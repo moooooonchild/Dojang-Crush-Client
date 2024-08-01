@@ -4,14 +4,13 @@ import client from '.';
 const apiUrl = process.env.REACT_APP_SERVER_URL;
 
 export const makeGroupapi = async (name) => {
-    const formData = new FormData();
-    formData.append('groupName', name);
     const data = { groupName: name };
     try {
         console.log(
             '현재 axios 인스턴스의 Authorization 헤더:',
             client.defaults.headers.common['Authorization']
         );
+
         const response = await client.post(`/group`, data);
 
         return response.data;

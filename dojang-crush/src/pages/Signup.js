@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
-import styled from "styled-components";
-import TopBarWithBack from "../components/TopBarWithBack";
-import { ReactComponent as UploadButton } from "../assets/ui/photo_upload.svg";
-import { makeGroupapi, addGroupMember, getMember } from "../api/group";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from 'react';
+import styled from 'styled-components';
+import TopBarWithBack from '../components/TopBarWithBack';
+import { ReactComponent as UploadButton } from '../assets/ui/photo_upload.svg';
+import { makeGroupapi, addGroupMember, getMember } from '../api/group';
+import { useNavigate } from 'react-router-dom';
 
 const checkboxsvgString = `
 <svg width="28" height="28" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,9 +22,9 @@ const encodedCheckboxSvgString = `data:image/svg+xml;base64,${btoa(
 const encodedSvgString = `data:image/svg+xml;base64,${btoa(svgString)}`;
 
 const SignupPage = () => {
-    const [name, setName] = useState("");
-    const [groupImageUrl, setGroupImageUrl] = useState("");
-    const [groupcode, setGroupcode] = useState("");
+    const [name, setName] = useState('');
+    const [groupImageUrl, setGroupImageUrl] = useState('');
+    const [groupcode, setGroupcode] = useState('');
 
     const handleGroupName = (e) => setName(e.target.value);
     const handleGroupImageUrl = (e) => setGroupImageUrl(e.target.value);
@@ -42,21 +42,21 @@ const SignupPage = () => {
             try {
                 const data = await makeGroupapi(name, groupImageUrl);
                 console.log(data);
-                alert("그룹 생성이 완료되었습니다!");
-                navigate.push("/");
+                alert('그룹 생성이 완료되었습니다!');
+                navigate('/');
             } catch (error) {
                 console.error(error.message);
-                alert("그룹 생성에 실패했습니다.");
+                alert('그룹 생성에 실패했습니다.');
             }
         } else {
             try {
                 const data = await addGroupMember(groupcode);
                 console.log(data);
-                alert("그룹에 가입하였습니다!");
-                navigate.push("/");
+                alert('그룹에 가입하였습니다!');
+                navigate('/');
             } catch (error) {
                 console.error(error.message);
-                alert("그룹 가입에 실패했습니다");
+                alert('그룹 가입에 실패했습니다');
             }
         }
     };
@@ -77,11 +77,11 @@ const SignupPage = () => {
     return (
         <SignupPageWrapper>
             <button onClick={() => console.log(getMember())}>클릭</button>
-            <TopBarWithBack text={" "} />
+            <TopBarWithBack text={' '} />
             <form
                 style={{
-                    display: "flex",
-                    flexDirection: "column",
+                    display: 'flex',
+                    flexDirection: 'column',
                     flexGrow: 1,
                 }}
                 method="POST"
@@ -140,7 +140,7 @@ const SignupPage = () => {
                 </FillContainer>
                 <SignupBTNWrapper>
                     <SignupBTN type="submit">
-                        {isGroupMember ? "그룹원 되기" : "그룹 생성하기"}
+                        {isGroupMember ? '그룹원 되기' : '그룹 생성하기'}
                     </SignupBTN>
                 </SignupBTNWrapper>
             </form>
@@ -178,12 +178,12 @@ const MakeGroup = styled.button`
     width: 44vw;
     border: none;
     border-radius: 4px;
-    background-color: ${(props) => (props.iscolor ? "#e8c1b8" : "#dba290")};
+    background-color: ${(props) => (props.iscolor ? '#e8c1b8' : '#dba290')};
     font-size: 2rem;
-    color: ${(props) => (props.iscolor ? "#ffffff" : "#000000")};
+    color: ${(props) => (props.iscolor ? '#ffffff' : '#000000')};
     cursor: pointer;
     &:hover {
-        background-color: ${(props) => (props.iscolor ? "#c38776" : "none")};
+        background-color: ${(props) => (props.iscolor ? '#c38776' : 'none')};
     }
 `;
 
@@ -192,12 +192,12 @@ const StartGroupMember = styled.button`
     width: 44vw;
     border: none;
     border-radius: 4px;
-    background-color: ${(props) => (props.iscolor ? "#dba290" : "#e8c1b8")};
+    background-color: ${(props) => (props.iscolor ? '#dba290' : '#e8c1b8')};
     font-size: 2rem;
-    color: ${(props) => (props.iscolor ? "#000000" : "#ffffff")};
+    color: ${(props) => (props.iscolor ? '#000000' : '#ffffff')};
     cursor: pointer;
     &:hover {
-        background-color: ${(props) => (props.iscolor ? "none" : "#c38776")};
+        background-color: ${(props) => (props.iscolor ? 'none' : '#c38776')};
     }
 `;
 // 입력
@@ -290,7 +290,7 @@ const CheckboxLabel = styled.label`
     font-size: 2rem;
 `;
 
-const Checkbox = styled.input.attrs({ type: "checkbox" })`
+const Checkbox = styled.input.attrs({ type: 'checkbox' })`
     appearance: none;
     width: 2vh;
     height: 2vh;
