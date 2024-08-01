@@ -2,7 +2,7 @@ import * as S from './styles/placeComponent.styles';
 import placeDefault from '../assets/ui/defaultImage.png';
 import HeartIcon from '../assets/ui/heart.svg';
 import HeartClickedIcon from '../assets/ui/heart-clicked.svg';
-import { Map } from 'react-kakao-maps-sdk';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useEffect, useState } from 'react';
 import {
     getLikedPlaces,
@@ -72,7 +72,9 @@ const PlaceComponent = ({ place, address, mapId, placeId }) => {
                     style={{ width: '82vw', height: '13vh' }}
                     level={3}
                     onClick={() => onClickPlaceComponent(mapId)}
-                />
+                >
+                    <MapMarker position={coord} />
+                </Map>
             ) : (
                 <S.PlaceImg src={placeDefault} />
             )}
