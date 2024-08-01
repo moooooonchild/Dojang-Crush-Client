@@ -1,19 +1,19 @@
-import * as S from "./styles/postDetail.styles";
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import * as S from './styles/postDetail.styles';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-import CommentModal from "../components/CommentModal";
-import PostEditModal from "../components/PostEditModal";
-import PostDeleteModal from "../components/PostDeleteModal";
-import ImageSlider from "../components/ImageSliderComponent";
+import CommentModal from '../components/CommentModal';
+import PostEditModal from '../components/PostEditModal';
+import PostDeleteModal from '../components/PostDeleteModal';
+import ImageSlider from '../components/ImageSliderComponent';
 
-import backIcon from "../assets/ui/back.svg";
-import calendarIcon from "../assets/ui/calendar.svg";
-import defaultProfile from "../assets/ui/defaultProfile.png";
-import defaultImage from "../assets/ui/defaultImage.png";
+import backIcon from '../assets/ui/back.svg';
+import calendarIcon from '../assets/ui/calendar.svg';
+import defaultProfile from '../assets/ui/defaultProfile.png';
+import defaultImage from '../assets/ui/defaultImage.png';
 
-import { getPostDetail } from "../api/post";
-import { getComments } from "../api/comment";
+import { getPostDetail } from '../api/post';
+import { getComments } from '../api/comment';
 
 const PostDetailPage = () => {
     const postId = useParams().id;
@@ -99,7 +99,7 @@ const PostDetailPage = () => {
                             />
                             <S.InfoArea>
                                 <S.Name>{postDetail.writerDto.name}</S.Name>
-                                <S.Tag>{`${postDetail.theme} ${postDetail.placeTag}`}</S.Tag>
+                                <S.Tag>{`#${postDetail.theme} #${postDetail.placeTag}`}</S.Tag>
                             </S.InfoArea>
                             <S.MoreBtn onClick={moreModalHandler} />
                         </S.ProfileArea>
@@ -109,14 +109,22 @@ const PostDetailPage = () => {
                         <S.CommentArea onClick={commentModalHandler}>
                             <S.RowLine />
 
-                            <S.Comment>
-                                <S.NickName>{`${commentList[0].writer.name}`}</S.NickName>
-                                <S.Content>{commentList[0].content}</S.Content>
-                            </S.Comment>
-                            <S.Comment>
-                                <S.NickName>{`${commentList[1].writer.name}`}</S.NickName>
-                                <S.Content>{commentList[1].content}</S.Content>
-                            </S.Comment>
+                            {commentList.length > 1 ? (
+                                <>
+                                    <S.Comment>
+                                        <S.NickName>{`${commentList[0].writer.name}`}</S.NickName>
+                                        <S.Content>
+                                            {commentList[0].content}
+                                        </S.Content>
+                                    </S.Comment>
+                                    <S.Comment>
+                                        <S.NickName>{`${commentList[1].writer.name}`}</S.NickName>
+                                        <S.Content>
+                                            {commentList[1].content}
+                                        </S.Content>
+                                    </S.Comment>
+                                </>
+                            ) : null}
 
                             <S.CommentWrite>
                                 <S.CommentProfileImg src={defaultProfile} />
