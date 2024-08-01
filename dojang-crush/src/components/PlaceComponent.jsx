@@ -1,15 +1,19 @@
 import * as S from './styles/placeComponent.styles';
 import placeDefault from '../assets/ui/defaultImage.png';
 import HeartIcon from '../assets/ui/heart.svg';
+import HeartClickedIcon from '../assets/ui/heart-clicked.svg';
 import { Map } from 'react-kakao-maps-sdk';
 import { useEffect, useState } from 'react';
+import {
+    getLikedPlaces,
+    postHeart,
+    deleteHeart,
+    getGroupHeart,
+} from '../api/place';
 
-const PlaceComponent = ({ place, address, id, users = null }) => {
+const PlaceComponent = ({ place, address, mapId, placeId, users = null }) => {
     const [coord, setCoord] = useState(null);
-
-    const onClickPlaceComponent = (id) => {
-        window.location.href = `https://map.kakao.com/link/map/${id}`;
-    };
+    const [heart, setHeart] = useState(false);
 
     useEffect(() => {
         // 주소-좌표 변환 객체를 생성합니다
@@ -26,8 +30,37 @@ const PlaceComponent = ({ place, address, id, users = null }) => {
         });
     }, []);
 
+    useEffect(() => {
+        getLikedPlaces()
+            .then((res) => setHeart(res))
+            .catch((err) => console.log(err));
+    }, []);
+
+    const onClickPlaceComponent = (mapId) => {
+        window.location.href = `https://map.kakao.com/link/map/${mapId}`;
+    };
+
+    const onClickHeart = (e, placeId) => {
+        e.stopPropagation();
+
+        const data = {
+            placeId: placeId,
+            memberId: 6, //api 수정 후 삭제
+        };
+
+        if (heart) {
+            deleteHeart(data)
+                .then(() => setHeart(false))
+                .catch((err) => console.error(err));
+        } else {
+            postHeart(data)
+                .then(() => setHeart(true))
+                .catch((err) => console.error(err));
+        }
+    };
+
     return (
-        <S.Container onClick={() => onClickPlaceComponent(id)}>
+        <S.Container onClick={() => onClickPlaceComponent(mapId)}>
             {coord ? (
                 <Map
                     center={coord}
@@ -48,10 +81,11 @@ const PlaceComponent = ({ place, address, id, users = null }) => {
                         return <div>{user}&nbsp;</div>;
                     })}
                 </S.Users>
-            ) : null}
-            <S.HeartButton>
-                <img src={HeartIcon} />
-            </S.HeartButton>
+            ) : (
+                <S.HeartButton onClick={(e) => onClickHeart(e, placeId)}>
+                    <img src={heart ? HeartClickedIcon : HeartIcon} />
+                </S.HeartButton>
+            )}
         </S.Container>
     );
 };

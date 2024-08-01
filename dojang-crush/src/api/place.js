@@ -1,4 +1,4 @@
-import client from ".";
+import client from '.';
 
 export const getPlaces = async (themeId) => {
     //작동 ok
@@ -16,6 +16,8 @@ export const getLikedPlaces = async () => {
     try {
         const res = await client.get(`/place/liked`);
         console.log(res.data);
+
+        //return res.data.places.some((place) => place.placeId === placeId);
     } catch (err) {
         console.log(err);
     }
@@ -41,7 +43,6 @@ export const getAllPlaces = async () => {
 };
 
 export const postHeart = async (data) => {
-    //NOTE - url 백 작업 후 다시 확인
     try {
         const res = await client.post(`/wishlist`, data);
         console.log(res.data);
@@ -50,11 +51,19 @@ export const postHeart = async (data) => {
     }
 };
 
-export const deleteHeart = async (memberId) => {
-    //NOTE - url 백 작업 후 다시 확인
+export const deleteHeart = async (data) => {
     try {
-        const res = await client.delete(`/wishlist`);
+        const res = await client.delete(`/wishlist`, { data });
         console.log(res.data);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const getGroupHeart = async (placeId, groupId) => {
+    try {
+        const res = await client.get(`/wishlist/${placeId}/${groupId}`);
+        console.log(res);
     } catch (err) {
         console.log(err);
     }
