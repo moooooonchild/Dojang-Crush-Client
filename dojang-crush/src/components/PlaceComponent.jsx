@@ -4,17 +4,21 @@ import HeartIcon from '../assets/ui/heart.svg';
 import HeartClickedIcon from '../assets/ui/heart-clicked.svg';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
     getLikedPlaces,
     postHeart,
     deleteHeart,
     getGroupHeart,
 } from '../api/place';
+import { getNameFromId } from '../api/wishlist';
 
 const PlaceComponent = ({ place, address, mapId, placeId }) => {
     const [coord, setCoord] = useState(null);
     const [heart, setHeart] = useState(false);
     const [users, setUsers] = useState(null);
+    const [userNames, setUserNames] = useState(null);
+    const location = useLocation();
 
     useEffect(() => {
         // 주소-좌표 변환 객체를 생성합니다
@@ -31,10 +35,36 @@ const PlaceComponent = ({ place, address, mapId, placeId }) => {
         });
     }, []);
 
-    // useEffect(()=>{
-    //     getGroupHeart(placeId)
-    //         .then((res)=> setUsers())
-    // })
+    useEffect(() => {
+        const getGroupNameData = async () => {
+            try {
+                const res = await getGroupHeart(placeId);
+                setUsers(res);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        getGroupNameData();
+    }, []);
+
+    useEffect(() => {
+        if (users) {
+            const updateUserNames = async () => {
+                try {
+                    const newUsers = await Promise.all(
+                        users.map(getNameFromId)
+                    );
+                    const userNames = newUsers.filter((e) => e !== null);
+                    setUserNames(userNames);
+                } catch (err) {
+                    console.error(err);
+                }
+            };
+
+            updateUserNames();
+        }
+    }, [users]);
 
     useEffect(() => {
         getLikedPlaces(placeId)
@@ -80,10 +110,10 @@ const PlaceComponent = ({ place, address, mapId, placeId }) => {
             )}
             <S.Name>{place}</S.Name>
             <S.Address>{address}</S.Address>
-            {users ? (
+            {userNames && location.pathname.startsWith('/wishlist/') ? (
                 <S.Users>
-                    {users.map((user, index) => {
-                        if (index === users.length - 1) {
+                    {userNames.map((user, index) => {
+                        if (index === userNames.length - 1) {
                             return <div>{user}</div>;
                         }
                         return <div>{user}&nbsp;</div>;

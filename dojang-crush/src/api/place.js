@@ -76,10 +76,20 @@ export const deleteHeart = async (data) => {
 export const getGroupHeart = async (placeId) => {
     try {
         const memberInfo = await getMemberInfo();
+
         const groupId = memberInfo.group.groupId;
         const res = await client.get(`/wishlist/${placeId}/${groupId}`);
-        //console.log(res);
-        return res.data.likePlaces;
+
+        if (res.data.memberId === '') {
+            return [];
+        }
+        const resArray = res.data.memberId
+            .trim()
+            .split(' ')
+            .map(Number)
+            .filter((num) => !isNaN(num));
+
+        return resArray;
     } catch (err) {
         console.log(err);
     }
