@@ -31,7 +31,7 @@ const PlaceComponent = ({ place, address, mapId, placeId, users = null }) => {
     }, []);
 
     useEffect(() => {
-        getLikedPlaces()
+        getLikedPlaces(placeId)
             .then((res) => setHeart(res))
             .catch((err) => console.log(err));
     }, []);
@@ -60,12 +60,13 @@ const PlaceComponent = ({ place, address, mapId, placeId, users = null }) => {
     };
 
     return (
-        <S.Container onClick={() => onClickPlaceComponent(mapId)}>
+        <S.Container>
             {coord ? (
                 <Map
                     center={coord}
                     style={{ width: '82vw', height: '13vh' }}
                     level={3}
+                    onClick={() => onClickPlaceComponent(mapId)}
                 />
             ) : (
                 <S.PlaceImg src={placeDefault} />

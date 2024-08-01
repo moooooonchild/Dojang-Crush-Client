@@ -1,4 +1,6 @@
 import client from '.';
+import axios from 'axios';
+import { getMemberInfo } from './member';
 
 export const getPlaces = async (themeId) => {
     //작동 ok
@@ -12,12 +14,15 @@ export const getPlaces = async (themeId) => {
     }
 };
 
-export const getLikedPlaces = async () => {
+export const getLikedPlaces = async (placeId) => {
     try {
-        const res = await client.get(`/place/liked`);
-        console.log(res.data);
+        const res = await client.get(`/place/liked`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
 
-        //return res.data.places.some((place) => place.placeId === placeId);
+        return res.data.places.some((place) => place.placeId === placeId);
     } catch (err) {
         console.log(err);
     }
@@ -60,8 +65,10 @@ export const deleteHeart = async (data) => {
     }
 };
 
-export const getGroupHeart = async (placeId, groupId) => {
+export const getGroupHeart = async (placeId) => {
     try {
+        const memberInfo = await getMemberInfo();
+        const groupId = memberInfo.group.groupId;
         const res = await client.get(`/wishlist/${placeId}/${groupId}`);
         console.log(res);
     } catch (err) {
