@@ -14,6 +14,7 @@ import defaultImage from '../assets/ui/defaultImage.png';
 
 import { getPostDetail } from '../api/post';
 import { getComments } from '../api/comment';
+import { getMemberInfo } from '../api/member';
 
 const PostDetailPage = () => {
     const postId = useParams().id;
@@ -24,6 +25,7 @@ const PostDetailPage = () => {
     const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
     const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [myId, setMyId] = useState(null);
 
     useEffect(() => {
         getPostDetail(postId)
@@ -35,6 +37,12 @@ const PostDetailPage = () => {
     useEffect(() => {
         getComments(postId)
             .then((res) => setCommentList(res))
+            .catch((err) => console.log(err));
+    }, []);
+
+    useEffect(() => {
+        getMemberInfo()
+            .then((res) => setMyId(res.userId))
             .catch((err) => console.log(err));
     }, []);
 
@@ -76,6 +84,7 @@ const PostDetailPage = () => {
                         isOpen={isCommentModalOpen}
                         modalHandler={commentModalHandler}
                         postId={postId}
+                        myId={myId}
                     />
 
                     <S.Header>
@@ -101,7 +110,9 @@ const PostDetailPage = () => {
                                 <S.Name>{postDetail.writerDto.name}</S.Name>
                                 <S.Tag>{`#${postDetail.theme} #${postDetail.placeTag}`}</S.Tag>
                             </S.InfoArea>
-                            <S.MoreBtn onClick={moreModalHandler} />
+                            {myId === postDetail.writerDto.memberId && (
+                                <S.MoreBtn onClick={moreModalHandler} />
+                            )}
                         </S.ProfileArea>
                         <ImageSlider images={postDetail.imageUrl} />
                         <S.PostText>{postDetail.content}</S.PostText>

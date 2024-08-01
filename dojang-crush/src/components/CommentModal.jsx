@@ -2,9 +2,10 @@ import * as S from './styles/commentModal.styles';
 import { useEffect, useRef, useState } from 'react';
 
 import profileImg from '../assets/ui/defaultProfile.png';
-import { getComments, postComments } from '../api/comment';
 
-const CommentModal = ({ isOpen, modalHandler, postId }) => {
+import { getComments, postComments, deleteComments } from '../api/comment';
+
+const CommentModal = ({ isOpen, modalHandler, postId, myId }) => {
     const [commentList, setCommentList] = useState(null);
     const [myComments, setMyComments] = useState('');
     const containerRef = useRef(null);
@@ -63,11 +64,15 @@ const CommentModal = ({ isOpen, modalHandler, postId }) => {
         } else {
             const data = {
                 content: myComments,
-                parentId: null, //NOTE - 추후 대댓글 기능 추가
+                parentId: null,
             };
             await postComments(postId, data);
             window.location.reload();
         }
+    };
+
+    const onClickDeleteBtn = async (commentId) => {
+        deleteComments(commentId).then(window.location.reload());
     };
 
     return (
@@ -97,6 +102,13 @@ const CommentModal = ({ isOpen, modalHandler, postId }) => {
                                         </S.CommentTime>
                                         <S.Text>{c.content}</S.Text>
                                     </S.CommentArea>
+                                    {myId === c.writer.memberId && (
+                                        <S.DeleteBtn
+                                            onClick={() =>
+                                                onClickDeleteBtn(c.commentId)
+                                            }
+                                        ></S.DeleteBtn>
+                                    )}
                                 </S.Comment>
                             );
                         })}
