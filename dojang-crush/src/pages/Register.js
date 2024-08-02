@@ -1,12 +1,54 @@
-import React from "react";
-import styled from "styled-components";
-import { RiKakaoTalkFill } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
-import { ReactComponent as LogoSVG } from "../assets/logo/LOGO.svg";
-import { ReactComponent as LogoText } from "../assets/logo/도장깨기.svg";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { RiKakaoTalkFill } from 'react-icons/ri';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { ReactComponent as LogoSVG } from '../assets/logo/LOGO.svg';
+import { ReactComponent as LogoText } from '../assets/logo/도장깨기.svg';
+import client from '../api';
+import axios from 'axios';
+import Redirection from './Redirection';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const code = query.get('code');
+
+    const handleKakaoLogin = () => {
+        const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code`;
+        window.location.href = kakaoLoginUrl;
+
+        /* window.Kakao.Auth.login({
+            success: function (authObj) {
+                console.log("카카오 인증 객체: ", authObj);
+                const kakaoToken = authObj.access_token;
+                localStorage.setItem("token", kakaoToken);
+                console.log(
+                    "로컬 스토리지에 저장된 토큰: ",
+                    localStorage.getItem("token")
+                );
+                client.defaults.headers.common[
+                    "Authorization"
+                ] = `Bearer ${kakaoToken}`;
+                console.log(
+                    "현재 axios instance 헤더 토큰",
+                    client.defaults.headers.common["Authorization"]
+                );
+
+                const redirectUrl = process.env.REACT_APP_KAKAO_LOGIN;
+                window.location.href = redirectUrl;
+
+                // 로그인 성공 후 처리
+                // 헤더 저장
+                // get(members) -> GroupId === NULL ? link = /register : link = /home
+                // navigate(`$(link)`); // 로그인 성공 후 리다이렉트할 경로
+            },
+            fail: function (err) {
+                console.error(err);
+            },
+        });*/
+    };
+
     return (
         <RegisterContainer>
             <LogoContainer>
@@ -15,7 +57,7 @@ const RegisterPage = () => {
             </LogoContainer>
             <SNSLoginContainer>
                 <SNSLoginTxt>SNS으로 로그인하기</SNSLoginTxt>
-                <KAKAOLoginBTN>
+                <KAKAOLoginBTN onClick={handleKakaoLogin}>
                     <KAKAOLogo /> 카카오 로그인
                 </KAKAOLoginBTN>
             </SNSLoginContainer>
