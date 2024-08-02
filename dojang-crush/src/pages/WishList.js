@@ -1,27 +1,61 @@
-import * as S from "./styles/wishList.styles";
-import { useState } from "react";
+import * as S from './styles/wishList.styles';
+import { useState, useEffect } from 'react';
 
-import PlaceComponent from "../components/PlaceComponent";
-import ThemeComponent from "../components/ThemeComponent";
-import NavigationBar from "../components/NavigationBar";
+import PlaceComponent from '../components/PlaceComponent';
+import ThemeComponent from '../components/ThemeComponent';
+import NavigationBar from '../components/NavigationBar';
 
-import sportsIcon from "../assets/theme/sports.svg";
-import gameIcon from "../assets/theme/game.svg";
-import healingIcon from "../assets/theme/healing.svg";
-import natureIcon from "../assets/theme/nature.svg";
-import musicIcon from "../assets/theme/music.svg";
-import uniqueIcon from "../assets/theme/unique.svg";
-import foodIcon from "../assets/theme/food.svg";
-import cafeIcon from "../assets/theme/cafe.svg";
-import exhibitionIcon from "../assets/theme/exhibition.svg";
-import shoppingIcon from "../assets/theme/shopping.svg";
+import sportsIcon from '../assets/theme/sports.svg';
+import gameIcon from '../assets/theme/game.svg';
+import healingIcon from '../assets/theme/healing.svg';
+import natureIcon from '../assets/theme/nature.svg';
+import musicIcon from '../assets/theme/music.svg';
+import uniqueIcon from '../assets/theme/unique.svg';
+import foodIcon from '../assets/theme/food.svg';
+import cafeIcon from '../assets/theme/cafe.svg';
+import exhibitionIcon from '../assets/theme/exhibition.svg';
+import shoppingIcon from '../assets/theme/shopping.svg';
+
+import { getHeartListForTheme } from '../api/wishlist';
+
+const themeList = [
+    '스포츠',
+    '게임',
+    '힐링',
+    '자연',
+    '음악',
+    '이색',
+    '맛집',
+    '카페',
+    '전시',
+    '쇼핑',
+];
 
 const WishListPage = () => {
     const [showList, setShowList] = useState(false);
+    const [placeList, setPlaceList] = useState(null);
 
     const onClickThemeButton = () => {
         setShowList(!showList);
     };
+
+    useEffect(() => {
+        const fetchPlaces = async () => {
+            try {
+                // 모든 테마에 대해 getHeartListForTheme을 실행하고 결과를 병렬로 수집
+                const results = await Promise.all(
+                    themeList.map((theme) => getHeartListForTheme(theme))
+                );
+                // 결과 배열들을 하나의 배열로 합치기
+                const mergedResults = results.flat();
+                setPlaceList(mergedResults);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        fetchPlaces();
+    }, []);
 
     return (
         <S.Container>
@@ -33,17 +67,21 @@ const WishListPage = () => {
                             테마별 보기
                         </S.ToTheme>
                     </S.Header>
-                    <S.PlaceList>
-                        <PlaceComponent
-                            place="장소1"
-                            address="주소1"
-                            users={["유저1", "유저2", "유저3"]}
-                        />
-                        <PlaceComponent place="장소2" address="주소2" />
-                        <PlaceComponent place="장소3" address="주소3" />
-                        <PlaceComponent place="장소4" address="주소4" />
-                        <PlaceComponent place="장소5" address="주소5" />
-                    </S.PlaceList>
+                    {placeList && (
+                        <S.WishList>
+                            {placeList.map((p, i) => {
+                                return (
+                                    <PlaceComponent
+                                        key={i}
+                                        place={p.placeName}
+                                        address={p.address}
+                                        mapId={p.mapId}
+                                        placeId={p.placeId}
+                                    />
+                                );
+                            })}
+                        </S.WishList>
+                    )}
                 </>
             ) : (
                 <>

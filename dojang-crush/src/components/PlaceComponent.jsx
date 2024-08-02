@@ -110,15 +110,17 @@ const PlaceComponent = ({ place, address, mapId, placeId }) => {
             )}
             <S.Name>{place}</S.Name>
             <S.Address>{address}</S.Address>
-            {userNames && location.pathname.startsWith('/wishlist/') ? (
-                <S.Users>
-                    {userNames.map((user, index) => {
-                        if (index === userNames.length - 1) {
-                            return <div>{user}</div>;
-                        }
-                        return <div>{user}&nbsp;</div>;
-                    })}
-                </S.Users>
+            {location.pathname.startsWith('/wishlist') ? (
+                userNames ? (
+                    <S.Users>
+                        {userNames.map((user, index) => {
+                            if (index === userNames.length - 1) {
+                                return <div>{user}</div>;
+                            }
+                            return <div>{user}&nbsp;</div>;
+                        })}
+                    </S.Users>
+                ) : null
             ) : (
                 <S.HeartButton onClick={(e) => onClickHeart(e, placeId)}>
                     <img src={heart ? HeartClickedIcon : HeartIcon} />
