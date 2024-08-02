@@ -16,6 +16,7 @@ import ChangeNamePage from "./pages/ChangeName";
 import ChangeIDPWPage from "./pages/ChangeIDPW";
 import ChangeGroupNamePage from "./pages/ChangeGroupName";
 import WithdrawalPage from "./pages/Withdrawal";
+import Redirection from "./pages/Redirection";
 
 function App() {
     return (
@@ -34,7 +35,7 @@ function App() {
                     path="/wishlist/:theme"
                     element={<WishDetailPage />}
                 ></Route>
-                <Route path="/group" element={<GroupPage />}></Route>
+                <Route path="/group/:groupId" element={<GroupPage />}></Route>
                 <Route path="/register" element={<RegisterPage />}></Route>
                 <Route path="/signup" element={<SignupPage />}></Route>
                 <Route path="/settings" element={<SettingPage />}></Route>
@@ -45,6 +46,7 @@ function App() {
                     path="/changegroupname"
                     element={<ChangeGroupNamePage />}
                 ></Route>
+                <Route path="/oauth/callback" element={<Redirection />}></Route>
             </Routes>
         </Container>
     );
