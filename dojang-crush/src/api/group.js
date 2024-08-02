@@ -22,8 +22,8 @@ export const makeGroupapi = async (name) => {
 
 export const addGroupMember = async (groupcode) => {
     try {
-        const response = await axios.patch(`${apiUrl}/group`, {
-            groupcode: groupcode,
+        const response = await client.patch(`/group`, {
+            groupCode: groupcode,
         });
         return response.data;
     } catch (error) {
