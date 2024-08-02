@@ -1,9 +1,12 @@
-import client from ".";
+import client from '.';
 
 export const postComments = async (postId, data) => {
-    //NOTE - 500 서버 에러
     try {
-        const res = await client.post(`/comments/${postId}`, data);
+        const res = await client.post(`/comments/${postId}`, data, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
         console.log(res);
     } catch (err) {
         console.log(err);

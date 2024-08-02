@@ -1,13 +1,13 @@
+import * as S from './styles/commentModal.styles';
+import { useEffect, useRef, useState } from 'react';
 
-import * as S from "./styles/commentModal.styles";
-import { useEffect, useRef, useState } from "react";
+import profileImg from '../assets/ui/defaultProfile.png';
 
-import profileImg from "../assets/ui/defaultProfile.png";
-import { getComments, postComments } from "../api/comment";
+import { getComments, postComments, deleteComments } from '../api/comment';
 
-const CommentModal = ({ isOpen, modalHandler, postId }) => {
+const CommentModal = ({ isOpen, modalHandler, postId, myId }) => {
     const [commentList, setCommentList] = useState(null);
-    const [myComments, setMyComments] = useState("");
+    const [myComments, setMyComments] = useState('');
     const containerRef = useRef(null);
     const initialHeightRef = useRef(window.innerHeight);
 
@@ -59,16 +59,20 @@ const CommentModal = ({ isOpen, modalHandler, postId }) => {
     };
 
     const onSubmitMyComments = async (e) => {
-        if (myComments.trim() === "") {
-            alert("내용을 입력해주세요.");
+        if (myComments.trim() === '') {
+            alert('내용을 입력해주세요.');
         } else {
             const data = {
                 content: myComments,
-                parentId: null, //NOTE - 추후 대댓글 기능 추가
+                parentId: null,
             };
             await postComments(postId, data);
-            //window.location.reload();
+            window.location.reload();
         }
+    };
+
+    const onClickDeleteBtn = async (commentId) => {
+        deleteComments(commentId).then(window.location.reload());
     };
 
     return (
@@ -98,6 +102,13 @@ const CommentModal = ({ isOpen, modalHandler, postId }) => {
                                         </S.CommentTime>
                                         <S.Text>{c.content}</S.Text>
                                     </S.CommentArea>
+                                    {myId === c.writer.memberId && (
+                                        <S.DeleteBtn
+                                            onClick={() =>
+                                                onClickDeleteBtn(c.commentId)
+                                            }
+                                        ></S.DeleteBtn>
+                                    )}
                                 </S.Comment>
                             );
                         })}
@@ -110,7 +121,7 @@ const CommentModal = ({ isOpen, modalHandler, postId }) => {
                         onChange={onChangesMyComments}
                     />
                     <S.SendBtn onClick={onSubmitMyComments} />
-                </S.CommentWrite>{" "}
+                </S.CommentWrite>{' '}
             </S.Container>
         </S.Background>
     );

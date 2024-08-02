@@ -1,4 +1,4 @@
-import client from ".";
+import client from '.';
 
 export const getAllPosts = async (groupId) => {
     try {
@@ -22,7 +22,11 @@ export const getPostDetail = async (postId) => {
 
 export const deletePost = async (postId) => {
     try {
-        const res = await client.delete(`/posts/all/${postId}`);
+        const res = await client.delete(`/posts/${postId}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
         console.log(res.data);
     } catch (err) {
         console.log(err);
