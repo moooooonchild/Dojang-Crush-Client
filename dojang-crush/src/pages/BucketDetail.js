@@ -1,24 +1,24 @@
-import * as S from "./styles/bucketDetail.styles";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import * as S from './styles/bucketDetail.styles';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import PlaceComponent from "../components/PlaceComponent";
-import NavigationBar from "../components/NavigationBar";
-import backIcon from "../assets/ui/back.svg";
+import PlaceComponent from '../components/PlaceComponent';
+import NavigationBar from '../components/NavigationBar';
+import backIcon from '../assets/ui/back.svg';
 
-import { getPlaces, getLikedPlaces } from "../api/place";
+import { getPlaces } from '../api/place';
 
 const themeMap = {
-    sports: "스포츠",
-    game: "게임",
-    healing: "힐링",
-    nature: "자연",
-    music: "음악",
-    unique: "이색",
-    food: "맛집",
-    cafe: "카페",
-    exhibition: "전시",
-    shopping: "쇼핑",
+    sports: '스포츠',
+    game: '게임',
+    healing: '힐링',
+    nature: '자연',
+    music: '음악',
+    unique: '이색',
+    food: '맛집',
+    cafe: '카페',
+    exhibition: '전시',
+    shopping: '쇼핑',
 };
 
 const BucketDetailPage = () => {
@@ -50,7 +50,8 @@ const BucketDetailPage = () => {
                                 key={i}
                                 place={p.placeName}
                                 address={p.address}
-                                id={p.mapId}
+                                mapId={p.mapId}
+                                placeId={p.placeId}
                             />
                         );
                     })}

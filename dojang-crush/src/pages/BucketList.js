@@ -1,17 +1,17 @@
-import NavigationBar from "../components/NavigationBar";
-import ThemeComponent from "../components/ThemeComponent";
-import * as S from "./styles/bucketList.styles";
+import NavigationBar from '../components/NavigationBar';
+import ThemeComponent from '../components/ThemeComponent';
+import * as S from './styles/bucketList.styles';
 
-import sportsIcon from "../assets/theme/sports.svg";
-import gameIcon from "../assets/theme/game.svg";
-import healingIcon from "../assets/theme/healing.svg";
-import natureIcon from "../assets/theme/nature.svg";
-import musicIcon from "../assets/theme/music.svg";
-import uniqueIcon from "../assets/theme/unique.svg";
-import foodIcon from "../assets/theme/food.svg";
-import cafeIcon from "../assets/theme/cafe.svg";
-import exhibitionIcon from "../assets/theme/exhibition.svg";
-import shoppingIcon from "../assets/theme/shopping.svg";
+import sportsIcon from '../assets/theme/sports.svg';
+import gameIcon from '../assets/theme/game.svg';
+import healingIcon from '../assets/theme/healing.svg';
+import natureIcon from '../assets/theme/nature.svg';
+import musicIcon from '../assets/theme/music.svg';
+import uniqueIcon from '../assets/theme/unique.svg';
+import foodIcon from '../assets/theme/food.svg';
+import cafeIcon from '../assets/theme/cafe.svg';
+import exhibitionIcon from '../assets/theme/exhibition.svg';
+import shoppingIcon from '../assets/theme/shopping.svg';
 
 const BucketListPage = () => {
     return (
@@ -60,7 +60,7 @@ const BucketListPage = () => {
                 />
                 <ThemeComponent
                     themeKor="전시"
-                    themeEng="exibition"
+                    themeEng="exhibition"
                     icon={exhibitionIcon}
                 />
                 <ThemeComponent
