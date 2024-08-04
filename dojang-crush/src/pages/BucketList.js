@@ -13,6 +13,8 @@ import cafeIcon from '../assets/theme/cafe.svg';
 import exhibitionIcon from '../assets/theme/exhibition.svg';
 import shoppingIcon from '../assets/theme/shopping.svg';
 
+import { TitleComponent } from '../components/common/header/TitleComponent';
+
 const BucketListPage = () => {
     return (
         <S.Container>

@@ -1,7 +1,9 @@
-import React, { useState, useRef } from "react";
-import styled from "styled-components";
-import TopBarWithBack from "../components/TopBarWithBack";
-import { ReactComponent as UploadButton } from "../assets/ui/photo_upload.svg";
+import React, { useState, useRef, useEffect } from 'react';
+import styled from 'styled-components';
+import TopBarWithBack from '../components/TopBarWithBack';
+import { ReactComponent as UploadButton } from '../assets/ui/photo_upload.svg';
+import { makeGroupapi, addGroupMember, getMember } from '../api/group';
+import { useNavigate } from 'react-router-dom';
 
 const checkboxsvgString = `
 <svg width="28" height="28" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,9 +22,44 @@ const encodedCheckboxSvgString = `data:image/svg+xml;base64,${btoa(
 const encodedSvgString = `data:image/svg+xml;base64,${btoa(svgString)}`;
 
 const SignupPage = () => {
+    const [name, setName] = useState('');
+    const [groupImageUrl, setGroupImageUrl] = useState('');
+    const [groupcode, setGroupcode] = useState('');
+
+    const handleGroupName = (e) => setName(e.target.value);
+    const handleGroupImageUrl = (e) => setGroupImageUrl(e.target.value);
+    const handleGroupcode = (e) => setGroupcode(e.target.value);
+    const navigate = useNavigate();
+
     const [isGroupMember, setIsGroupMember] = useState(false);
+    const [iscolor, setiscolor] = useState(false);
     const [groupImage, setGroupImage] = useState(null);
     const fileInputRef = useRef(null);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!isGroupMember) {
+            try {
+                const data = await makeGroupapi(name, groupImageUrl);
+                console.log(data);
+                alert('그룹 생성이 완료되었습니다!');
+                navigate('/');
+            } catch (error) {
+                console.error(error.message);
+                alert('그룹 생성에 실패했습니다.');
+            }
+        } else {
+            try {
+                const data = await addGroupMember(groupcode);
+                console.log(data);
+                alert('그룹에 가입하였습니다!');
+                navigate('/');
+            } catch (error) {
+                console.error(error.message);
+                alert('그룹 가입에 실패했습니다');
+            }
+        }
+    };
 
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
@@ -39,20 +76,27 @@ const SignupPage = () => {
 
     return (
         <SignupPageWrapper>
-            <TopBarWithBack text={" "} />
+            <button onClick={() => console.log(getMember())}>클릭</button>
+            <TopBarWithBack text={' '} />
             <form
                 style={{
-                    display: "flex",
-                    flexDirection: "column",
+                    display: 'flex',
+                    flexDirection: 'column',
                     flexGrow: 1,
                 }}
+                method="POST"
+                onSubmit={handleSubmit}
             >
                 <FillContainer>
                     <ChoiceContainer>
-                        <MakeGroup onClick={() => setIsGroupMember(false)}>
+                        <MakeGroup
+                            iscolor={isGroupMember}
+                            onClick={() => setIsGroupMember(false)}
+                        >
                             새 그룹 생성
                         </MakeGroup>
                         <StartGroupMember
+                            iscolor={isGroupMember}
                             onClick={() => setIsGroupMember(true)}
                         >
                             그룹원 되기
@@ -64,6 +108,7 @@ const SignupPage = () => {
                             <GroupNameinput
                                 placeholder="그룹 코드를 붙여 넣으세요"
                                 required
+                                onChange={handleGroupcode}
                             />
                         </EnterInformation>
                     ) : (
@@ -76,34 +121,9 @@ const SignupPage = () => {
                                 <GroupNameinput
                                     placeholder="그룹명을 작성해주세요"
                                     required
+                                    onChange={handleGroupName}
                                 />
                             </EnterInformation>
-
-                            <GroupImageContainer>
-                                <GroupImageAddText>
-                                    그룹 이미지를 추가해주세요
-                                </GroupImageAddText>
-                                {groupImage ? (
-                                    <GroupImagePreview
-                                        src={groupImage}
-                                        alt="Group"
-                                    />
-                                ) : (
-                                    <>
-                                        <GroupImageAddButton
-                                            onClick={handleClick}
-                                        >
-                                            <GroupImgageUpload />
-                                        </GroupImageAddButton>
-                                        <IMGBox
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={handleImageUpload}
-                                            ref={fileInputRef}
-                                        />
-                                    </>
-                                )}
-                            </GroupImageContainer>
                         </MakeGroupWrapper>
                     )}
 
@@ -120,7 +140,7 @@ const SignupPage = () => {
                 </FillContainer>
                 <SignupBTNWrapper>
                     <SignupBTN type="submit">
-                        {isGroupMember ? "그룹원 되기" : "그룹 생성하기"}
+                        {isGroupMember ? '그룹원 되기' : '그룹 생성하기'}
                     </SignupBTN>
                 </SignupBTNWrapper>
             </form>
@@ -158,14 +178,12 @@ const MakeGroup = styled.button`
     width: 44vw;
     border: none;
     border-radius: 4px;
-    background-color: ${(props) =>
-        props.isGroupMember ? "#e8c1b8" : "#dba290"};
+    background-color: ${(props) => (props.iscolor ? '#e8c1b8' : '#dba290')};
     font-size: 2rem;
-    color: ${(props) => (props.isGroupMember ? "#ffffff" : "#000000")};
+    color: ${(props) => (props.iscolor ? '#ffffff' : '#000000')};
     cursor: pointer;
     &:hover {
-        background-color: ${(props) =>
-            props.isGroupMember ? "#c38776" : "none"};
+        background-color: ${(props) => (props.iscolor ? '#c38776' : 'none')};
     }
 `;
 
@@ -174,14 +192,12 @@ const StartGroupMember = styled.button`
     width: 44vw;
     border: none;
     border-radius: 4px;
-    background-color: ${(props) =>
-        props.isGroupMember ? "#dba290" : "#e8c1b8"};
+    background-color: ${(props) => (props.iscolor ? '#dba290' : '#e8c1b8')};
     font-size: 2rem;
-    color: ${(props) => (props.isGroupMember ? "#000000" : "#ffffff")};
+    color: ${(props) => (props.iscolor ? '#000000' : '#ffffff')};
     cursor: pointer;
     &:hover {
-        background-color: ${(props) =>
-            props.isGroupMember ? "none" : "#c38776"};
+        background-color: ${(props) => (props.iscolor ? 'none' : '#c38776')};
     }
 `;
 // 입력
@@ -274,7 +290,7 @@ const CheckboxLabel = styled.label`
     font-size: 2rem;
 `;
 
-const Checkbox = styled.input.attrs({ type: "checkbox" })`
+const Checkbox = styled.input.attrs({ type: 'checkbox' })`
     appearance: none;
     width: 2vh;
     height: 2vh;

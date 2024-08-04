@@ -10,7 +10,8 @@ export const getHeartListForTheme = async (themeId) => {
 
         const filterPlaces = async (place) => {
             const res = await getGroupHeart(place.placeId);
-            console.log('배열', res);
+
+            return res.length > 0;
         }; //해당 장소에 하트찍은 멤버 있는지 확인
 
         const filterResults = await Promise.all(

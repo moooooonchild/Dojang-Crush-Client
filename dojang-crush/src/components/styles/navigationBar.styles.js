@@ -13,6 +13,9 @@ export const NavBar = styled.div`
 
     position: fixed;
     bottom: 0;
+    z-index: 1;
+
+    background-color: #ffeee9;
 `;
 
 export const NavItem = styled(NavLink)`
