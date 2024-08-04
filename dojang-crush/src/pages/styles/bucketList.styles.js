@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
     display: flex;
@@ -21,6 +21,7 @@ export const BucketList = styled.div`
     //overflow-y: auto;
 
     width: 100vw;
+    padding-bottom: 9.5vh;
 
     flex: 1;
     flex-wrap: wrap;

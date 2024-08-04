@@ -48,6 +48,7 @@ export const WishList = styled.div`
     display: flex;
     justify-content: space-evenly;
     overflow-y: auto;
+    padding-bottom: 9.5vh;
     flex: 1;
     flex-wrap: wrap;
     width: 100vw;
