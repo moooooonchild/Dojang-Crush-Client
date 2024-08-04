@@ -1,5 +1,6 @@
 import axios from 'axios';
 import client from '.';
+import { getMemberInfo } from './member';
 
 const apiUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -48,9 +49,6 @@ export const getMember = async () => {
         throw new Error('ㅇㅇㅇ');
     }
 };
-
-import client from '.';
-import { getMemberInfo } from './member';
 
 export const getGroupInfo = async () => {
     try {

@@ -115,9 +115,9 @@ const PlaceComponent = ({ place, address, mapId, placeId }) => {
                     <S.Users>
                         {userNames.map((user, index) => {
                             if (index === userNames.length - 1) {
-                                return <div>{user}</div>;
+                                return <div key={index}>{user}</div>;
                             }
-                            return <div>{user}&nbsp;</div>;
+                            return <div key={index}>{user}&nbsp;</div>;
                         })}
                     </S.Users>
                 ) : null
