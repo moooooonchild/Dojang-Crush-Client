@@ -1,5 +1,6 @@
 import axios from 'axios';
 import client from '.';
+import { getMemberInfo } from './member';
 
 const apiUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -46,5 +47,22 @@ export const getMember = async () => {
         return response.data;
     } catch (error) {
         throw new Error('ㅇㅇㅇ');
+    }
+};
+
+export const getGroupInfo = async () => {
+    try {
+        const memberInfo = await getMemberInfo();
+
+        const groupId = memberInfo.group.groupId;
+        const res = await client.get(`/group/${groupId}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+
+        return res.data.member;
+    } catch (err) {
+        console.log(err);
     }
 };

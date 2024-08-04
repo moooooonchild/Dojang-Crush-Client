@@ -54,6 +54,8 @@ export const Users = styled.div`
     width: 37vw;
     height: 2.1vh;
 
+    overflow-y: hidden;
+
     div {
         font-size: 2rem;
         font-weight: bold;

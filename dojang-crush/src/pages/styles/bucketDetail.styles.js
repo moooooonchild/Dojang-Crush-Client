@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
     display: flex;
@@ -6,8 +6,8 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
 
-    width: 100vw;
-    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
 `;
 
 export const Header = styled.div`
