@@ -11,7 +11,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { getMemberInfo } from '../api/member';
 
 const UploadPage = () => {
-    const [isEdit, setIsEdit] = useState(null);
+    const [isEdit, setIsEdit] = useState(false);
     const [content, setContent] = useState('');
     const [placeId, setPlaceId] = useState(null);
     const [groupId, setGroupId] = useState(null);
@@ -19,25 +19,34 @@ const UploadPage = () => {
     const [formattedDate, setFormattedDate] = useState('');
     const [images, setImages] = useState([]); //진짜 이미지 파일
     const [prevImages, setPrevImages] = useState([]); //이미지 미리보기
+    const [prevPlace, setPrevPlace] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
     const fileInputRef = useRef(null);
     const location = useLocation();
     const nav = useNavigate();
     const postDetail = { ...location.state };
 
     useEffect(() => {
-        console.log(postDetail);
-
         const parseDate = (dateString) => {
             const [year, month, day] = dateString.split('-').map(Number);
             return new Date(year, month - 1, day);
         };
 
-        if (Object.keys(postDetail).length !== 0) {
-            setIsEdit(true);
-            setContent(postDetail.content);
-            setDate(parseDate(postDetail.visitedDate));
-            setFormattedDate(postDetail.visitedDate);
-        }
+        const fetchData = async () => {
+            try {
+                if (Object.keys(postDetail).length !== 0) {
+                    setIsEdit(true);
+                    setContent(postDetail.content);
+                    setDate(parseDate(postDetail.visitedDate));
+                    setFormattedDate(postDetail.visitedDate);
+                    setPrevPlace(postDetail.placeTag);
+                }
+                setIsLoaded(true);
+            } catch (error) {
+                console.error('Error fetching post detail:', error);
+            }
+        };
+        fetchData();
     }, []);
 
     useEffect(() => {
@@ -101,44 +110,33 @@ const UploadPage = () => {
     };
 
     const onClickUploadButton = () => {
-        if (isEdit) {
-            if (placeId === null) {
-                alert('장소를 선택해주세요');
-            } else if (content.trim() === '') {
-                alert('내용을 입력해주세요.');
-            } else {
-                const data = {
-                    content: content,
-                    placeId: placeId,
-                    groupId: groupId,
-                    visitedDate: formattedDate,
-                };
-
-                patchPost(postDetail.postId, data);
-                nav('/');
-                window.location.reload();
-            }
+        if (placeId === null) {
+            alert('장소를 선택해주세요');
+        } else if (content.trim() === '') {
+            alert('내용을 입력해주세요.');
+        } else if (images.length === 0) {
+            alert('사진을 첨부해주세요.');
         } else {
-            if (placeId === null) {
-                alert('장소를 선택해주세요');
-            } else if (content.trim() === '') {
-                alert('내용을 입력해주세요.');
-            } else if (images.length === 0) {
-                alert('사진을 첨부해주세요.');
-            } else {
-                const data = {
-                    content: content,
-                    placeId: placeId,
-                    groupId: groupId,
-                    visitedDate: formattedDate,
-                };
+            const data = {
+                content: content,
+                placeId: placeId,
+                groupId: groupId,
+                visitedDate: formattedDate,
+            };
 
+            if (isEdit) {
+                patchPost(postDetail.postId, data, images);
+            } else {
                 postPost(data, images);
-                nav('/');
-                window.location.reload();
             }
+            nav('/');
+            window.location.reload();
         }
     };
+
+    if (!isLoaded) {
+        return <div>Loading...</div>; // 로딩 중 표시할 내용을 작성합니다.
+    }
 
     return (
         <UploadWrapper>
@@ -148,54 +146,56 @@ const UploadPage = () => {
                     selectedDate={date}
                     onDateChange={setDate}
                 />
-                <SearchPlace setPlaceId={setPlaceId} />
+                <SearchPlace
+                    setPlaceId={setPlaceId}
+                    prevPlace={isEdit ? prevPlace : null} // 수정된 부분
+                />
                 <Contents
                     type="text"
                     value={content}
                     placeholder="포스트를 작성해주세요"
                     onChange={onChangesPost}
                 />
-                {isEdit ? null : (
-                    <ImageContainer>
-                        {prevImages.map((src, index) => (
-                            <ImagePreviewWrapper key={index}>
-                                <RemoveButton
-                                    onClick={() => handleRemoveImage(index)}
-                                >
-                                    X
-                                </RemoveButton>
-                                <ImagePreview
-                                    src={src}
-                                    alt={`uploaded image ${index + 1}`}
-                                />
-                            </ImagePreviewWrapper>
-                        ))}
-                        {images.length === 0 && (
-                            <>
-                                <FirstImageUploadButton onClick={handleClick} />
-                                <IMGBox
-                                    type="file"
-                                    accept="image/*"
-                                    multiple
-                                    onChange={handleImageUpload}
-                                    ref={fileInputRef}
-                                />
-                            </>
-                        )}
-                        {images.length > 0 && images.length < 4 && (
-                            <>
-                                <ImageUploadButton onClick={handleClick} />
-                                <IMGBox
-                                    type="file"
-                                    accept="image/*"
-                                    multiple
-                                    onChange={handleImageUpload}
-                                    ref={fileInputRef}
-                                />
-                            </>
-                        )}
-                    </ImageContainer>
-                )}
+
+                <ImageContainer>
+                    {prevImages.map((src, index) => (
+                        <ImagePreviewWrapper key={index}>
+                            <RemoveButton
+                                onClick={() => handleRemoveImage(index)}
+                            >
+                                X
+                            </RemoveButton>
+                            <ImagePreview
+                                src={src}
+                                alt={`uploaded image ${index + 1}`}
+                            />
+                        </ImagePreviewWrapper>
+                    ))}
+                    {images.length === 0 && (
+                        <>
+                            <FirstImageUploadButton onClick={handleClick} />
+                            <IMGBox
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                onChange={handleImageUpload}
+                                ref={fileInputRef}
+                            />
+                        </>
+                    )}
+                    {images.length > 0 && images.length < 4 && (
+                        <>
+                            <ImageUploadButton onClick={handleClick} />
+                            <IMGBox
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                onChange={handleImageUpload}
+                                ref={fileInputRef}
+                            />
+                        </>
+                    )}
+                </ImageContainer>
             </ContentsWrapper>
         </UploadWrapper>
     );

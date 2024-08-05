@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { getAllPlaces } from '../api/place';
 
-export const SearchPlace = ({ setPlaceId }) => {
+export const SearchPlace = ({ setPlaceId, prevPlace = null }) => {
     const [placeList, setPlaceList] = useState([]);
     const [myPlace, setMyPlace] = useState('');
     const [showList, setShowList] = useState(false);
@@ -19,6 +19,16 @@ export const SearchPlace = ({ setPlaceId }) => {
 
         getPlaces();
     }, []);
+
+    useEffect(() => {
+        if (placeList.length > 0 && prevPlace) {
+            setMyPlace(prevPlace);
+            const place = placeList.find((p) => p.placeName === prevPlace);
+            if (place) {
+                setPlaceId(place.placeId);
+            }
+        }
+    }, [placeList, prevPlace]);
 
     const onChangePlace = (e) => {
         const value = e.target.value;

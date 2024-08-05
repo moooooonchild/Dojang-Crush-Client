@@ -17,7 +17,6 @@ export const getComments = async (postId) => {
     // 작동 ok
     try {
         const res = await client.get(`/comments/${postId}`);
-        console.log(res);
         return res.data.commentList;
     } catch (err) {
         console.log(err);
@@ -34,7 +33,6 @@ export const deleteComments = async (commentId) => {
 };
 
 export const patchComments = async (commentId, data) => {
-    //NOTE - userId 필요??
     try {
         const res = await client.patch(`/comments/${commentId}`, data);
         console.log(res.data);

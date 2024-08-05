@@ -25,13 +25,17 @@ export const postPost = async (data, images) => {
     }
 };
 
-export const patchPost = async (postId, data) => {
+export const patchPost = async (postId, data, images) => {
     try {
         const formData = new FormData();
         formData.append('content', data.content);
         formData.append('placeId', data.placeId);
         formData.append('groupId', data.groupId);
         formData.append('visitedDate', data.visitedDate);
+        images.forEach((image) => {
+            if (image instanceof File && image.size > 0)
+                formData.append(`images`, image);
+        });
         const res = await client.patch(`/posts/${postId}`, formData, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -57,7 +61,6 @@ export const getPostDetail = async (postId) => {
     //작동 ok
     try {
         const res = await client.get(`/posts/${postId}`);
-        console.log(res.data);
         return res.data;
     } catch (err) {
         console.log(err);

@@ -60,9 +60,6 @@ const PostDetailPage = () => {
         setIsDeleteModalOpen(!isDeleteModalOpen);
     };
 
-    const images = [defaultImage, defaultImage, defaultImage, defaultImage];
-    //TODO - 임시 이미지 배열로 api 연결 후 삭제
-
     return (
         <S.Container>
             {postDetail && commentList && (
