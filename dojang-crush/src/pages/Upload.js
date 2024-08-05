@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { ReactComponent as FirstUploadButton } from '../assets/ui/1stphoto_upload.svg';
 import { ReactComponent as UploadButton } from '../assets/ui/photo_upload.svg';
 import { DatePickerCalendar } from '../components/DatePicker';
+import { SearchPlace } from '../components/SearchPlace';
 
 import { postPost } from '../api/post';
 import { useNavigate } from 'react-router-dom';
@@ -109,7 +110,7 @@ const UploadPage = () => {
                     selectedDate={date}
                     onDateChange={setDate}
                 />
-                <Tags>장소 선택</Tags>
+                <SearchPlace setPlaceId={setPlaceId} />
                 <Contents
                     type="text"
                     value={content}
@@ -172,17 +173,6 @@ const ContentsWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2vh;
-`;
-
-const Tags = styled.div`
-    width: 90vw;
-    padding: 3vw;
-    border: none;
-    background-color: white;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: center;
 `;
 
 const Contents = styled.textarea`
