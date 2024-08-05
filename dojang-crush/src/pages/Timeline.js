@@ -1,19 +1,32 @@
-import NavigationBar from "../components/NavigationBar";
-import styled from "styled-components";
+import NavigationBar from '../components/NavigationBar';
+import { TitleComponent } from '../components/common/header/TitleComponent';
+import { CalendarIcon } from '../components/calendar/Icons';
+import { PostComponent } from '../components/timeline/PostComponent';
+import { useNavigate } from 'react-router-dom';
 
 const TimelinePage = () => {
+    const navigate = useNavigate();
+
+    //route to post detail page
+    const handlePostClick = (postId) => {
+        navigate(`/post/${postId}`);
+    };
+
     return (
-        <Container>
+        <>
+            <TitleComponent
+                title="Timeline"
+                isBackBtn={false}
+                RightIcon={CalendarIcon}
+                RightIconPath={'/calendar'}
+            />
+            <PostComponent onPostClick={handlePostClick} />
+            <PostComponent onPostClick={handlePostClick} />
+            <PostComponent onPostClick={handlePostClick} />
+
             <NavigationBar />
-        </Container>
+        </>
     );
 };
 
 export default TimelinePage;
-
-const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-`;
