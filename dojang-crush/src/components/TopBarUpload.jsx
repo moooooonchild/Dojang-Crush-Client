@@ -1,15 +1,15 @@
-import styled from "styled-components";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
-import { ReactComponent as SharingSVG } from "../assets/ui/share.svg";
+import styled from 'styled-components';
+import { IoMdArrowRoundBack } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
+import { ReactComponent as SharingSVG } from '../assets/ui/share.svg';
 
-const TopBarUpload = ({ text }) => {
+const TopBarUpload = ({ text, onClickUpload }) => {
     const navigate = useNavigate();
     return (
         <TopBarWrapper>
             <BackBTN onClick={() => navigate(-1)} />
             <TopBarText>{`${text}`}</TopBarText>
-            <TopBarSharingBTN>
+            <TopBarSharingBTN onClick={onClickUpload}>
                 <SharingIcon />
             </TopBarSharingBTN>
         </TopBarWrapper>
