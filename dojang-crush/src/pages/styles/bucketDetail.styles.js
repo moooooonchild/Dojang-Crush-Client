@@ -23,7 +23,7 @@ export const Header = styled.div`
 `;
 
 export const Title = styled.div`
-    font-size: 4rem;
+    font-size: 1.5rem;
     font-weight: bold;
 `;
 

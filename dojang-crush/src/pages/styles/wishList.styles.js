@@ -20,16 +20,16 @@ export const Header = styled.div`
 `;
 
 export const Title = styled.div`
-    font-size: 4rem;
+    font-size: 1.5rem;
     font-weight: bold;
 `;
 
 export const ToTheme = styled.div`
     position: absolute;
-    right: 6%;
+    right: 7%;
     top: 100%;
 
-    font-size: 2.3rem;
+    font-size: 1rem;
     font-weight: bold;
 `;
 
