@@ -84,6 +84,7 @@ export const CommentWrite = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 
     position: sticky;
     bottom: 0;
@@ -98,8 +99,6 @@ export const TextArea = styled.textarea`
     height: 8vw;
 
     border-radius: 1vw;
-
-    padding-top: 1.5vw;
     font-family: 'Noto Sans KR';
     font-size: 1rem;
 `;
