@@ -1,21 +1,22 @@
-import { Routes, Route } from "react-router-dom";
-import styled from "styled-components";
+import { Routes, Route } from 'react-router-dom';
+import styled from 'styled-components';
 
-import TimelinePage from "./pages/Timeline";
-import BucketListPage from "./pages/BucketList";
-import UploadPage from "./pages/Upload";
-import WishListPage from "./pages/WishList";
-import GroupPage from "./pages/Group";
-import RegisterPage from "./pages/Register";
-import BucketDetailPage from "./pages/BucketDetail";
-import WishDetailPage from "./pages/WishDetail";
-import SignupPage from "./pages/Signup";
-import PostDetailPage from "./pages/PostDetail";
-import SettingPage from "./pages/Settings";
-import ChangeNamePage from "./pages/ChangeName";
-import ChangeIDPWPage from "./pages/ChangeIDPW";
-import ChangeGroupNamePage from "./pages/ChangeGroupName";
-import WithdrawalPage from "./pages/Withdrawal";
+import TimelinePage from './pages/Timeline';
+import BucketListPage from './pages/BucketList';
+import UploadPage from './pages/Upload';
+import WishListPage from './pages/WishList';
+import GroupPage from './pages/Group';
+import RegisterPage from './pages/Register';
+import BucketDetailPage from './pages/BucketDetail';
+import WishDetailPage from './pages/WishDetail';
+import SignupPage from './pages/Signup';
+import PostDetailPage from './pages/PostDetail';
+import SettingPage from './pages/Settings';
+import ChangeNamePage from './pages/ChangeName';
+import ChangeIDPWPage from './pages/ChangeIDPW';
+import ChangeGroupNamePage from './pages/ChangeGroupName';
+import WithdrawalPage from './pages/Withdrawal';
+import CalendarPage from './pages/Calendar';
 
 function App() {
     return (
@@ -45,6 +46,7 @@ function App() {
                     path="/changegroupname"
                     element={<ChangeGroupNamePage />}
                 ></Route>
+                <Route path="/calendar" element={<CalendarPage />}></Route>
             </Routes>
         </Container>
     );
@@ -53,8 +55,8 @@ function App() {
 export default App;
 
 const Container = styled.div`
-    display: flex;
+    /* display: flex;
     justify-content: center;
     width: 100vw;
-    height: 100vh;
+    height: 100vh; */
 `;
