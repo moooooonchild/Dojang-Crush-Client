@@ -41,6 +41,7 @@ export const getAllPlaces = async () => {
     try {
         const res = await client.get(`/place`);
         console.log(res.data);
+        return res.data.places;
     } catch (err) {
         console.log(err);
     }

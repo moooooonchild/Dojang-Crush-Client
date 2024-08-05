@@ -23,6 +23,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
 
     overflow-y: scroll;
 
@@ -62,27 +63,28 @@ export const DeleteBtn = styled.button`
 export const ProfImg = styled.img`
     width: 8vw;
     margin-right: 2vw;
-    align-self: baseline;
 `;
 
 export const Name = styled.span`
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: bold;
     margin-right: 10vw;
 `;
 
 export const CommentTime = styled.span`
-    font-size: 2rem;
+    font-size: 1rem;
+    margin-right: 1vw;
 `;
 
 export const Text = styled.div`
-    font-size: 2rem;
+    font-size: 1rem;
 `;
 
 export const CommentWrite = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 
     position: sticky;
     bottom: 0;
@@ -97,10 +99,8 @@ export const TextArea = styled.textarea`
     height: 8vw;
 
     border-radius: 1vw;
-
-    padding-top: 1.5vw;
     font-family: 'Noto Sans KR';
-    font-size: 2rem;
+    font-size: 1rem;
 `;
 
 export const SendBtn = styled.button`
