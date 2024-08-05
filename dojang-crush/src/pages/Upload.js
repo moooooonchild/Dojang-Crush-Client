@@ -97,8 +97,8 @@ const UploadPage = () => {
             };
 
             postPost(data, images);
-            nav('/');
-            window.location.reload();
+            // nav('/');
+            // window.location.reload();
         }
     };
 
@@ -232,5 +232,5 @@ const RemoveButton = styled.button`
     height: 4vw;
     color: white;
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 0.6rem;
 `;

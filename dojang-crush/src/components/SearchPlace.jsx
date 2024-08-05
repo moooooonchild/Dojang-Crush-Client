@@ -31,9 +31,10 @@ export const SearchPlace = ({ setPlaceId }) => {
         }
     };
 
-    const onClickPlace = (placeId) => {
+    const onClickPlace = (place) => {
         setShowList(false);
-        setPlaceId(placeId);
+        setPlaceId(place.placeId);
+        setMyPlace(place.placeName);
     };
 
     const filterPlaces = placeList.filter((place) =>
@@ -54,7 +55,7 @@ export const SearchPlace = ({ setPlaceId }) => {
                         <Place
                             key={index}
                             onClick={() => {
-                                onClickPlace(place.placeId);
+                                onClickPlace(place);
                             }}
                         >
                             {place.placeName}

@@ -7,10 +7,12 @@ export const postPost = async (data, images) => {
         formData.append('placeId', data.placeId);
         formData.append('groupId', data.groupId);
         formData.append('visitedDate', data.visitedDate);
-        images.forEach((image, index) => {
-            // 파일을 'image'라는 키로 추가
-            formData.append(`image[${index}]`, image);
+        images.forEach((image) => {
+            if (image instanceof File && image.size > 0)
+                formData.append(`images`, image);
         });
+
+        console.log(...formData);
         const res = await client.post(`/posts`, formData, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
