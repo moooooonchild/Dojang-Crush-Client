@@ -71,6 +71,7 @@ const PostDetailPage = () => {
                         isOpen={isMoreModalOpen}
                         modalHandler={moreModalHandler}
                         deleteModalHandler={deleteModalHandler}
+                        postDetail={postDetail}
                     />
                     <PostDeleteModal
                         isOpen={isDeleteModalOpen}

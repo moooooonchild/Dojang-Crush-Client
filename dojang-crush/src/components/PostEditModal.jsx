@@ -1,39 +1,43 @@
-import * as S from "./styles/postEditModal.styles";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import * as S from './styles/postEditModal.styles';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import xButton from "../assets/ui/xButton.svg";
+import xButton from '../assets/ui/xButton.svg';
 
-const PostEditModal = ({ isOpen, modalHandler, deleteModalHandler }) => {
+const PostEditModal = ({
+    isOpen,
+    modalHandler,
+    deleteModalHandler,
+    postDetail,
+}) => {
     const nav = useNavigate();
 
     useEffect(() => {
         if (isOpen) {
-            document.body.style.overflow = "hidden";
+            document.body.style.overflow = 'hidden';
         } else {
-            document.body.style.overflow = "unset";
+            document.body.style.overflow = 'unset';
         }
 
         return () => {
-            document.body.style.overflow = "unset";
+            document.body.style.overflow = 'unset';
         };
     }, [isOpen]);
 
+    const onClickEditBtn = () => {
+        console.log(postDetail);
+        nav('/upload', { state: postDetail });
+    };
+
     return (
         <S.Background
-            style={{ display: isOpen ? "flex" : "none" }}
+            style={{ display: isOpen ? 'flex' : 'none' }}
             onClick={modalHandler}
         >
             <S.Container onClick={(e) => e.stopPropagation()}>
                 <S.XButton src={xButton} onClick={modalHandler} />
                 <S.BtnArea>
-                    <S.EditBtn
-                        onClick={() => {
-                            nav(`/upload`);
-                        }}
-                    >
-                        수정하기
-                    </S.EditBtn>
+                    <S.EditBtn onClick={onClickEditBtn}>수정하기</S.EditBtn>
                     <S.DeleteBtn onClick={deleteModalHandler}>
                         삭제하기
                     </S.DeleteBtn>
