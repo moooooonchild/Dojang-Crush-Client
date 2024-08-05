@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import sendImg from "../../assets/ui/send.svg";
+import styled from 'styled-components';
+import sendImg from '../../assets/ui/send.svg';
+import deleteIcon from '../../assets/ui/trash.svg';
 
 export const Background = styled.div`
     width: 100vw;
@@ -46,6 +47,18 @@ export const Comment = styled.div`
 
 export const CommentArea = styled.div``;
 
+export const DeleteBtn = styled.button`
+    width: 5vw;
+    height: 5vw;
+
+    margin-left: auto;
+
+    background-color: inherit;
+    background-image: url(${deleteIcon});
+    background-size: cover;
+    border: none;
+`;
+
 export const ProfImg = styled.img`
     width: 8vw;
     margin-right: 2vw;
@@ -86,7 +99,8 @@ export const TextArea = styled.textarea`
     border-radius: 1vw;
 
     padding-top: 1.5vw;
-    font-size: 2.5rem;
+    font-family: 'Noto Sans KR';
+    font-size: 2rem;
 `;
 
 export const SendBtn = styled.button`

@@ -1,13 +1,12 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
 
-    width: 100vw;
-    height: 100vh;
+    overflow-y: scroll;
 `;
 
 export const Header = styled.div`
@@ -41,7 +40,6 @@ export const PlaceList = styled.div`
 
     //overflow-y: auto;
     flex: 1;
-    width: 100vw;
 `;
 
 export const WishList = styled.div`

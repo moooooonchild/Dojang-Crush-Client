@@ -1,33 +1,33 @@
-import styled from "styled-components";
-import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { deletePost } from "../api/post";
+import styled from 'styled-components';
+import { useEffect, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { deletePost } from '../api/post';
 
 const PostDeleteModal = ({ isOpen, modalHandler }) => {
     const nav = useNavigate();
-    const postId = useRef();
+    const postId = useParams().id;
     useEffect(() => {
         if (isOpen) {
-            document.body.style.overflow = "hidden";
+            document.body.style.overflow = 'hidden';
         } else {
-            document.body.style.overflow = "unset";
+            document.body.style.overflow = 'unset';
         }
 
         return () => {
-            document.body.style.overflow = "unset";
+            document.body.style.overflow = 'unset';
         };
     }, [isOpen]);
 
     const onClickDeleteBtn = () => {
         deletePost(postId)
-            .then(alert("게시글 삭제 완료"))
+            .then(alert('게시글 삭제 완료'))
             .then(nav(-1))
             .catch((err) => console.log(err));
     };
 
     return (
         <Background
-            style={{ display: isOpen ? "flex" : "none" }}
+            style={{ display: isOpen ? 'flex' : 'none' }}
             onClick={modalHandler}
         >
             <Container onClick={(e) => e.stopPropagation()}>
