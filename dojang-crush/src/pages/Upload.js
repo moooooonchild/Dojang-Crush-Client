@@ -1,24 +1,65 @@
-import { useState, useRef } from "react";
-import TopBarUpload from "../components/TopBarUpload";
-import styled from "styled-components";
-import { ReactComponent as FirstUploadButton } from "../assets/ui/1stphoto_upload.svg";
-import { ReactComponent as UploadButton } from "../assets/ui/photo_upload.svg";
+import { useState, useRef, useEffect } from 'react';
+import TopBarUpload from '../components/TopBarUpload';
+import styled from 'styled-components';
+import { ReactComponent as FirstUploadButton } from '../assets/ui/1stphoto_upload.svg';
+import { ReactComponent as UploadButton } from '../assets/ui/photo_upload.svg';
+import { DatePickerCalendar } from '../components/DatePicker';
+import { SearchPlace } from '../components/SearchPlace';
+
+import { postPost } from '../api/post';
+import { useNavigate } from 'react-router-dom';
+import { getMemberInfo } from '../api/member';
 
 const UploadPage = () => {
+    const [content, setContent] = useState('');
+    const [placeId, setPlaceId] = useState(null);
+    const [groupId, setGroupId] = useState(null);
+    const [date, setDate] = useState(new Date());
+    const [formattedDate, setFormattedDate] = useState('');
     const [images, setImages] = useState([]);
+    const [prevImages, setPrevImages] = useState([]);
     const fileInputRef = useRef(null);
+    const nav = useNavigate();
+
+    useEffect(() => {
+        const getGroupId = async () => {
+            try {
+                const res = await getMemberInfo();
+                setGroupId(res.group.groupId);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        getGroupId();
+    }, []);
+
+    useEffect(() => {
+        const formatDate = (date) => {
+            if (!date) return '';
+            return date.toLocaleDateString('en-CA'); // "yyyy-MM-dd" 형식으로 반환
+        };
+
+        if (date) {
+            setFormattedDate(formatDate(date));
+        }
+    }, [date]);
 
     const handleImageUpload = (e) => {
         const files = Array.from(e.target.files);
-        const newImages = [];
+        const newImages = []; //미리보기 이미지
+        const fileObjects = []; //실제 보낼 이미지
 
         files.forEach((file) => {
             const reader = new FileReader();
             reader.onloadend = () => {
                 newImages.push(reader.result);
+                fileObjects.push(file);
+
                 if (newImages.length === files.length) {
-                    setImages((prevImages) =>
-                        [...prevImages, ...newImages].slice(0, 4)
+                    setImages((prev) => [...prev, ...fileObjects].slice(0, 4)); // 서버에 보낼 파일을 설정 (최대 4개)
+                    setPrevImages((prev) =>
+                        [...prev, ...newImages].slice(0, 4)
                     );
                 }
             };
@@ -28,20 +69,56 @@ const UploadPage = () => {
 
     const handleRemoveImage = (index) => {
         setImages(images.filter((_, i) => i !== index));
+        setPrevImages(prevImages.filter((_, i) => i !== index));
     };
 
     const handleClick = () => {
         fileInputRef.current.click();
     };
 
+    const onChangesPost = (e) => {
+        const { value } = e.target;
+        setContent(value);
+    };
+
+    const onClickUploadButton = () => {
+        if (placeId === null) {
+            alert('장소를 선택해주세요');
+        } else if (content.trim() === '') {
+            alert('내용을 입력해주세요.');
+        } else if (images.length === 0) {
+            alert('사진을 첨부해주세요.');
+        } else {
+            const data = {
+                content: content,
+                placeId: 3,
+                groupId: groupId,
+                visitedDate: formattedDate,
+            };
+
+            postPost(data, images);
+            nav('/');
+            window.location.reload();
+        }
+    };
+
     return (
         <UploadWrapper>
-            <TopBarUpload text="Upload" />
+            <TopBarUpload text="Upload" onClickUpload={onClickUploadButton} />
             <ContentsWrapper>
-                <Tags />
-                <Contents />
+                <DatePickerCalendar
+                    selectedDate={date}
+                    onDateChange={setDate}
+                />
+                <SearchPlace setPlaceId={setPlaceId} />
+                <Contents
+                    type="text"
+                    value={content}
+                    placeholder="포스트를 작성해주세요"
+                    onChange={onChangesPost}
+                />
                 <ImageContainer>
-                    {images.map((src, index) => (
+                    {prevImages.map((src, index) => (
                         <ImagePreviewWrapper key={index}>
                             <RemoveButton
                                 onClick={() => handleRemoveImage(index)}
@@ -54,7 +131,7 @@ const UploadPage = () => {
                             />
                         </ImagePreviewWrapper>
                     ))}
-                    {images.length == 0 && (
+                    {images.length === 0 && (
                         <>
                             <FirstImageUploadButton onClick={handleClick} />
                             <IMGBox
@@ -95,15 +172,7 @@ const UploadWrapper = styled.div`
 const ContentsWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 3vh;
-`;
-
-const Tags = styled.input`
-    width: 90vw;
-    padding: 3vw;
-    border: none;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    font-size: 2.5rem;
+    gap: 2vh;
 `;
 
 const Contents = styled.textarea`
@@ -117,15 +186,19 @@ const Contents = styled.textarea`
 
 const ImageContainer = styled.div`
     display: flex;
-    align-items: start;
+    align-items: center;
     gap: 2vw;
 `;
 
 const FirstImageUploadButton = styled(FirstUploadButton)`
+    width: 25vw;
+    height: 25vw;
     cursor: pointer;
 `;
 
 const ImageUploadButton = styled(UploadButton)`
+    width: 25vw;
+    height: 25vw;
     cursor: pointer;
 `;
 const IMGBox = styled.input`
@@ -137,8 +210,8 @@ const ImagePreviewWrapper = styled.div`
 `;
 
 const ImagePreview = styled.img`
-    max-width: 20vw;
-    max-height: 15vh;
+    width: 20vw;
+    height: 20vw;
     border-radius: 5px;
     object-fit: cover;
 `;
@@ -148,16 +221,15 @@ const RemoveButton = styled.button`
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 0.2vh;
-    right: 0.2vh;
-    width: 1vh;
-    height: 1vh;
+    top: 0.3vh;
+    right: 0.3vh;
+
     border: none;
     border-radius: 50%;
     background: rgba(255, 0, 0, 0.7);
-    width: 1vh;
-    height: 1vh;
+    width: 4vw;
+    height: 4vw;
     color: white;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.5rem;
 `;
