@@ -6,20 +6,39 @@ import { ReactComponent as UploadButton } from '../assets/ui/photo_upload.svg';
 import { DatePickerCalendar } from '../components/DatePicker';
 import { SearchPlace } from '../components/SearchPlace';
 
-import { postPost } from '../api/post';
-import { useNavigate } from 'react-router-dom';
+import { patchPost, postPost } from '../api/post';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getMemberInfo } from '../api/member';
 
 const UploadPage = () => {
+    const [isEdit, setIsEdit] = useState(null);
     const [content, setContent] = useState('');
     const [placeId, setPlaceId] = useState(null);
     const [groupId, setGroupId] = useState(null);
     const [date, setDate] = useState(new Date());
     const [formattedDate, setFormattedDate] = useState('');
-    const [images, setImages] = useState([]);
-    const [prevImages, setPrevImages] = useState([]);
+    const [images, setImages] = useState([]); //진짜 이미지 파일
+    const [prevImages, setPrevImages] = useState([]); //이미지 미리보기
     const fileInputRef = useRef(null);
+    const location = useLocation();
     const nav = useNavigate();
+    const postDetail = { ...location.state };
+
+    useEffect(() => {
+        console.log(postDetail);
+
+        const parseDate = (dateString) => {
+            const [year, month, day] = dateString.split('-').map(Number);
+            return new Date(year, month - 1, day);
+        };
+
+        if (Object.keys(postDetail).length !== 0) {
+            setIsEdit(true);
+            setContent(postDetail.content);
+            setDate(parseDate(postDetail.visitedDate));
+            setFormattedDate(postDetail.visitedDate);
+        }
+    }, []);
 
     useEffect(() => {
         const getGroupId = async () => {
@@ -82,23 +101,42 @@ const UploadPage = () => {
     };
 
     const onClickUploadButton = () => {
-        if (placeId === null) {
-            alert('장소를 선택해주세요');
-        } else if (content.trim() === '') {
-            alert('내용을 입력해주세요.');
-        } else if (images.length === 0) {
-            alert('사진을 첨부해주세요.');
-        } else {
-            const data = {
-                content: content,
-                placeId: 3,
-                groupId: groupId,
-                visitedDate: formattedDate,
-            };
+        if (isEdit) {
+            if (placeId === null) {
+                alert('장소를 선택해주세요');
+            } else if (content.trim() === '') {
+                alert('내용을 입력해주세요.');
+            } else {
+                const data = {
+                    content: content,
+                    placeId: placeId,
+                    groupId: groupId,
+                    visitedDate: formattedDate,
+                };
 
-            postPost(data, images);
-            // nav('/');
-            // window.location.reload();
+                patchPost(postDetail.postId, data);
+                nav('/');
+                window.location.reload();
+            }
+        } else {
+            if (placeId === null) {
+                alert('장소를 선택해주세요');
+            } else if (content.trim() === '') {
+                alert('내용을 입력해주세요.');
+            } else if (images.length === 0) {
+                alert('사진을 첨부해주세요.');
+            } else {
+                const data = {
+                    content: content,
+                    placeId: placeId,
+                    groupId: groupId,
+                    visitedDate: formattedDate,
+                };
+
+                postPost(data, images);
+                nav('/');
+                window.location.reload();
+            }
         }
     };
 
@@ -117,45 +155,47 @@ const UploadPage = () => {
                     placeholder="포스트를 작성해주세요"
                     onChange={onChangesPost}
                 />
-                <ImageContainer>
-                    {prevImages.map((src, index) => (
-                        <ImagePreviewWrapper key={index}>
-                            <RemoveButton
-                                onClick={() => handleRemoveImage(index)}
-                            >
-                                X
-                            </RemoveButton>
-                            <ImagePreview
-                                src={src}
-                                alt={`uploaded image ${index + 1}`}
-                            />
-                        </ImagePreviewWrapper>
-                    ))}
-                    {images.length === 0 && (
-                        <>
-                            <FirstImageUploadButton onClick={handleClick} />
-                            <IMGBox
-                                type="file"
-                                accept="image/*"
-                                multiple
-                                onChange={handleImageUpload}
-                                ref={fileInputRef}
-                            />
-                        </>
-                    )}
-                    {images.length > 0 && images.length < 4 && (
-                        <>
-                            <ImageUploadButton onClick={handleClick} />
-                            <IMGBox
-                                type="file"
-                                accept="image/*"
-                                multiple
-                                onChange={handleImageUpload}
-                                ref={fileInputRef}
-                            />
-                        </>
-                    )}
-                </ImageContainer>
+                {isEdit ? null : (
+                    <ImageContainer>
+                        {prevImages.map((src, index) => (
+                            <ImagePreviewWrapper key={index}>
+                                <RemoveButton
+                                    onClick={() => handleRemoveImage(index)}
+                                >
+                                    X
+                                </RemoveButton>
+                                <ImagePreview
+                                    src={src}
+                                    alt={`uploaded image ${index + 1}`}
+                                />
+                            </ImagePreviewWrapper>
+                        ))}
+                        {images.length === 0 && (
+                            <>
+                                <FirstImageUploadButton onClick={handleClick} />
+                                <IMGBox
+                                    type="file"
+                                    accept="image/*"
+                                    multiple
+                                    onChange={handleImageUpload}
+                                    ref={fileInputRef}
+                                />
+                            </>
+                        )}
+                        {images.length > 0 && images.length < 4 && (
+                            <>
+                                <ImageUploadButton onClick={handleClick} />
+                                <IMGBox
+                                    type="file"
+                                    accept="image/*"
+                                    multiple
+                                    onChange={handleImageUpload}
+                                    ref={fileInputRef}
+                                />
+                            </>
+                        )}
+                    </ImageContainer>
+                )}
             </ContentsWrapper>
         </UploadWrapper>
     );

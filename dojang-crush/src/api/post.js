@@ -25,17 +25,13 @@ export const postPost = async (data, images) => {
     }
 };
 
-export const patchPost = async (postId, data, images) => {
+export const patchPost = async (postId, data) => {
     try {
         const formData = new FormData();
         formData.append('content', data.content);
         formData.append('placeId', data.placeId);
         formData.append('groupId', data.groupId);
         formData.append('visitedDate', data.visitedDate);
-        images.forEach((image, index) => {
-            // 파일을 'image'라는 키로 추가
-            formData.append(`image[${index}]`, image);
-        });
         const res = await client.patch(`/posts/${postId}`, formData, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
