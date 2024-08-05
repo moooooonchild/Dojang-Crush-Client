@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Background = styled.div`
     width: 100vw;
@@ -52,7 +52,7 @@ export const EditBtn = styled.button`
     background-color: inherit;
     border: none;
 
-    font-size: 3rem;
+    font-size: 1.5rem;
     font-weight: bold;
 `;
 
@@ -60,6 +60,6 @@ export const DeleteBtn = styled.button`
     background-color: inherit;
     border: none;
 
-    font-size: 3rem;
+    font-size: 1.5rem;
     font-weight: bold;
 `;
