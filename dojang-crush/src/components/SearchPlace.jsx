@@ -75,7 +75,7 @@ const Tags = styled.input`
     border: none;
     background-color: white;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    font-size: 2.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
     text-align: center;
 `;
@@ -94,7 +94,7 @@ const Place = styled.div`
     border: none;
     background-color: #f5f5f5;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    font-size: 2.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
 `;

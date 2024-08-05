@@ -166,7 +166,7 @@ export default UploadPage;
 const UploadWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
 `;
 
 const ContentsWrapper = styled.div`
@@ -180,7 +180,8 @@ const Contents = styled.textarea`
     height: 40vh;
     padding: 3vw;
     border: none;
-    font-size: 2rem;
+    font-family: 'Noto Sans KR';
+    font-size: 1rem;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 `;
 
