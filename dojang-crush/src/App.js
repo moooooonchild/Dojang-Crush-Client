@@ -17,6 +17,7 @@ import ChangeIDPWPage from './pages/ChangeIDPW';
 import ChangeGroupNamePage from './pages/ChangeGroupName';
 import WithdrawalPage from './pages/Withdrawal';
 import CalendarPage from './pages/Calendar';
+import Redirection from './pages/Redirection';
 
 function App() {
     return (

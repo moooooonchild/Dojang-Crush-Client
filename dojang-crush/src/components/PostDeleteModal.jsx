@@ -83,7 +83,7 @@ const Container = styled.div`
 `;
 
 const Text = styled.div`
-    font-size: 2rem;
+    font-size: 1rem;
     text-align: center;
 `;
 
@@ -93,5 +93,5 @@ const DeleteBtn = styled.button`
 
     background-color: inherit;
     border-color: #612d1c;
-    font-size: 2rem;
+    font-size: 1rem;
 `;

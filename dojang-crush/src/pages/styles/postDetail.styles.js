@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import editBtn from "../../assets/ui/menu-dots.svg";
+import styled from 'styled-components';
+import editBtn from '../../assets/ui/menu-dots.svg';
 
 export const Container = styled.div`
     display: flex;
@@ -24,7 +24,7 @@ export const Header = styled.div`
 `;
 
 export const Title = styled.div`
-    font-size: 4rem;
+    font-size: 1.5rem;
     font-weight: bold;
 `;
 
@@ -71,19 +71,20 @@ export const ProfileImg = styled.img`
 export const InfoArea = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     height: 20.2vw;
 `;
 
 export const Name = styled.div`
-    font-size: 3rem;
+    font-size: 1.3rem;
     font-weight: bold;
 
     margin-right: 2vw;
 `;
 
 export const Tag = styled.div`
-    font-size: 2.5rem;
+    font-size: 1rem;
+    font-weight: bold;
 `;
 
 export const MoreBtn = styled.button`
@@ -101,7 +102,7 @@ export const MoreBtn = styled.button`
 export const PostText = styled.div`
     width: 100%;
     padding: 4vw 6vw;
-    font-size: 2rem;
+    font-size: 1rem;
 `;
 
 export const RowLine = styled.div`
@@ -113,7 +114,7 @@ export const RowLine = styled.div`
 export const PostTime = styled.div`
     width: 88vw;
     margin-bottom: 4vw;
-    font-size: 1rem;
+    font-size: 0.8rem;
     text-align: right;
 `;
 
@@ -136,13 +137,13 @@ export const Comment = styled.div`
 `;
 
 export const NickName = styled.div`
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     margin-right: 2vw;
 `;
 
 export const Content = styled.div`
-    font-size: 2.5rem;
+    font-size: 1rem;
 `;
 
 export const CommentWrite = styled.div`
@@ -158,7 +159,7 @@ export const CommentProfileImg = styled.img`
 `;
 
 export const TextInput = styled.input`
-    font-size: 2rem;
+    font-size: 1rem;
 
     border: none;
     background-color: inherit;

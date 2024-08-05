@@ -46,10 +46,6 @@ const PostDetailPage = () => {
             .catch((err) => console.log(err));
     }, []);
 
-    const onClickBackButton = () => {
-        nav(-1);
-    };
-
     const commentModalHandler = () => {
         setIsCommentModalOpen(!isCommentModalOpen);
     };
@@ -88,14 +84,11 @@ const PostDetailPage = () => {
                     />
 
                     <S.Header>
-                        <S.BackButton
-                            src={backIcon}
-                            onClick={onClickBackButton}
-                        />
+                        <S.BackButton src={backIcon} onClick={() => nav(-1)} />
                         <S.Title>Timeline</S.Title>
                         <S.CalendarButton
                             src={calendarIcon}
-                            onClick={onClickBackButton} //TODO - 캘린더 창 이동으로 수정해야함
+                            onClick={() => nav(-1)} //TODO - 캘린더 창 이동으로 수정해야함
                         />
                     </S.Header>
                     <S.PostArea>
