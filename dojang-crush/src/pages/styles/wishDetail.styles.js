@@ -22,7 +22,7 @@ export const Header = styled.div`
 `;
 
 export const Title = styled.div`
-    font-size: 4rem;
+    font-size: 1.5rem;
     font-weight: bold;
 `;
 
@@ -48,6 +48,7 @@ export const WishList = styled.div`
     display: flex;
     justify-content: space-evenly;
     overflow-y: auto;
+    padding-bottom: 9.5vh;
     flex: 1;
     flex-wrap: wrap;
     width: 100vw;

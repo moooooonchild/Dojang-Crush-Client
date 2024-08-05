@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const Container = styled(NavLink)`
     display: flex;
@@ -29,7 +29,7 @@ export const Theme = styled.div`
 
     width: 100%;
     height: 100%;
-    font-size: 4rem;
+    font-size: 1.5rem;
     text-align: center;
     color: #612d1c;
     font-weight: bold;

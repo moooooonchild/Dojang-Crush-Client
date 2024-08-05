@@ -28,7 +28,7 @@ export const PlaceImg = styled.img`
 `;
 
 export const Name = styled.div`
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #612d1c;
 `;
@@ -38,7 +38,7 @@ export const Address = styled.div`
     overflow-x: scroll;
 
     width: 75vw;
-    font-size: 2rem;
+    font-size: 0.9rem;
     text-align: left;
     color: #612d1c;
 `;
@@ -52,30 +52,33 @@ export const Users = styled.div`
     right: 4%;
 
     width: 37vw;
-    height: 2.1vh;
+    height: 3vh;
 
     overflow-y: hidden;
 
     div {
-        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        padding: 0.5vw 1.5vw;
+        font-size: 0.7rem;
         font-weight: bold;
         color: #612d1c;
+        background-color: white;
+        border-radius: 1rem;
     }
 `;
 
 export const HeartButton = styled.button`
     position: absolute;
-    top: 90%;
+    top: 84%;
     right: 0%;
 
-    width: 5.5vw;
+    width: 8vw;
 
     border: none;
     background: none;
 
     img {
-        transform: translate(-50%, -50%);
-        width: 100%;
-        height: 100%;
+        width: 95%;
     }
 `;

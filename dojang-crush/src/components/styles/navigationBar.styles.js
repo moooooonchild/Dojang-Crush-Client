@@ -27,7 +27,7 @@ export const NavItem = styled(NavLink)`
     width: 15.2vw;
 
     text-decoration: none;
-    font-size: 2rem;
+    font-size: 0.9rem;
     color: #612d1c;
 
     img {

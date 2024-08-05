@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
     display: flex;
@@ -20,16 +20,16 @@ export const Header = styled.div`
 `;
 
 export const Title = styled.div`
-    font-size: 4rem;
+    font-size: 1.5rem;
     font-weight: bold;
 `;
 
 export const ToTheme = styled.div`
     position: absolute;
-    right: 6%;
+    right: 7%;
     top: 100%;
 
-    font-size: 2.3rem;
+    font-size: 1rem;
     font-weight: bold;
 `;
 
@@ -39,6 +39,7 @@ export const PlaceList = styled.div`
     align-items: center;
 
     //overflow-y: auto;
+    padding-bottom: 9.5vh;
     flex: 1;
 `;
 
@@ -49,6 +50,7 @@ export const WishList = styled.div`
     flex-wrap: wrap;
 
     //overflow-y: auto;
+    padding-bottom: 9.5vh;
 
     width: 100vw;
 `;

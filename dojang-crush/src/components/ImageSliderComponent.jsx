@@ -1,9 +1,9 @@
-import React from "react";
-import * as S from "./styles/imageSlider.styles";
+import React from 'react';
+import * as S from './styles/imageSlider.styles';
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const ImageSlider = ({ images }) => {
     const settings = {
@@ -19,7 +19,7 @@ const ImageSlider = ({ images }) => {
 
     return (
         <S.SliderWrapper>
-            <Slider {...settings}>
+            <S.CustomSlider {...settings}>
                 {images.map((img, index) => {
                     return (
                         <S.Slide key={index}>
@@ -27,7 +27,7 @@ const ImageSlider = ({ images }) => {
                         </S.Slide>
                     );
                 })}
-            </Slider>
+            </S.CustomSlider>
         </S.SliderWrapper>
     );
 };

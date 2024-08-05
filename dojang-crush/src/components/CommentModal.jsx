@@ -121,7 +121,7 @@ const CommentModal = ({ isOpen, modalHandler, postId, myId }) => {
                         onChange={onChangesMyComments}
                     />
                     <S.SendBtn onClick={onSubmitMyComments} />
-                </S.CommentWrite>{' '}
+                </S.CommentWrite>
             </S.Container>
         </S.Background>
     );
