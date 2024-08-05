@@ -71,8 +71,7 @@ const StyledDatePicker = styled.div`
         color: #ff5722;
     }
 
-    .react-datepicker__navigation--previous,
-    .react-datepicker__navigation--next {
+    .react-datepicker__navigation {
         width: 10em; /* 너비 설정 */
         height: 4em; /* 높이 설정 */
         background-size: 4rem; /* 아이콘 크기 설정 */
