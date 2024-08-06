@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { getAllPlaces } from '../api/place';
 
-export const SearchPlace = ({ setPlaceId }) => {
+export const SearchPlace = ({ setPlaceId, prevPlace = null }) => {
     const [placeList, setPlaceList] = useState([]);
     const [myPlace, setMyPlace] = useState('');
     const [showList, setShowList] = useState(false);
@@ -20,6 +20,16 @@ export const SearchPlace = ({ setPlaceId }) => {
         getPlaces();
     }, []);
 
+    useEffect(() => {
+        if (placeList.length > 0 && prevPlace) {
+            setMyPlace(prevPlace);
+            const place = placeList.find((p) => p.placeName === prevPlace);
+            if (place) {
+                setPlaceId(place.placeId);
+            }
+        }
+    }, [placeList, prevPlace]);
+
     const onChangePlace = (e) => {
         const value = e.target.value;
         setMyPlace(value);
@@ -31,9 +41,10 @@ export const SearchPlace = ({ setPlaceId }) => {
         }
     };
 
-    const onClickPlace = (placeId) => {
+    const onClickPlace = (place) => {
         setShowList(false);
-        setPlaceId(placeId);
+        setPlaceId(place.placeId);
+        setMyPlace(place.placeName);
     };
 
     const filterPlaces = placeList.filter((place) =>
@@ -54,7 +65,7 @@ export const SearchPlace = ({ setPlaceId }) => {
                         <Place
                             key={index}
                             onClick={() => {
-                                onClickPlace(place.placeId);
+                                onClickPlace(place);
                             }}
                         >
                             {place.placeName}
@@ -75,7 +86,7 @@ const Tags = styled.input`
     border: none;
     background-color: white;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    font-size: 2.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
     text-align: center;
 `;
@@ -94,7 +105,7 @@ const Place = styled.div`
     border: none;
     background-color: #f5f5f5;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    font-size: 2.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
 `;

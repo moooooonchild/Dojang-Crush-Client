@@ -6,20 +6,48 @@ import { ReactComponent as UploadButton } from '../assets/ui/photo_upload.svg';
 import { DatePickerCalendar } from '../components/DatePicker';
 import { SearchPlace } from '../components/SearchPlace';
 
-import { postPost } from '../api/post';
-import { useNavigate } from 'react-router-dom';
+import { patchPost, postPost } from '../api/post';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getMemberInfo } from '../api/member';
 
 const UploadPage = () => {
+    const [isEdit, setIsEdit] = useState(false);
     const [content, setContent] = useState('');
     const [placeId, setPlaceId] = useState(null);
     const [groupId, setGroupId] = useState(null);
     const [date, setDate] = useState(new Date());
     const [formattedDate, setFormattedDate] = useState('');
-    const [images, setImages] = useState([]);
-    const [prevImages, setPrevImages] = useState([]);
+    const [images, setImages] = useState([]); //진짜 이미지 파일
+    const [prevImages, setPrevImages] = useState([]); //이미지 미리보기
+    const [prevPlace, setPrevPlace] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
     const fileInputRef = useRef(null);
+    const location = useLocation();
     const nav = useNavigate();
+    const postDetail = { ...location.state };
+
+    useEffect(() => {
+        const parseDate = (dateString) => {
+            const [year, month, day] = dateString.split('-').map(Number);
+            return new Date(year, month - 1, day);
+        };
+
+        const fetchData = async () => {
+            try {
+                if (Object.keys(postDetail).length !== 0) {
+                    setIsEdit(true);
+                    setContent(postDetail.content);
+                    setDate(parseDate(postDetail.visitedDate));
+                    setFormattedDate(postDetail.visitedDate);
+                    setPrevPlace(postDetail.placeTag);
+                }
+                setIsLoaded(true);
+            } catch (error) {
+                console.error('Error fetching post detail:', error);
+            }
+        };
+        fetchData();
+    }, []);
 
     useEffect(() => {
         const getGroupId = async () => {
@@ -91,16 +119,24 @@ const UploadPage = () => {
         } else {
             const data = {
                 content: content,
-                placeId: 3,
+                placeId: placeId,
                 groupId: groupId,
                 visitedDate: formattedDate,
             };
 
-            postPost(data, images);
+            if (isEdit) {
+                patchPost(postDetail.postId, data, images);
+            } else {
+                postPost(data, images);
+            }
             nav('/');
             window.location.reload();
         }
     };
+
+    if (!isLoaded) {
+        return <div>Loading...</div>; // 로딩 중 표시할 내용을 작성합니다.
+    }
 
     return (
         <UploadWrapper>
@@ -110,13 +146,17 @@ const UploadPage = () => {
                     selectedDate={date}
                     onDateChange={setDate}
                 />
-                <SearchPlace setPlaceId={setPlaceId} />
+                <SearchPlace
+                    setPlaceId={setPlaceId}
+                    prevPlace={isEdit ? prevPlace : null} // 수정된 부분
+                />
                 <Contents
                     type="text"
                     value={content}
                     placeholder="포스트를 작성해주세요"
                     onChange={onChangesPost}
                 />
+
                 <ImageContainer>
                     {prevImages.map((src, index) => (
                         <ImagePreviewWrapper key={index}>
@@ -166,7 +206,7 @@ export default UploadPage;
 const UploadWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
 `;
 
 const ContentsWrapper = styled.div`
@@ -180,7 +220,8 @@ const Contents = styled.textarea`
     height: 40vh;
     padding: 3vw;
     border: none;
-    font-size: 2rem;
+    font-family: 'Noto Sans KR';
+    font-size: 1rem;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 `;
 
@@ -231,5 +272,5 @@ const RemoveButton = styled.button`
     height: 4vw;
     color: white;
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 0.6rem;
 `;
