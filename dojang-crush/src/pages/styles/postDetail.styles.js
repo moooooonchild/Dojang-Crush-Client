@@ -58,6 +58,7 @@ export const ProfileImg = styled.img`
 
 export const InfoArea = styled.div`
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: space-around;
     height: 20.2vw;
@@ -87,9 +88,16 @@ export const MoreBtn = styled.button`
     background-size: cover;
 `;
 
-export const PostText = styled.div`
+export const PostImage = styled.img`
+    width: 80vw;
+    height: 80vw;
+    object-fit: cover;
+`;
+
+export const PostText = styled.pre`
     width: 100%;
-    padding: 4vw 6vw 1vw;
+    padding: 4vw 6vw 20vw;
+    font-family: 'Noto Sans KR';
     font-size: 1rem;
 `;
 
@@ -112,6 +120,7 @@ export const CommentArea = styled.div`
     align-items: baseline;
     position: absolute;
     bottom: 0;
+    background-color: #ffeee9;
 `;
 
 export const Comment = styled.div`

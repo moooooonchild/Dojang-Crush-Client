@@ -117,10 +117,15 @@ const PostDetailPage = () => {
                                 <S.MoreBtn onClick={moreModalHandler} />
                             )}
                         </S.ProfileArea>
-                        <ImageSlider images={postDetail.imageUrl} />
+                        {postDetail.imageUrl.length === 1 ? (
+                            <S.PostImage src={postDetail.imageUrl[0]} />
+                        ) : (
+                            <ImageSlider images={postDetail.imageUrl} />
+                        )}
                         <S.PostText>{postDetail.content}</S.PostText>
-                        <S.PostTime>{createdDate}</S.PostTime>
+
                         <S.CommentArea onClick={commentModalHandler}>
+                            <S.PostTime>{createdDate}</S.PostTime>
                             <S.RowLine />
 
                             {commentList.length > 1 ? (
