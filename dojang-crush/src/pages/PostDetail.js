@@ -86,7 +86,7 @@ const PostDetailPage = () => {
                         <S.Title>Timeline</S.Title>
                         <S.CalendarButton
                             src={calendarIcon}
-                            onClick={() => nav(-1)} //TODO - 캘린더 창 이동으로 수정해야함
+                            onClick={() => nav('/calendar')} //TODO - 캘린더 창 이동으로 수정해야함
                         />
                     </S.Header>
                     <S.PostArea>

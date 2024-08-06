@@ -47,7 +47,7 @@ function App() {
                     path="/changegroupname"
                     element={<ChangeGroupNamePage />}
                 ></Route>
-                {/* <Route path="/oauth/callback" element={<Redirection />}></Route> */}
+                <Route path="/oauth/callback" element={<Redirection />}></Route>
                 <Route path="/calendar" element={<CalendarPage />}></Route>
             </Routes>
         </Container>
