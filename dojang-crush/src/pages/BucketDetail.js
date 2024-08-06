@@ -41,6 +41,7 @@ const BucketDetailPage = () => {
             <S.Header>
                 <S.BackButton src={backIcon} onClick={onClickBackButton} />
                 <S.Title>Recommended</S.Title>
+                <S.EmptyItem></S.EmptyItem>
             </S.Header>
             {placeList && (
                 <S.PlaceList>

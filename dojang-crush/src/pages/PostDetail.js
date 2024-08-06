@@ -11,11 +11,12 @@ import ImageSlider from '../components/ImageSliderComponent';
 import backIcon from '../assets/ui/back.svg';
 import calendarIcon from '../assets/ui/calendar.svg';
 import defaultProfile from '../assets/ui/defaultProfile.png';
-import defaultImage from '../assets/ui/defaultImage.png';
 
 import { getPostDetail } from '../api/post';
 import { getComments } from '../api/comment';
 import { getMemberInfo } from '../api/member';
+
+import { TitleComponent } from '../components/common/header/TitleComponent';
 
 const PostDetailPage = () => {
     const postId = useParams().id;
