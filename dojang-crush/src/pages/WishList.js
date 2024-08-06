@@ -1,5 +1,6 @@
 import * as S from './styles/wishList.styles';
 import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
 import PlaceComponent from '../components/PlaceComponent';
 import ThemeComponent from '../components/ThemeComponent';
@@ -56,6 +57,10 @@ const WishListPage = () => {
 
         fetchPlaces();
     }, []);
+
+    if (!localStorage.getItem('token')) {
+        return <Navigate to="/register" replace />;
+    }
 
     return (
         <S.Container>
