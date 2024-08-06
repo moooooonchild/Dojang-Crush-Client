@@ -49,7 +49,6 @@ const WishDetailPage = () => {
     const nav = useNavigate();
 
     const [placeList, setPlaceList] = useState(null);
-    const [heartList, setHeartList] = useState(null);
 
     useEffect(() => {
         const fetchPlaces = async () => {
@@ -82,7 +81,7 @@ const WishDetailPage = () => {
                 <S.Title>Wish List</S.Title>
                 <S.ThemeIcon src={iconMap[theme]} />
             </S.Header>
-            {placeList && (
+            {placeList ? (
                 <S.WishList>
                     {placeList.map((p, i) => {
                         return (
@@ -96,6 +95,8 @@ const WishDetailPage = () => {
                         );
                     })}
                 </S.WishList>
+            ) : (
+                <div>Loading...</div>
             )}
 
             <NavigationBar />
