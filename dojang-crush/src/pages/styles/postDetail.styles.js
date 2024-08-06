@@ -101,7 +101,7 @@ export const MoreBtn = styled.button`
 
 export const PostText = styled.div`
     width: 100%;
-    padding: 4vw 6vw;
+    padding: 4vw 6vw 1vw;
     font-size: 1rem;
 `;
 
