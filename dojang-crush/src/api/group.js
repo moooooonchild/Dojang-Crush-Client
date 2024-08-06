@@ -48,3 +48,7 @@ export const getMember = async () => {
         throw new Error('ㅇㅇㅇ');
     }
 };
+
+export const isLoggedIn = () => {
+    return !!localStorage.getItem('token');
+};

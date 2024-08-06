@@ -1,24 +1,39 @@
-import { Routes, Route } from "react-router-dom";
-import styled from "styled-components";
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-import TimelinePage from "./pages/Timeline";
-import BucketListPage from "./pages/BucketList";
-import UploadPage from "./pages/Upload";
-import WishListPage from "./pages/WishList";
-import GroupPage from "./pages/Group";
-import RegisterPage from "./pages/Register";
-import BucketDetailPage from "./pages/BucketDetail";
-import WishDetailPage from "./pages/WishDetail";
-import SignupPage from "./pages/Signup";
-import PostDetailPage from "./pages/PostDetail";
-import SettingPage from "./pages/Settings";
-import ChangeNamePage from "./pages/ChangeName";
-import ChangeIDPWPage from "./pages/ChangeIDPW";
-import ChangeGroupNamePage from "./pages/ChangeGroupName";
-import WithdrawalPage from "./pages/Withdrawal";
-import Redirection from "./pages/Redirection";
+import TimelinePage from './pages/Timeline';
+import BucketListPage from './pages/BucketList';
+import UploadPage from './pages/Upload';
+import WishListPage from './pages/WishList';
+import GroupPage from './pages/Group';
+import RegisterPage from './pages/Register';
+import BucketDetailPage from './pages/BucketDetail';
+import WishDetailPage from './pages/WishDetail';
+import SignupPage from './pages/Signup';
+import PostDetailPage from './pages/PostDetail';
+import SettingPage from './pages/Settings';
+import ChangeNamePage from './pages/ChangeName';
+import ChangeIDPWPage from './pages/ChangeIDPW';
+import ChangeGroupNamePage from './pages/ChangeGroupName';
+import WithdrawalPage from './pages/Withdrawal';
+import Redirection from './pages/Redirection';
+import { useEffect } from 'react';
+import { isLoggedIn } from './api/group';
 
 function App() {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isLoggedIn()) {
+            navigate('/register');
+        }
+    }, [navigate]);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/register');
+    };
+
     return (
         <Container>
             <Routes>
