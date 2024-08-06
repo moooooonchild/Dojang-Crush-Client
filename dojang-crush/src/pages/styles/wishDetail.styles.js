@@ -12,13 +12,12 @@ export const Container = styled.div`
 
 export const Header = styled.div`
     display: flex;
-    justify-content: center; /* Title을 중앙에 배치 */
+    justify-content: space-between; /* Title을 중앙에 배치 */
     align-items: center;
-
-    position: relative;
-
     width: 100vw;
-    margin: 8vw;
+
+    margin: 8vw 0;
+    padding: 0 8vw;
 `;
 
 export const Title = styled.div`
@@ -27,20 +26,10 @@ export const Title = styled.div`
 `;
 
 export const BackButton = styled.img`
-    position: absolute;
-    left: 8%;
-    top: 50%;
-    transform: translateY(-50%);
-
     width: 4vw;
 `;
 
 export const ThemeIcon = styled.img`
-    position: absolute;
-    right: 8%;
-    top: 50%;
-    transform: translateY(-50%);
-
     width: 6vw;
 `;
 

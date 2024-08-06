@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import profileImg from '../assets/ui/defaultProfile.png';
 
 import { getComments, postComments, deleteComments } from '../api/comment';
+import useTimeSince from '../hooks/useTimeSince';
 
 const CommentModal = ({ isOpen, modalHandler, postId, myId }) => {
     const [commentList, setCommentList] = useState(null);
@@ -32,7 +33,6 @@ const CommentModal = ({ isOpen, modalHandler, postId, myId }) => {
     }, [isOpen]);
 
     useEffect(() => {
-        //REVIEW - 키보드 올라왔을때 모달 위치 조정 - 확인해야됨
         const handleResize = () => {
             if (window.innerHeight < initialHeightRef.current) {
                 // 키보드가 올라올 때
@@ -75,6 +75,26 @@ const CommentModal = ({ isOpen, modalHandler, postId, myId }) => {
         deleteComments(commentId).then(window.location.reload());
     };
 
+    const CommentItem = ({ comment, myId, onClickDeleteBtn }) => {
+        const timeSince = useTimeSince(comment.createdDate);
+
+        return (
+            <S.Comment>
+                <S.ProfImg src={comment.writer.profileImageUrl || profileImg} />
+                <S.CommentArea>
+                    <S.Name>{`${comment.writer.name}`}</S.Name>
+                    <S.CommentTime>{timeSince}</S.CommentTime>
+                    <S.Text>{comment.content}</S.Text>
+                </S.CommentArea>
+                {myId === comment.writer.memberId && (
+                    <S.DeleteBtn
+                        onClick={() => onClickDeleteBtn(comment.commentId)}
+                    ></S.DeleteBtn>
+                )}
+            </S.Comment>
+        );
+    };
+
     return (
         <S.Background
             style={{ display: isOpen ? 'flex' : 'none' }}
@@ -85,33 +105,15 @@ const CommentModal = ({ isOpen, modalHandler, postId, myId }) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 {commentList && (
-                    <div>
-                        {commentList.map((c, index) => {
-                            return (
-                                <S.Comment key={index}>
-                                    <S.ProfImg
-                                        src={
-                                            c.writer.profileImageUrl ||
-                                            profileImg
-                                        }
-                                    />
-                                    <S.CommentArea>
-                                        <S.Name>{`${c.writer.name}`}</S.Name>
-                                        <S.CommentTime>
-                                            {c.createdDate}
-                                        </S.CommentTime>
-                                        <S.Text>{c.content}</S.Text>
-                                    </S.CommentArea>
-                                    {myId === c.writer.memberId && (
-                                        <S.DeleteBtn
-                                            onClick={() =>
-                                                onClickDeleteBtn(c.commentId)
-                                            }
-                                        ></S.DeleteBtn>
-                                    )}
-                                </S.Comment>
-                            );
-                        })}
+                    <div style={{ width: '100%' }}>
+                        {commentList.map((comment, index) => (
+                            <CommentItem
+                                key={index}
+                                comment={comment}
+                                myId={myId}
+                                onClickDeleteBtn={onClickDeleteBtn}
+                            />
+                        ))}
                     </div>
                 )}
                 <S.CommentWrite>

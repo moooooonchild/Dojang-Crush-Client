@@ -1,6 +1,7 @@
 import * as S from './styles/postDetail.styles';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import useTimeSince from '../hooks/useTimeSince';
 
 import CommentModal from '../components/CommentModal';
 import PostEditModal from '../components/PostEditModal';
@@ -10,11 +11,12 @@ import ImageSlider from '../components/ImageSliderComponent';
 import backIcon from '../assets/ui/back.svg';
 import calendarIcon from '../assets/ui/calendar.svg';
 import defaultProfile from '../assets/ui/defaultProfile.png';
-import defaultImage from '../assets/ui/defaultImage.png';
 
 import { getPostDetail } from '../api/post';
 import { getComments } from '../api/comment';
 import { getMemberInfo } from '../api/member';
+
+import { TitleComponent } from '../components/common/header/TitleComponent';
 
 const PostDetailPage = () => {
     const postId = useParams().id;
@@ -29,7 +31,9 @@ const PostDetailPage = () => {
 
     useEffect(() => {
         getPostDetail(postId)
-            .then((res) => setPostDetail(res))
+            .then((res) => {
+                setPostDetail(res);
+            })
             .then(console.log(postDetail))
             .catch((err) => console.log(err));
     }, []);
@@ -46,6 +50,10 @@ const PostDetailPage = () => {
             .catch((err) => console.log(err));
     }, []);
 
+    const createdDate = useTimeSince(
+        postDetail ? postDetail.createdDate : null
+    );
+
     const commentModalHandler = () => {
         setIsCommentModalOpen(!isCommentModalOpen);
     };
@@ -59,6 +67,10 @@ const PostDetailPage = () => {
         moreModalHandler(event);
         setIsDeleteModalOpen(!isDeleteModalOpen);
     };
+
+    if (!localStorage.getItem('token')) {
+        return <Navigate to="/register" replace />;
+    }
 
     return (
         <S.Container>
@@ -86,7 +98,7 @@ const PostDetailPage = () => {
                         <S.Title>Timeline</S.Title>
                         <S.CalendarButton
                             src={calendarIcon}
-                            onClick={() => nav(-1)} //TODO - 캘린더 창 이동으로 수정해야함
+                            onClick={() => nav('/calendar')}
                         />
                     </S.Header>
                     <S.PostArea>
@@ -107,7 +119,7 @@ const PostDetailPage = () => {
                         </S.ProfileArea>
                         <ImageSlider images={postDetail.imageUrl} />
                         <S.PostText>{postDetail.content}</S.PostText>
-                        <S.PostTime>{postDetail.createdDate}</S.PostTime>
+                        <S.PostTime>{createdDate}</S.PostTime>
                         <S.CommentArea onClick={commentModalHandler}>
                             <S.RowLine />
 
