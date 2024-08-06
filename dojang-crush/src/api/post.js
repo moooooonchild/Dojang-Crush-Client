@@ -51,7 +51,7 @@ export const patchPost = async (postId, data, images) => {
 export const getAllPosts = async (groupId) => {
     try {
         const res = await client.get(`/posts/${groupId}`);
-        console.log(res.data);
+        return res.data;
     } catch (err) {
         console.log(err);
     }
@@ -82,7 +82,7 @@ export const deletePost = async (postId) => {
 
 export const postHeart = async (postId) => {
     try {
-        const res = await client.post(`/posts/${postId}/like`);
+        const res = await client.post(`/post/${postId}/like`);
         console.log(res.data);
     } catch (err) {
         console.log(err);
@@ -91,7 +91,7 @@ export const postHeart = async (postId) => {
 
 export const deleteHeart = async (postId) => {
     try {
-        const res = await client.delete(`/posts/${postId}/like`);
+        const res = await client.delete(`/post/${postId}/like`);
         console.log(res.data);
     } catch (err) {
         console.log(err);
