@@ -20,14 +20,14 @@ export default TopBarUpload;
 const TopBarWrapper = styled.div`
     display: flex;
     align-items: center;
+    justify-content: space-between;
     z-index: 1000;
-    margin-top: 5vh;
-    margin-bottom: 4vh;
-    width: 90vw;
-    padding: 1vh 0vw;
+    margin: 8vw;
+    padding: 0 6vw;
+    width: 100vw;
 `;
 const BackBTN = styled.img`
-    margin-left: 3vw;
+    //margin-left: 3vw;
     width: 4vw;
     color: #7b4f3d;
     cursor: pointer;
@@ -48,8 +48,8 @@ const TopBarSharingBTN = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: auto;
-    margin-right: 3vw;
+    //margin-left: auto;
+    //margin-right: 4vw;
     border: none;
     background-color: inherit;
 `;
