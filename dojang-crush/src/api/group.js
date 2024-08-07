@@ -34,7 +34,11 @@ export const addGroupMember = async (groupcode) => {
 
 export const getGroupMember = async (groupId) => {
     try {
-        const response = await axios.get(`${apiUrl}/group/${groupId}`);
+        const response = await axios.get(`${apiUrl}/group/${groupId}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
         return response.data;
     } catch (error) {
         throw new Error('그룹원 조회에 실패했습니다.');
@@ -64,5 +68,17 @@ export const getGroupInfo = async () => {
         return res.data.member;
     } catch (err) {
         console.log(err);
+    }
+};
+
+export const patchGroupName = async (groupId, groupName) => {
+    try {
+        const response = await client.patch(`/group/${groupId}/name`, {
+            groupName: groupName,
+        });
+        return response.data;
+    } catch (error) {
+        console.error('그룹명 변경에 실패했습니다', error);
+        throw error;
     }
 };

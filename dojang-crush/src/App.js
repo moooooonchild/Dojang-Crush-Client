@@ -36,7 +36,7 @@ function App() {
                     path="/wishlist/:theme"
                     element={<WishDetailPage />}
                 ></Route>
-                <Route path="/group/:groupId" element={<GroupPage />}></Route>
+                <Route path="/group" element={<GroupPage />}></Route>
                 <Route path="/register" element={<RegisterPage />}></Route>
                 <Route path="/signup" element={<SignupPage />}></Route>
                 <Route path="/settings" element={<SettingPage />}></Route>
