@@ -80,7 +80,7 @@ const SettingPage = () => {
 
                 if (leader && leader.userId === userInfo.userId) {
                     setIsLeader(true);
-                } else setIsLeader(true);
+                }
             } catch (error) {
                 console.error('그룹원 조회에 실패했습니다', error);
             }
@@ -138,9 +138,9 @@ const SettingPage = () => {
                 )}
             </UserNameWrapper>
             <SettingBTNContainer>
-                <ChangeIDPWBTN onClick={() => navigate('/changeidpw')}>
+                {/*  <ChangeIDPWBTN onClick={() => navigate('/changeidpw')}>
                     아이디/비번 변경
-                </ChangeIDPWBTN>
+                </ChangeIDPWBTN>*/}
                 {isLeader ? (
                     <ChangeGroupNameBTN
                         onClick={() => navigate('/changegroupname')}
