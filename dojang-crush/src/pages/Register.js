@@ -64,7 +64,6 @@ const RegisterPage = () => {
                 <KAKAOLoginBTN onClick={handleKakaoLogin}>
                     <KAKAOLogo /> 카카오 로그인
                 </KAKAOLoginBTN>
-                <LogOutBTN onClick={handleLogout}>로그아웃</LogOutBTN>
             </SNSLoginContainer>
         </RegisterContainer>
     );
@@ -136,9 +135,4 @@ const KAKAOLogo = styled(RiKakaoTalkFill)`
     left: 3vw;
     margin-right: 10px;
     font-size: 2rem;
-`;
-
-const LogOutBTN = styled.button`
-    display: flex;
-    position: relative;
 `;

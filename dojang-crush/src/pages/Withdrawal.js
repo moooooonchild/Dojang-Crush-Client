@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import TopBarWithBack from "../components/TopBarWithBack";
-import { ModalComponent } from "../components/ModalComponent";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import TopBarWithBack from '../components/TopBarWithBack';
+import { ModalComponent } from '../components/ModalComponent';
+import { useNavigate } from 'react-router-dom';
 
 const WithdrawalPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,7 +29,7 @@ const WithdrawalPage = () => {
                 onRequestClose={closeModal}
                 contentLabel="Withdrawal"
                 buttonText="확인"
-                buttonAction={() => navigate("/register")}
+                buttonAction={() => navigate('/register')}
             >
                 정상적으로
                 <br />
@@ -43,6 +43,7 @@ export default WithdrawalPage;
 
 const WithdrawalWrapper = styled.div`
     display: flex;
+    align-items: center;
     flex-direction: column;
 `;
 
@@ -55,7 +56,7 @@ const PWInput = styled.input`
     border: none;
     border-radius: 4px;
 
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     &::placeholder {
@@ -73,7 +74,7 @@ const CheckBTN = styled.button`
     border-radius: 4px;
     background-color: #dba290;
     color: #612d1c;
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     &:hover {
         background-color: #c48a7a;

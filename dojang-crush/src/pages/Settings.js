@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ReactComponent as PersonUI } from '../assets/ui/person.svg';
 import { ReactComponent as EditIcon } from '../assets/ui/editicon.svg';
 import { XModalComponent } from '../components/ModalComponent';
-import { getMemberInfo } from '../api/member';
+import { getMemberInfo, deleteMember } from '../api/member';
 import { getGroupMember } from '../api/group';
 
 const SettingPage = () => {
@@ -100,6 +100,20 @@ const SettingPage = () => {
         }
     };
 
+    // 회원탈퇴
+    const handleWithdrawal = async () => {
+        const confirm = window.confirm('정말로 회원 탈퇴를 하시겠습니까?');
+        if (confirm) {
+            try {
+                await deleteMember();
+                alert('회원 탈퇴가 정상적으로 처리되었습니다.');
+                kakaoLogout();
+            } catch (error) {
+                alert('회원 탈퇴에 실패했습니다. 다시 시도해주세요.');
+            }
+        }
+    };
+
     return (
         <SettingPageWrapper>
             <TopBarWithBack text="Settings" />
@@ -155,7 +169,7 @@ const SettingPage = () => {
                     그룹 초대 코드 복사하기
                 </CopyInvitationCodeBTN>
                 <WithdrawalBTN onClick={kakaoLogout}>로그아웃</WithdrawalBTN>
-                <WithdrawalBTN onClick={() => navigate('/withdrawal')}>
+                <WithdrawalBTN onClick={handleWithdrawal}>
                     회원 탈퇴
                 </WithdrawalBTN>
             </SettingBTNContainer>
