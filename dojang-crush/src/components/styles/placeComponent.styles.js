@@ -59,6 +59,7 @@ export const Users = styled.div`
     div {
         display: flex;
         align-items: center;
+        margin-right: 1vw;
         padding: 0.5vw 1.5vw;
         font-size: 0.7rem;
         font-weight: bold;

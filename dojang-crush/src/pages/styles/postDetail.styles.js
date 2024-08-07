@@ -96,7 +96,7 @@ export const PostImage = styled.img`
 
 export const PostText = styled.pre`
     width: 100%;
-    padding: 4vw 6vw 20vw;
+    padding: 4vw 6vw 30vw;
     font-family: 'Noto Sans KR';
     font-size: 1rem;
 `;
@@ -109,7 +109,7 @@ export const RowLine = styled.div`
 
 export const PostTime = styled.div`
     width: 88vw;
-    margin-bottom: 4vw;
+    margin-bottom: 2vw;
     font-size: 0.8rem;
     text-align: right;
 `;
@@ -134,13 +134,18 @@ export const Comment = styled.div`
 `;
 
 export const NickName = styled.div`
+    width: 13vw;
     font-size: 1rem;
     font-weight: bold;
     margin-right: 2vw;
 `;
 
 export const Content = styled.div`
+    flex: 1;
     font-size: 1rem;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 `;
 
 export const CommentWrite = styled.div`
