@@ -70,3 +70,15 @@ export const getGroupInfo = async () => {
         console.log(err);
     }
 };
+
+export const patchGroupName = async (groupId, groupName) => {
+    try {
+        const response = await client.patch(`/group/${groupId}/name`, {
+            groupName: groupName,
+        });
+        return response.data;
+    } catch (error) {
+        console.error('그룹명 변경에 실패했습니다', error);
+        throw error;
+    }
+};

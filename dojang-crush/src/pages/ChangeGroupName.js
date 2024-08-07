@@ -1,22 +1,47 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import TopBarWithBack from "../components/TopBarWithBack";
-import { ModalComponent } from "../components/ModalComponent";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import TopBarWithBack from '../components/TopBarWithBack';
+import { ModalComponent } from '../components/ModalComponent';
+import { useNavigate } from 'react-router-dom';
+import { patchGroupName } from '../api/group';
+import { getMemberInfo } from '../api/member';
 
 const ChangeGroupNamePage = () => {
-    const [groupname, setGroupName] = useState("");
+    const [groupname, setGroupName] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
+    const [userInfo, setUserInfo] = useState(null);
+    const [groupId, setGroupId] = useState(null);
 
     const handleGroupNameChange = (e) => {
         setGroupName(e.target.value);
     };
+    useEffect(() => {
+        const getUserInfo = async () => {
+            try {
+                const userInfo = await getMemberInfo();
 
-    const handleSubmit = (e) => {
+                setUserInfo(userInfo);
+                setGroupId(userInfo.group.groupId);
+                setGroupName(userInfo.group.groupName);
+
+                console.log('사용자 정보:', userInfo);
+                console.log('그룹 아이디: ', groupId);
+            } catch (err) {
+                console.error('사용자 정보를 가져오는 데 실패했습니다:', err);
+            }
+        };
+        getUserInfo();
+    }, []);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-        setIsModalOpen(true);
+        try {
+            await patchGroupName(groupId, groupname);
+            setIsModalOpen(true);
+        } catch (error) {
+            alert('그룹명 변경에 실패했습니다. 다시 시도해주세요.');
+        }
     };
 
     const closeModal = () => {
@@ -53,6 +78,7 @@ export default ChangeGroupNamePage;
 
 const ChangeNameWrapper = styled.div`
     display: flex;
+    align-items: center;
     flex-direction: column;
 `;
 
@@ -65,7 +91,7 @@ const ChangeNameInput = styled.input`
     border: none;
     border-radius: 4px;
 
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     &::placeholder {
@@ -83,7 +109,7 @@ const CheckBTN = styled.button`
     border-radius: 4px;
     background-color: #dba290;
     color: #612d1c;
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     &:hover {
         background-color: #c48a7a;
