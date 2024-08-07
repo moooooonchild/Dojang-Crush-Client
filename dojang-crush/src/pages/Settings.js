@@ -80,7 +80,7 @@ const SettingPage = () => {
 
                 if (leader && leader.userId === userInfo.userId) {
                     setIsLeader(true);
-                }
+                } else setIsLeader(true);
             } catch (error) {
                 console.error('그룹원 조회에 실패했습니다', error);
             }
@@ -127,11 +127,11 @@ const SettingPage = () => {
                 {userInfo ? (
                     <UserName>
                         {userInfo.name}
-                        <UserNameEditBTN
+                        {/* <UserNameEditBTN
                             onClick={() => navigate('/changename')}
                         >
                             <UserNameEdit />
-                        </UserNameEditBTN>
+                        </UserNameEditBTN>*/}
                     </UserName>
                 ) : (
                     <UserName>Loading...</UserName>
