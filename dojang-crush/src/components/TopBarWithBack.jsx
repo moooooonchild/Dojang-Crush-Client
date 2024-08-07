@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import styled from 'styled-components';
+import { IoMdArrowRoundBack } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 
 const TopBarWithBack = ({ text }) => {
     const navigate = useNavigate();
@@ -24,7 +24,7 @@ const TopBarWrapper = styled.div`
 `;
 const BackBTN = styled(IoMdArrowRoundBack)`
     margin-left: 3vw;
-    font-size: 4rem;
+    font-size: 1.5rem;
     color: #7b4f3d;
     cursor: pointer;
 `;
@@ -36,6 +36,6 @@ const TopBarText = styled.div`
     left: 50%;
     transform: translateX(-50%);
     width: 60vw;
-    font-size: 4rem;
+    font-size: 1.5rem;
     font-weight: bold;
 `;

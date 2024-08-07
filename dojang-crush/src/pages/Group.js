@@ -1,31 +1,56 @@
-import styled from "styled-components";
-import TopBarWithSetting from "../components/TopBarWithSetting";
-import { ReactComponent as PersonUI } from "../assets/ui/person.svg";
-import { getGroupMember } from "../api/group";
-import { useParams } from "react-router-dom";
-import NavigationBar from "../components/NavigationBar";
-import { useEffect, useState } from "react";
+import styled from 'styled-components';
+import TopBarWithSetting from '../components/TopBarWithSetting';
+import { ReactComponent as PersonUI } from '../assets/ui/person.svg';
+import { getGroupMember } from '../api/group';
+import { useParams } from 'react-router-dom';
+import NavigationBar from '../components/NavigationBar';
+import { useEffect, useState } from 'react';
+import { getMemberInfo } from '../api/member';
 
-const GroupPage = ({ groupId }) => {
-    const [groupName, setGroupName] = useState("그룹명");
+const GroupPage = () => {
+    const [groupName, setGroupName] = useState('그룹명');
     const [groupLeader, setGroupLeader] = useState(null);
     const [groupMembers, setGroupMembers] = useState([]);
+    const [userInfo, setUserInfo] = useState(null);
+    const [groupId, setGroupId] = useState(null);
+
+    useEffect(() => {
+        const fetchMemberInfo = async () => {
+            try {
+                const userInfo = await getMemberInfo();
+                setUserInfo(userInfo);
+                // console.log('사용자 정보:', userInfo);
+
+                const token = localStorage.getItem('token');
+                console.log('토큰:', token);
+                if (!token) {
+                    alert('로그인이 필요합니다.');
+                    window.location.href = '/register';
+                }
+
+                if (userInfo.group) {
+                    const { groupId, groupName } = userInfo.group;
+                    setGroupId(groupId);
+                    setGroupName(groupName);
+                }
+            } catch (err) {
+                console.error('사용자 정보를 가져오는 데 실패했습니다:', err);
+            }
+        };
+        fetchMemberInfo();
+    }, []);
 
     useEffect(() => {
         const fetchGroupMembers = async () => {
             try {
                 const data = await getGroupMember(groupId);
-                const leader = data.members.reduce((prev, curr) => {
-                    return prev.id < curr.id ? prev : curr;
-                }, data.members[0]);
+
+                const leader = data.member.find((member) => member.leader);
                 setGroupLeader(leader);
-                setGroupName(data.groupName);
-                const members = data.members.filter(
-                    (member) => member.id !== leader.id
-                );
-                setGroupMembers(members);
+
+                setGroupMembers(data.member.filter((member) => !member.leader));
             } catch (error) {
-                console.log("그룹원 조회에 실패했습니다", error);
+                console.error('그룹원 조회에 실패했습니다', error);
             }
         };
         fetchGroupMembers();
@@ -46,7 +71,7 @@ const GroupPage = ({ groupId }) => {
                         ) : (
                             <GroupMemberUI />
                         )}
-                        <Name>{groupLeader.nickname} (그룹장)</Name>
+                        <Name>{groupLeader.name} (그룹장)</Name>
                     </MemberWrapper>
                 )}
                 <GroupMembers>
@@ -54,14 +79,14 @@ const GroupPage = ({ groupId }) => {
                         <MemberWrapper key={member.id}>
                             {member.profileImageUrl ? (
                                 <ProfileImage
-                                    src={member.profileImageUrl || ""}
+                                    src={member.profileImageUrl || ''}
                                     alt="Group Member"
                                 />
                             ) : (
                                 <GroupMemberUI />
                             )}
 
-                            <Name>{member.nickname}</Name>
+                            <Name>{member.name}</Name>
                         </MemberWrapper>
                     ))}
                 </GroupMembers>
@@ -89,7 +114,7 @@ const GroupInfo = styled.div`
     gap: 10vh;
 `;
 const GroupName = styled.div`
-    font-size: 3.5rem;
+    font-size: 1rem;
     font-weight: bold;
 `;
 
@@ -101,7 +126,7 @@ const MemberWrapper = styled.div`
 `;
 
 const Name = styled.div`
-    font-size: 2.5rem;
+    font-size: 0.8rem;
     font-weight: bold;
 `;
 
@@ -113,7 +138,7 @@ const GroupMembers = styled.div`
 const ProfileImage = styled.img`
     width: 26vw;
     height: auto;
-    border-radius: 50%;
+    border-radius: 10%;
 `;
 
 const GroupMemberUI = styled(PersonUI)`

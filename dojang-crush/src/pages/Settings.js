@@ -1,15 +1,29 @@
-import React, { useState, useRef } from "react";
-import styled from "styled-components";
-import TopBarWithBack from "../components/TopBarWithBack";
-import { useNavigate } from "react-router-dom";
-import { ReactComponent as PersonUI } from "../assets/ui/person.svg";
-import { ReactComponent as EditIcon } from "../assets/ui/editicon.svg";
-import { XModalComponent } from "../components/ModalComponent";
+import React, { useState, useRef, useEffect } from 'react';
+import styled from 'styled-components';
+import TopBarWithBack from '../components/TopBarWithBack';
+import { useNavigate } from 'react-router-dom';
+import { ReactComponent as PersonUI } from '../assets/ui/person.svg';
+import { ReactComponent as EditIcon } from '../assets/ui/editicon.svg';
+import { XModalComponent } from '../components/ModalComponent';
+import { getMemberInfo } from '../api/member';
+import { getGroupMember } from '../api/group';
+
 const SettingPage = () => {
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [profileImage, setProfileImage] = useState(null);
     const fileInputRef = useRef(null);
+
+    useEffect(() => {
+        if (window.Kakao) {
+            if (!window.Kakao.isInitialized()) {
+                window.Kakao.init(process.env.REACT_APP_KAKAO_JS_KEY);
+                console.log('카카오 SDK 초기화 완료');
+            }
+        } else {
+            console.error('카카오 SDK를 불러올 수 없습니다.');
+        }
+    }, []);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -34,47 +48,114 @@ const SettingPage = () => {
         fileInputRef.current.click();
     };
 
+    const [userInfo, setUserInfo] = useState(null);
+    const [isLeader, setIsLeader] = useState(false);
+    const [groupId, setGroupId] = useState(null);
+    const [groupLeader, setGroupLeader] = useState(null);
+
+    useEffect(() => {
+        const getUserInfo = async () => {
+            try {
+                const userInfo = await getMemberInfo();
+
+                setUserInfo(userInfo);
+                setGroupId(userInfo.group.groupId);
+                console.log('그룹 아이디: ', groupId);
+                console.log('사용자 정보:', userInfo);
+            } catch (err) {
+                console.error('사용자 정보를 가져오는 데 실패했습니다:', err);
+            }
+        };
+        getUserInfo();
+    }, []);
+
+    useEffect(() => {
+        const fetchGroupMembers = async () => {
+            try {
+                const data = await getGroupMember(groupId);
+                console.log('그룹 데이터:', data);
+                //그룹리더
+                const leader = data.member.find((member) => member.leader);
+                setGroupLeader(leader);
+
+                if (leader && leader.userId === userInfo.userId) {
+                    setIsLeader(true);
+                }
+            } catch (error) {
+                console.error('그룹원 조회에 실패했습니다', error);
+            }
+        };
+        fetchGroupMembers();
+    }, [groupId, userInfo]);
+
+    //카카오 로그아웃
+    const kakaoLogout = () => {
+        if (window.Kakao) {
+            window.Kakao.Auth.logout(() => {
+                alert('로그아웃 되었습니다');
+                navigate('/register');
+            });
+        } else {
+            console.error('카카오 SDK 불러오기 오류');
+        }
+    };
+
     return (
         <SettingPageWrapper>
             <TopBarWithBack text="Settings" />
             <ProfileImageWrapper>
-                {profileImage ? (
-                    <ProfileImage src={profileImage} alt="Group Member" />
+                {userInfo && userInfo.profileImageUrl ? (
+                    <ProfileImage
+                        src={userInfo.profileImageUrl}
+                        alt="Group Member"
+                    />
                 ) : (
                     <PersonSVG />
                 )}
             </ProfileImageWrapper>
-            <ProfileImgEdit onClick={triggerFileInput}>
+            {/*<ProfileImgEdit onClick={triggerFileInput}>
                 프로필 사진 변경
-            </ProfileImgEdit>
+            </ProfileImgEdit>*/}
             <FileInput
                 type="file"
                 accept="image/*"
                 ref={fileInputRef}
                 onChange={handleProfileImageChange}
-                style={{ display: "none" }}
+                style={{ display: 'none' }}
             />
             <UserNameWrapper>
-                <UserName>
-                    이름
-                    <UserNameEditBTN onClick={() => navigate("/changename")}>
-                        <UserNameEdit />
-                    </UserNameEditBTN>
-                </UserName>
+                {userInfo ? (
+                    <UserName>
+                        {userInfo.name}
+                        <UserNameEditBTN
+                            onClick={() => navigate('/changename')}
+                        >
+                            <UserNameEdit />
+                        </UserNameEditBTN>
+                    </UserName>
+                ) : (
+                    <UserName>Loading...</UserName>
+                )}
             </UserNameWrapper>
             <SettingBTNContainer>
-                <ChangeIDPWBTN onClick={() => navigate("/changeidpw")}>
+                <ChangeIDPWBTN onClick={() => navigate('/changeidpw')}>
                     아이디/비번 변경
                 </ChangeIDPWBTN>
-                <ChangeGroupNameBTN
-                    onClick={() => navigate("/changegroupname")}
-                >
-                    그룹명 변경
-                </ChangeGroupNameBTN>
+                {isLeader ? (
+                    <ChangeGroupNameBTN
+                        onClick={() => navigate('/changegroupname')}
+                    >
+                        그룹명 변경
+                    </ChangeGroupNameBTN>
+                ) : (
+                    <></>
+                )}
+
                 <CopyInvitationCodeBTN onClick={openModal}>
                     그룹 초대 코드 복사하기
                 </CopyInvitationCodeBTN>
-                <WithdrawalBTN onClick={() => navigate("/withdrawal")}>
+                <WithdrawalBTN onClick={kakaoLogout}>로그아웃</WithdrawalBTN>
+                <WithdrawalBTN onClick={() => navigate('/withdrawal')}>
                     회원 탈퇴
                 </WithdrawalBTN>
             </SettingBTNContainer>
@@ -103,13 +184,12 @@ const ProfileImageWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e8d6cf;
 `;
 
 const ProfileImage = styled.img`
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    border-radius: 10%;
 `;
 
 const PersonSVG = styled(PersonUI)`
@@ -123,7 +203,7 @@ const ProfileImgEdit = styled.button`
     background-color: #e8d6cf;
     border: none;
     border-radius: 40px;
-    font-size: 2.5rem;
+    font-size: 0.8rem;
     font-weight: bold;
     cursor: pointer;
     &:hover {
@@ -145,14 +225,14 @@ const UserName = styled.div`
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 3.5rem;
+    font-size: 1rem;
     font-weight: bold;
 `;
 
 const UserNameEditBTN = styled.button`
     background-color: inherit;
     border: none;
-    margin-top: 0.8vh;
+    margin-top: 0.2vh;
     margin-left: 1vw;
     position: absolute;
     cursor: pointer;
@@ -179,7 +259,7 @@ const ChangeIDPWBTN = styled.button`
     border-radius: 4px;
     background-color: #dba290;
     color: #612d1c;
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     &:hover {
         background-color: #c48a7a;
@@ -195,7 +275,7 @@ const ChangeGroupNameBTN = styled.button`
     border-radius: 4px;
     background-color: #dba290;
     color: #612d1c;
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     &:hover {
         background-color: #c48a7a;
@@ -211,7 +291,7 @@ const CopyInvitationCodeBTN = styled.button`
     border-radius: 4px;
     background-color: #dba290;
     color: #612d1c;
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     &:hover {
         background-color: #c48a7a;
@@ -227,7 +307,7 @@ const WithdrawalBTN = styled.button`
     border-radius: 4px;
     background-color: #dba290;
     color: #612d1c;
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     &:hover {
         background-color: #c48a7a;

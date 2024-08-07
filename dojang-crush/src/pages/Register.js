@@ -13,6 +13,10 @@ const RegisterPage = () => {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     const code = query.get('code');
+    const handleLogout = () => {
+        localStorage.removeItem('efubtoken');
+        navigate('/register');
+    };
 
     const handleKakaoLogin = () => {
         const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code`;
@@ -60,6 +64,7 @@ const RegisterPage = () => {
                 <KAKAOLoginBTN onClick={handleKakaoLogin}>
                     <KAKAOLogo /> 카카오 로그인
                 </KAKAOLoginBTN>
+                <LogOutBTN onClick={handleLogout}>로그아웃</LogOutBTN>
             </SNSLoginContainer>
         </RegisterContainer>
     );
@@ -103,7 +108,7 @@ const SNSLoginContainer = styled.div`
 `;
 
 const SNSLoginTxt = styled.div`
-    font-size: 2rem;
+    font-size: 0.8rem;
     margin-bottom: 1vh;
     font-weight: bolder;
     color: #000000;
@@ -119,7 +124,7 @@ const KAKAOLoginBTN = styled.button`
     border: none;
     border-radius: 4px;
     background-color: #ffdd00;
-    font-size: 3rem;
+    font-size: 1.5rem;
     font-weight: bold;
     &:hover {
         background-color: #e6c200;
@@ -130,5 +135,10 @@ const KAKAOLogo = styled(RiKakaoTalkFill)`
     position: absolute;
     left: 3vw;
     margin-right: 10px;
-    font-size: 3rem;
+    font-size: 2rem;
+`;
+
+const LogOutBTN = styled.button`
+    display: flex;
+    position: relative;
 `;

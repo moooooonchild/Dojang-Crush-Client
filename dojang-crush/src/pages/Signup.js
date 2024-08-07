@@ -76,7 +76,6 @@ const SignupPage = () => {
 
     return (
         <SignupPageWrapper>
-            <button onClick={() => console.log(getMember())}>클릭</button>
             <TopBarWithBack text={' '} />
             <form
                 style={{
@@ -179,7 +178,7 @@ const MakeGroup = styled.button`
     border: none;
     border-radius: 4px;
     background-color: ${(props) => (props.iscolor ? '#e8c1b8' : '#dba290')};
-    font-size: 2rem;
+    font-size: 1rem;
     color: ${(props) => (props.iscolor ? '#ffffff' : '#000000')};
     cursor: pointer;
     &:hover {
@@ -193,7 +192,7 @@ const StartGroupMember = styled.button`
     border: none;
     border-radius: 4px;
     background-color: ${(props) => (props.iscolor ? '#dba290' : '#e8c1b8')};
-    font-size: 2rem;
+    font-size: 1rem;
     color: ${(props) => (props.iscolor ? '#000000' : '#ffffff')};
     cursor: pointer;
     &:hover {
@@ -207,7 +206,7 @@ const Notification = styled.div`
     width: 90vw;
     margin-top: 2vh;
     margin-left: 1vw;
-    font-size: 2rem;
+    font-size: 1rem;
     white-space: pre-line;
 `;
 
@@ -228,7 +227,7 @@ const GroupNameinput = styled.input`
     border: none;
     border-radius: 4px;
 
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     &::placeholder {
@@ -287,21 +286,22 @@ const CheckboxLabel = styled.label`
     display: flex;
     align-items: center;
     margin-bottom: 1vh;
-    font-size: 2rem;
+    font-size: 0.8rem;
 `;
 
 const Checkbox = styled.input.attrs({ type: 'checkbox' })`
     appearance: none;
     width: 2vh;
     height: 2vh;
-    margin-right: 1vw;
-    margin-top: 0.4vh;
+    margin-right: 2vw;
+    margin-top: 0.5vh;
+    border: solid 2px #dba290;
+    border-radius: 5px;
     background-repeat: no-repeat;
     background-position: center;
     background-image: url(${encodedCheckboxSvgString});
 
     &:checked {
-        border-color: transparent;
         background-image: url(${encodedSvgString});
     }
 `;
@@ -322,7 +322,7 @@ const SignupBTN = styled.button`
     border: none;
     border-radius: 4px;
     background-color: #9e8c85;
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #ffffff;
     &:hover {
