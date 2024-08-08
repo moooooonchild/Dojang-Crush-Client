@@ -40,7 +40,8 @@ export const DateContainer = styled.div`
     height: 5.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+    gap: 0.3rem;
     align-items: center;
     font-size: 0.785rem;
     font-weight: 500;
