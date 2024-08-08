@@ -96,7 +96,7 @@ export const PostImage = styled.img`
 
 export const PostText = styled.pre`
     width: 100%;
-    padding: 4vw 6vw 30vw;
+    padding: 4vw 6vw 17vh;
     font-family: 'Noto Sans KR';
     font-size: 1rem;
 `;
@@ -117,9 +117,11 @@ export const PostTime = styled.div`
 export const CommentArea = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: end;
     align-items: baseline;
     position: absolute;
     bottom: 0;
+    height: 17vh;
     background-color: #ffeee9;
 `;
 
@@ -134,7 +136,6 @@ export const Comment = styled.div`
 `;
 
 export const NickName = styled.div`
-    width: 13vw;
     font-size: 1rem;
     font-weight: bold;
     margin-right: 2vw;
