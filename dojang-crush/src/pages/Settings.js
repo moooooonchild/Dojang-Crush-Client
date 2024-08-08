@@ -93,6 +93,8 @@ const SettingPage = () => {
         if (window.Kakao) {
             window.Kakao.Auth.logout(() => {
                 alert('로그아웃 되었습니다');
+                localStorage.removeItem('token');
+                sessionStorage.clear();
                 navigate('/register');
             });
         } else {
