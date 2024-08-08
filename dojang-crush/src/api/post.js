@@ -48,9 +48,28 @@ export const patchPost = async (postId, data, images) => {
     }
 };
 
-export const getAllPosts = async (groupId) => {
+// pagenation으로 변경
+export const getAllPosts = async (pageNum) => {
     try {
-        const res = await client.get(`/posts/${groupId}`);
+        const res = await client.get(`/posts/all?page=${pageNum}`);
+        return res.data;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const getMonthlyPosts = async (year, month) => {
+    try {
+        const res = await client.get(`/posts/year/${year}/month/${month}`);
+        return res.data;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const getDatePosts = async (date) => {
+    try {
+        const res = await client.get(`/posts/date?visitedDate=${date}`);
         return res.data;
     } catch (err) {
         console.log(err);

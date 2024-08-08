@@ -39,12 +39,14 @@ export const ImageContainer = styled.div`
     height: 20rem;
     box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
     border-radius: 0.3rem;
+
+    overflow-y: hidden;
 `;
 
 export const Image = styled.img`
     display: flex;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     border-radius: 0.025rem;
     object-fit: cover;
 `;
