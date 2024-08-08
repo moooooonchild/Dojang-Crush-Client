@@ -21,13 +21,6 @@ const GroupPage = () => {
                 setUserInfo(userInfo);
                 // console.log('사용자 정보:', userInfo);
 
-                const token = localStorage.getItem('token');
-                console.log('토큰:', token);
-                if (!token) {
-                    alert('로그인이 필요합니다.');
-                    window.location.href = '/register';
-                }
-
                 if (userInfo.group) {
                     const { groupId, groupName } = userInfo.group;
                     setGroupId(groupId);
