@@ -67,10 +67,6 @@ const WishDetailPage = () => {
         nav(-1);
     };
 
-    if (!localStorage.getItem('token')) {
-        return <Navigate to="/register" replace />;
-    }
-
     return (
         <S.Container>
             <S.Header>

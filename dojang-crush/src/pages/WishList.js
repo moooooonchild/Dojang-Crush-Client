@@ -58,10 +58,6 @@ const WishListPage = () => {
         fetchPlaces();
     }, []);
 
-    if (!localStorage.getItem('token')) {
-        return <Navigate to="/register" replace />;
-    }
-
     return (
         <S.Container>
             {showList ? (
