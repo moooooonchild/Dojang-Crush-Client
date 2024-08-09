@@ -20,7 +20,7 @@ import Redirection from './pages/Redirection';
 
 function App() {
     const currentPath = window.location.pathname;
-    if (currentPath !== '/register' || currentPath !== '/oauth/callback') {
+    if (currentPath !== '/register' && currentPath !== '/oauth/callback') {
         const token = localStorage.getItem('token');
 
         if (!token) {
