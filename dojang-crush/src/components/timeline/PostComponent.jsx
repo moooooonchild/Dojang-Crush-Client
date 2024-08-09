@@ -116,9 +116,9 @@ export const PostComponent = ({
                 <S.HashTagContainer>
                     <S.HastTagText>{`#${postInfo.theme}`}</S.HastTagText>
                     <S.HastTagText>{`#${postInfo.placeTag}`}</S.HastTagText>
-                    <S.LikeIconContainer onClick={handleLiked}>
+                    {/* <S.LikeIconContainer onClick={handleLiked}>
                         {liked ? <S.FillLikeIcon /> : <S.EmptyLikeIcon />}
-                    </S.LikeIconContainer>
+                    </S.LikeIconContainer> */}
                 </S.HashTagContainer>
             </S.PostContainer>
         </>
