@@ -102,12 +102,12 @@ const GroupInfo = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80vw;
+    width: 100vw;
     margin-top: 6vh;
     gap: 10vh;
 `;
 const GroupName = styled.div`
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
 `;
 
@@ -125,12 +125,14 @@ const Name = styled.div`
 
 const GroupMembers = styled.div`
     display: flex;
-    gap: 10vw;
+    justify-content: space-evenly;
+    width: 100%;
 `;
 
 const ProfileImage = styled.img`
     width: 26vw;
-    height: auto;
+    height: 26vw;
+    object-fit: cover;
     border-radius: 10%;
 `;
 
