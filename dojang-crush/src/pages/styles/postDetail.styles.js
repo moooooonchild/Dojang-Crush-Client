@@ -99,6 +99,7 @@ export const PostText = styled.pre`
     padding: 4vw 6vw 17vh;
     font-family: 'Noto Sans KR';
     font-size: 1rem;
+    white-space: pre-wrap;
 `;
 
 export const RowLine = styled.div`

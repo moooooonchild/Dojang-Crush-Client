@@ -68,10 +68,6 @@ const PostDetailPage = () => {
         setIsDeleteModalOpen(!isDeleteModalOpen);
     };
 
-    if (!localStorage.getItem('token')) {
-        return <Navigate to="/register" replace />;
-    }
-
     return (
         <S.Container>
             {postDetail && commentList && (

@@ -18,9 +18,6 @@ import shoppingIcon from '../assets/theme/shopping.svg';
 import { TitleComponent } from '../components/common/header/TitleComponent';
 
 const BucketListPage = () => {
-    if (!localStorage.getItem('token')) {
-        return <Navigate to="/register" replace />;
-    }
     return (
         <S.Container>
             <S.Title>Bucket List</S.Title>

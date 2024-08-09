@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import styled from 'styled-components';
 
 import TimelinePage from './pages/Timeline';
 import BucketListPage from './pages/BucketList';
@@ -20,8 +19,18 @@ import CalendarPage from './pages/Calendar';
 import Redirection from './pages/Redirection';
 
 function App() {
+    const currentPath = window.location.pathname;
+    if (currentPath !== '/register' && currentPath !== '/oauth/callback') {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            alert('로그인이 필요합니다.');
+            window.location.href = '/register';
+        }
+    }
+
     return (
-        <Container>
+        <div>
             <Routes>
                 <Route path="/" element={<TimelinePage />}></Route>
                 <Route path="/post/:id" element={<PostDetailPage />}></Route>
@@ -50,15 +59,8 @@ function App() {
                 <Route path="/oauth/callback" element={<Redirection />}></Route>
                 <Route path="/calendar" element={<CalendarPage />}></Route>
             </Routes>
-        </Container>
+        </div>
     );
 }
 
 export default App;
-
-const Container = styled.div`
-    /* display: flex;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh; */
-`;

@@ -134,10 +134,6 @@ const UploadPage = () => {
         }
     };
 
-    if (!localStorage.getItem('token')) {
-        return <Navigate to="/register" replace />;
-    }
-
     if (!isLoaded) {
         return <div>Loading...</div>; // 로딩 중 표시할 내용을 작성합니다.
     }
