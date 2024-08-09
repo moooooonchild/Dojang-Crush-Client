@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import client from '../api';
+import { getMemberInfo } from '../api/member';
 
 const Redirection = () => {
     const code = new URL(window.location.href).searchParams.get('code');
@@ -39,8 +40,17 @@ const Redirection = () => {
                     localStorage.setItem('token', pureToken);
                     console.log('로그인 성공, 토큰 저장:', pureToken);
 
-                    // 로그인이 성공하면 /signup 페이지로 리다이렉트
-                    navigate('/signup');
+                    try {
+                        const myInfo = await getMemberInfo();
+                        // 로그인이 성공하면 /signup 페이지로 리다이렉트
+                        if (myInfo.group.groupId === null) {
+                            navigate('/signup');
+                        } else {
+                            navigate('/');
+                        }
+                    } catch (err) {
+                        console.error(err);
+                    }
                 } else {
                     console.error('잘못된 응답 형식');
                     alert('로그인에 실패했습니다. 다시 시도해주세요.');
