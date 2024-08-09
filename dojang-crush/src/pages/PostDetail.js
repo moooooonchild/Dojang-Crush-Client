@@ -113,11 +113,9 @@ const PostDetailPage = () => {
                                 <S.MoreBtn onClick={moreModalHandler} />
                             )}
                         </S.ProfileArea>
-                        {postDetail.imageUrl.length === 1 ? (
-                            <S.PostImage src={postDetail.imageUrl[0]} />
-                        ) : (
-                            <ImageSlider images={postDetail.imageUrl} />
-                        )}
+
+                        <ImageSlider images={postDetail.imageUrl} />
+
                         <S.PostText>{postDetail.content}</S.PostText>
 
                         <S.CommentArea onClick={commentModalHandler}>
