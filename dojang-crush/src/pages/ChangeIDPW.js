@@ -80,6 +80,7 @@ const ChangeNameWrapper = styled.div`
 
 const ChangeIDPWContainer = styled.div`
     display: flex;
+    align-items: center;
     flex-direction: column;
     margin-top: 2vh;
     gap: 3vh;
@@ -94,7 +95,7 @@ const ChangeIDInput = styled.input`
     border: none;
     border-radius: 4px;
 
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     &::placeholder {
@@ -111,7 +112,7 @@ const ChangePWInput = styled.input`
     border: none;
     border-radius: 4px;
 
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     &::placeholder {
@@ -128,7 +129,7 @@ const CheckBTN = styled.button`
     border-radius: 4px;
     background-color: #dba290;
     color: #612d1c;
-    font-size: 2.5rem;
+    font-size: 1rem;
     font-weight: bold;
     &:hover {
         background-color: #c48a7a;

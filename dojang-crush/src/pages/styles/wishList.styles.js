@@ -38,7 +38,6 @@ export const PlaceList = styled.div`
     flex-direction: column;
     align-items: center;
 
-    //overflow-y: auto;
     padding-bottom: 9.5vh;
     flex: 1;
 `;
@@ -49,7 +48,6 @@ export const WishList = styled.div`
     flex: 1;
     flex-wrap: wrap;
 
-    //overflow-y: auto;
     padding-bottom: 9.5vh;
 
     width: 100vw;

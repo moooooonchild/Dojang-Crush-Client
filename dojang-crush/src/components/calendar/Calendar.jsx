@@ -8,7 +8,25 @@ import {
     NatureIcon,
     SpecialIcon,
     SportsIcon,
+    FoodIcon,
+    CafeIcon,
+    ExhibitionIcon,
+    ShoppingIcon,
 } from './Icons';
+import { getMonthlyPosts } from '../../api/post';
+
+const themeIcons = {
+    스포츠: <SportsIcon key="sports" />,
+    음악: <MusicIcon key="music" />,
+    이색: <SpecialIcon key="special" />,
+    힐링: <HealingIcon key="healing" />,
+    게임: <GameIcon key="game" />,
+    자연: <NatureIcon key="nature" />,
+    맛집: <FoodIcon key="food" />,
+    카페: <CafeIcon key="cafe" />,
+    전시: <ExhibitionIcon key="exhibition" />,
+    쇼핑: <ShoppingIcon key="shopping" />,
+};
 
 const Days = ['일', '월', '화', '수', '목', '금', '토'];
 const WEEK_LENGTH = Object.keys(Days).length;
@@ -17,30 +35,49 @@ const createArray = (count) => {
     return new Array(count).fill(true);
 };
 
-const DateContainer = ({ date, day, setIsOpen, modalContent }) => {
+const groupActivitiesByDate = (activities) => {
+    return activities.reduce((acc, activity) => {
+        const date = activity.visitedDate.split('T')[0]; // 날짜만 추출
+        if (!acc[date]) {
+            acc[date] = [];
+        }
+        acc[date].push(activity);
+        return acc;
+    }, {});
+};
+
+const DateContainer = ({
+    date,
+    day,
+    activities,
+    setIsOpen,
+    setDate,
+    formattedDate,
+}) => {
+    const iconsToShow = [
+        ...new Set(activities.map((activity) => activity.theme)),
+    ].map((theme) => themeIcons[theme]);
+
     return (
         <S.DateContainer
             onClick={() => {
                 setIsOpen(true);
-                modalContent(date);
+                setDate(formattedDate);
             }}
             day={day}
         >
             {date}
             <S.IconsContainer>
-                <SportsIcon />
-                <MusicIcon />
-                <SpecialIcon />
-                <HealingIcon />
-                <GameIcon />
-                <NatureIcon />
+                {iconsToShow.length > 0 ? iconsToShow : <></>}
             </S.IconsContainer>
         </S.DateContainer>
     );
 };
 
-export const Calendar = ({ setIsOpen, modalContent }) => {
-    const { currentDate, getFirstDay, getDay, getLastDate } = useCurrentDate();
+export const Calendar = ({ setIsOpen, setDate }) => {
+    const [monthlyPost, setMonthlyPost] = useState([]);
+
+    const { currentDate, getFirstDay, getLastDate } = useCurrentDate();
     const [calendarDate, setCalendarDate] = useState(currentDate);
 
     const firstDay = getFirstDay(calendarDate);
@@ -51,6 +88,8 @@ export const Calendar = ({ setIsOpen, modalContent }) => {
 
     const daysBeforeFirstDay = createArray(firstDay);
     const monthDays = createArray(lastDate);
+
+    const groupedActivities = groupActivitiesByDate(monthlyPost);
 
     const handlePrevMonth = () => {
         calendarDate.setMonth(calendarDate.getMonth() - 1);
@@ -66,6 +105,14 @@ export const Calendar = ({ setIsOpen, modalContent }) => {
         setCalendarDate(currentDate);
     }, [currentDate]);
 
+    useEffect(() => {
+        getMonthlyPosts(2024, currMonth).then((res) => {
+            if (res && res.postList) {
+                setMonthlyPost(res.postList);
+            }
+        });
+    }, [currMonth]);
+
     return (
         <S.CalendarContainer>
             <S.MonthSelector>
@@ -76,20 +123,23 @@ export const Calendar = ({ setIsOpen, modalContent }) => {
             <S.DateSelector>
                 {daysBeforeFirstDay.map((_, idx) => {
                     return (
-                        <S.PrevDateContainer key={idx}>
-                            {/* {idx} */}
-                        </S.PrevDateContainer>
+                        <S.PrevDateContainer key={idx}></S.PrevDateContainer>
                     );
                 })}
                 {monthDays.map((_, idx) => {
+                    const dateStr = `${calendarDate.getFullYear()}-${String(
+                        currMonth
+                    ).padStart(2, '0')}-${String(idx + 1).padStart(2, '0')}`;
                     return (
                         <DateContainer
+                            key={idx}
                             date={idx + 1}
                             day={(firstDay + idx) % WEEK_LENGTH}
-                            calendarDate={calendarDate}
+                            activities={groupedActivities[dateStr] || []}
                             setIsOpen={setIsOpen}
-                            modalContent={modalContent}
-                        ></DateContainer>
+                            formattedDate={dateStr}
+                            setDate={setDate}
+                        />
                     );
                 })}
             </S.DateSelector>

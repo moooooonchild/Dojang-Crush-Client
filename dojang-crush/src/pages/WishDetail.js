@@ -2,7 +2,7 @@ import NavigationBar from '../components/NavigationBar';
 import PlaceComponent from '../components/PlaceComponent';
 import * as S from './styles/wishDetail.styles';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getHeartListForTheme } from '../api/wishlist';
 
@@ -49,7 +49,6 @@ const WishDetailPage = () => {
     const nav = useNavigate();
 
     const [placeList, setPlaceList] = useState(null);
-    const [heartList, setHeartList] = useState(null);
 
     useEffect(() => {
         const fetchPlaces = async () => {
@@ -68,6 +67,10 @@ const WishDetailPage = () => {
         nav(-1);
     };
 
+    if (!localStorage.getItem('token')) {
+        return <Navigate to="/register" replace />;
+    }
+
     return (
         <S.Container>
             <S.Header>
@@ -78,7 +81,7 @@ const WishDetailPage = () => {
                 <S.Title>Wish List</S.Title>
                 <S.ThemeIcon src={iconMap[theme]} />
             </S.Header>
-            {placeList && (
+            {placeList ? (
                 <S.WishList>
                     {placeList.map((p, i) => {
                         return (
@@ -92,6 +95,8 @@ const WishDetailPage = () => {
                         );
                     })}
                 </S.WishList>
+            ) : (
+                <div>Loading...</div>
             )}
 
             <NavigationBar />

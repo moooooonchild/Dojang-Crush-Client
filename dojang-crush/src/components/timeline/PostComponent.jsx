@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import * as S from './PostComponent.style';
+import * as I from '../styles/imageSlider.styles';
 import { getAllPosts, deleteHeart, postHeart } from '../../api/post';
 import useTimeSince from '../../hooks/useTimeSince';
+import ImageSlider from '../ImageSliderComponent';
+import styled from 'styled-components';
+import Slider from 'react-slick';
 
 const dummy_detail = {
     content: '사진이 제발 떠줬으면 조켄네..',
@@ -48,35 +52,20 @@ const Images = () => {
 
 const HashtagLine = () => {};
 
-export const PostComponent = ({ setPostId, onPostClick }) => {
+export const PostComponent = ({
+    setPostId,
+    onPostClick,
+    postInfo,
+    writerInfo,
+}) => {
     // 변경될 값
-    const test_val = 21;
 
     // status
-    const [writerInfo, setWriterInfo] = useState();
-    const [postInfo, setPostInfo] = useState([]);
+    // const [writerInfo, setWriterInfo] = useState();
+    // const [postInfo, setPostInfo] = useState([]);
     // test value
     const [liked, setLiked] = useState(false);
 
-    useEffect(() => {
-        getAllPosts(test_val).then((res) => {
-            setWriterInfo(res.writerDto);
-            setPostInfo(res);
-        });
-        console.log('request');
-    }, []);
-
-    const handleLiked = () => {
-        if (liked) {
-            setLiked(false);
-            // deleteHeart(postInfo.postId);
-            // console.log('delete', postInfo.postLike, postInfo.postId);
-        } else {
-            setLiked(true);
-            // postHeart(postInfo.postId);
-            // console.log('post', postInfo.postLike, postInfo.postId);
-        }
-    };
     const timeSince = useTimeSince(postInfo.createdDate);
 
     const handlePostClickInternal = () => {
@@ -84,14 +73,45 @@ export const PostComponent = ({ setPostId, onPostClick }) => {
             onPostClick(postInfo.postId);
         }
     };
+
+    const ImageSlider = ({ images }) => {
+        const settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            draggable: true,
+            centerMode: true,
+        };
+
+        return (
+            <SliderWrapper>
+                <CustomSlider {...settings}>
+                    {images.map((img, index) => {
+                        return (
+                            <Slide key={index}>
+                                <SlideImage src={img} />
+                            </Slide>
+                        );
+                    })}
+                </CustomSlider>
+            </SliderWrapper>
+        );
+    };
+
+    const handleLiked = () => console.log('test');
+
     return (
         <>
             <S.PostContainer onClick={handlePostClickInternal}>
                 <ProfileLine writer={writerInfo} timeSince={timeSince} />
                 <S.ImageContainer>
-                    <S.Image
+                    {/* <S.Image
                         src={postInfo.imageUrl ? postInfo.imageUrl[0] : ''}
-                    />
+                    /> */}
+                    <ImageSlider images={postInfo.imageUrl} />
                 </S.ImageContainer>
                 <S.HashTagContainer>
                     <S.HastTagText>{`#${postInfo.theme}`}</S.HastTagText>
@@ -104,3 +124,29 @@ export const PostComponent = ({ setPostId, onPostClick }) => {
         </>
     );
 };
+
+export const SliderWrapper = styled.div`
+    width: 100%;
+    /* padding-bottom: 3vw; */
+`;
+
+export const CustomSlider = styled(Slider)`
+    .slick-dots li button:before {
+        font-size: 0.7rem;
+    }
+`;
+
+export const Slide = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    height: 80vw;
+    border: solid 1px whitesmoke;
+`;
+
+export const SlideImage = styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+`;

@@ -13,14 +13,12 @@ export const Container = styled.div`
 
 export const Header = styled.div`
     display: flex;
-    justify-content: center; /* Title을 중앙에 배치 */
+    justify-content: space-between; /* Title을 중앙에 배치 */
     align-items: center;
-
-    position: relative;
-
     width: 100vw;
 
     margin: 4vw 0;
+    padding: 0 8vw;
 `;
 
 export const Title = styled.div`
@@ -29,20 +27,10 @@ export const Title = styled.div`
 `;
 
 export const BackButton = styled.img`
-    position: absolute;
-    left: 8%;
-    top: 50%;
-    transform: translateY(-50%);
-
     width: 4vw;
 `;
 
 export const CalendarButton = styled.img`
-    position: absolute;
-    right: 8%;
-    top: 50%;
-    transform: translateY(-50%);
-
     width: 4vw;
 `;
 
@@ -70,6 +58,7 @@ export const ProfileImg = styled.img`
 
 export const InfoArea = styled.div`
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: space-around;
     height: 20.2vw;
@@ -99,9 +88,16 @@ export const MoreBtn = styled.button`
     background-size: cover;
 `;
 
-export const PostText = styled.div`
+export const PostImage = styled.img`
+    width: 80vw;
+    height: 80vw;
+    object-fit: cover;
+`;
+
+export const PostText = styled.pre`
     width: 100%;
-    padding: 4vw 6vw;
+    padding: 4vw 6vw 17vh;
+    font-family: 'Noto Sans KR';
     font-size: 1rem;
 `;
 
@@ -113,7 +109,7 @@ export const RowLine = styled.div`
 
 export const PostTime = styled.div`
     width: 88vw;
-    margin-bottom: 4vw;
+    margin-bottom: 2vw;
     font-size: 0.8rem;
     text-align: right;
 `;
@@ -121,9 +117,12 @@ export const PostTime = styled.div`
 export const CommentArea = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: end;
     align-items: baseline;
     position: absolute;
     bottom: 0;
+    height: 17vh;
+    background-color: #ffeee9;
 `;
 
 export const Comment = styled.div`
@@ -143,7 +142,11 @@ export const NickName = styled.div`
 `;
 
 export const Content = styled.div`
+    flex: 1;
     font-size: 1rem;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 `;
 
 export const CommentWrite = styled.div`

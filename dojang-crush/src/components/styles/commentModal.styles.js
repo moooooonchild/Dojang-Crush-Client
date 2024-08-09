@@ -68,11 +68,11 @@ export const ProfImg = styled.img`
 export const Name = styled.span`
     font-size: 1rem;
     font-weight: bold;
-    margin-right: 10vw;
+    margin-right: 5vw;
 `;
 
 export const CommentTime = styled.span`
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-right: 1vw;
 `;
 

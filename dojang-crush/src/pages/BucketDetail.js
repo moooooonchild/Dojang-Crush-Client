@@ -1,6 +1,6 @@
 import * as S from './styles/bucketDetail.styles';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Navigate } from 'react-router-dom';
 
 import PlaceComponent from '../components/PlaceComponent';
 import NavigationBar from '../components/NavigationBar';
@@ -36,11 +36,16 @@ const BucketDetailPage = () => {
         nav(-1);
     };
 
+    if (!localStorage.getItem('token')) {
+        return <Navigate to="/register" replace />;
+    }
+
     return (
         <S.Container>
             <S.Header>
                 <S.BackButton src={backIcon} onClick={onClickBackButton} />
                 <S.Title>Recommended</S.Title>
+                <S.EmptyItem></S.EmptyItem>
             </S.Header>
             {placeList && (
                 <S.PlaceList>

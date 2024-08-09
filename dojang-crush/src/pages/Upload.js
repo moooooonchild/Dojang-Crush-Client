@@ -7,7 +7,7 @@ import { DatePickerCalendar } from '../components/DatePicker';
 import { SearchPlace } from '../components/SearchPlace';
 
 import { patchPost, postPost } from '../api/post';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { getMemberInfo } from '../api/member';
 
 const UploadPage = () => {
@@ -133,6 +133,10 @@ const UploadPage = () => {
             window.location.reload();
         }
     };
+
+    if (!localStorage.getItem('token')) {
+        return <Navigate to="/register" replace />;
+    }
 
     if (!isLoaded) {
         return <div>Loading...</div>; // 로딩 중 표시할 내용을 작성합니다.

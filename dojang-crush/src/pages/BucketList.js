@@ -1,3 +1,5 @@
+import { Navigate } from 'react-router-dom';
+
 import NavigationBar from '../components/NavigationBar';
 import ThemeComponent from '../components/ThemeComponent';
 import * as S from './styles/bucketList.styles';
@@ -16,6 +18,9 @@ import shoppingIcon from '../assets/theme/shopping.svg';
 import { TitleComponent } from '../components/common/header/TitleComponent';
 
 const BucketListPage = () => {
+    if (!localStorage.getItem('token')) {
+        return <Navigate to="/register" replace />;
+    }
     return (
         <S.Container>
             <S.Title>Bucket List</S.Title>

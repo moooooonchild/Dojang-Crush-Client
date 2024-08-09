@@ -1,14 +1,14 @@
-import styled from "styled-components";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
-import { ReactComponent as SettingSVG } from "../assets/ui/settingemoji.svg";
+import styled from 'styled-components';
+import { IoMdArrowRoundBack } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
+import { ReactComponent as SettingSVG } from '../assets/ui/settingemoji.svg';
 
 const TopBarWithSetting = ({ text }) => {
     const navigate = useNavigate();
     return (
         <TopBarWrapper>
             <TopBarText>{`${text}`}</TopBarText>
-            <SettingBTN onClick={() => navigate("/settings")} />
+            <SettingBTN onClick={() => navigate('/settings')} />
         </TopBarWrapper>
     );
 };
@@ -35,6 +35,6 @@ const TopBarText = styled.div`
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 4rem;
+    font-size: 1.5rem;
     font-weight: bold;
 `;
