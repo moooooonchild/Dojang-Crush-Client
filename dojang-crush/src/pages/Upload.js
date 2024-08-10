@@ -130,7 +130,7 @@ const UploadPage = () => {
                 postPost(data, images);
             }
             nav('/');
-            window.location.reload();
+            //window.location.reload();
         }
     };
 
